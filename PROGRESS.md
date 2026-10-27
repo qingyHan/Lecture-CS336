@@ -14,7 +14,9 @@
 - [x] 教学代码注释与演示输出改为中文；新增并通过第 6 项测试
 - [ ] 学习者完成第一讲概念/计算/代码/综合验收
 - [ ] 学习者独立完成第一讲练习
-- [ ] 进入 Lecture 2
+- [x] 已正式进入 Lecture 2；建立讲义、资源核算深入篇、复习笔记和练习
+- [x] 第二讲 CPU 教学代码 5 项单元测试实际通过
+- [ ] 第二讲个人学习验收
 
 ## 状态定义
 
@@ -32,7 +34,7 @@
 | 官方课程调研与课程地图 | 已完成初版 | ROADMAP.md、references/sources.md | 每一讲正式开课前继续核对对应 PDF/代码/handout |
 | Lecture 1：导论与 Tokenization | 讲义与笔记已修复；验收待完成 | lectures/01_overview_tokenization.md、notes/01_tokenization.md、exercises/chapter_01.md | 学习者回答练习并通过口头/书面检查 |
 | Tokenizer 教学实现 | 代码已执行；6 项单元测试通过（本次本地验证） | code/tokenization_demo.py、tests/test_tokenization_demo.py | 可扩展为带预分词规则、训练语料和复杂度分析的更完整实现 |
-| Lecture 2：PyTorch / einops / 资源核算 | 未开始 | 参考官方 lecture_02.py | 正式开课前核对源码与版本 |
+| Lecture 2：PyTorch / einops / 资源核算 | **正在学习，讲义和代码已创建** | lectures/02_pytorch_resource_accounting.md、lectures/02_resource_accounting_deep_dive.md、notes/02_pytorch_resource_accounting.md、code/resource_accounting_demo.py | 暂未进行 GPU 性能实验，等待学习者学习与实践 |
 
 ## 诊断性验收与补课（2026-10-27）
 
@@ -55,6 +57,12 @@
 3. $T=8,d_k=6$：正确答出 64 个分数、384 次乘法，并独立说明 **$d_k$ 只改变单个分数的点积成本，不改变分数数量**。
 
 **验收结论：** $QK^\top$ 的基本矩阵形状、乘法次数、$O(T^2d_k)$ 缩放规律已通过专项验收。尚未据此判定 FFN、Prefill/Decode、实际推理延迟及整个第一讲验收通过。
+
+## 学习推进记录（2026-10-27）
+
+学习者对第一讲第三题已明确理解核心逻辑：总推理延迟由不同部分决定，只改善某一部分不能代表整体降低比例。在 40 ms 固定 + 60 ms 线性开销的假设下，若 token 减少 30%，理论新延迟是 $40+60\times0.7=82$ ms，降低 18%；具体数字由导师补充，不算个人独立计算验收。
+
+按学习者明确要求**不再因第一讲遗留小题阻挡进度**，已开始官方 Spring 2026 第二讲。第二讲 5 项 CPU 测试实际通过，GPU benchmark 未开展。
 
 ## 第一讲掌握检查
 

@@ -2,7 +2,7 @@
 
 > 课程基准：Stanford CS336 — Language Modeling from Scratch，Spring 2026  
 > 项目创建日期：2026-10-27  
-> 当前学习位置：第 1 讲——课程导论与 Tokenization
+> 当前学习位置：第 2 讲——PyTorch、einops 与资源核算
 
 本项目是一套以官方课程为骨架、以独立推导和可验证实现为核心的中文学习资料。官方内容、补充基础和工程扩展会明确区分，避免把教学补充误当成 Stanford 官方要求。
 
@@ -10,9 +10,9 @@
 
 1. 阅读 [ROADMAP.md](ROADMAP.md)：确认课程地图、先修路径、作业和算力需求。
 2. 阅读 [references/sources.md](references/sources.md)：查看官方课程、讲义仓库、作业仓库和论文来源。
-3. 学习 [lectures/01_overview_tokenization.md](lectures/01_overview_tokenization.md)。
-4. 复习 [notes/01_tokenization.md](notes/01_tokenization.md)，运行 [code/tokenization_demo.py](code/tokenization_demo.py)。
-5. 独立完成 [exercises/chapter_01.md](exercises/chapter_01.md) 中的题目，再与导师讨论。
+3. 当前学习第二讲：[主讲](lectures/02_pytorch_resource_accounting.md)、[资源深入篇](lectures/02_resource_accounting_deep_dive.md)。
+4. 复习 [第二讲笔记](notes/02_pytorch_resource_accounting.md)，运行 [第二讲代码](code/resource_accounting_demo.py)。
+5. 第二讲练习：[exercises/chapter_02.md](exercises/chapter_02.md)。第一讲遗留练习可日后复习，不作为前进门槛。
 6. 在 [PROGRESS.md](PROGRESS.md) 记录理解、代码和实验的真实状态。
 
 ## 目录

@@ -5,7 +5,7 @@
 | 官方讲次 | 官方主题 | 本地讲义 | 本地笔记 | 对应作业 |
 |---:|---|---|---|---|
 | 1 | Overview, tokenization | [lectures/01_overview_tokenization.md](lectures/01_overview_tokenization.md) | [notes/01_tokenization.md](notes/01_tokenization.md) | A1 |
-| 2 | PyTorch (einops), resource accounting | 待创建 | 待创建 | A1 / A2 |
+| 2 | PyTorch (einops), resource accounting | [主讲](lectures/02_pytorch_resource_accounting.md) / [深入篇](lectures/02_resource_accounting_deep_dive.md) | [笔记](notes/02_pytorch_resource_accounting.md) | A1 / A2 |
 | 3 | Architectures, hyperparameters | 待创建 | 待创建 | A1 |
 | 4 | Attention alternatives and mixture of experts | 待创建 | 待创建 | A1 / A3 |
 | 5 | GPUs, TPUs | 待创建 | 待创建 | A2 |
@@ -28,6 +28,9 @@
 
 - **code/tokenization_demo.py**：字符 tokenizer、UTF-8 字节 tokenizer 和教学用 byte-level BPE。
 - **tests/test_tokenization_demo.py**：round-trip、BPE 合并和 Unicode 测试。
+- **code/resource_accounting_demo.py**：第二讲的 PyTorch/einops/FLOPs 教学代码。
+- **tests/test_resource_accounting_demo.py**：第二讲新增 5 项 CPU 单元测试。
+- **exercises/chapter_02.md**：第二讲独立练习。
 - **experiments/README.md**：实验记录规范。
 
 ## 版本控制原则
