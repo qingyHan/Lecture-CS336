@@ -10,6 +10,8 @@
 - [x] 创建第一讲讲义、独立学习笔记和练习题
 - [x] 创建 tokenizer 教学代码和单元测试
 - [x] 修复第一讲讲义与笔记中的数学公式、表格和 BPE 示例说明
+- [x] 补充第三题从矩阵乘法到复杂度、延迟的完整推导
+- [x] 教学代码注释与演示输出改为中文；新增并通过第 6 项测试
 - [ ] 学习者完成第一讲概念/计算/代码/综合验收
 - [ ] 学习者独立完成第一讲练习
 - [ ] 进入 Lecture 2
@@ -29,8 +31,20 @@
 |---|---|---|---|
 | 官方课程调研与课程地图 | 已完成初版 | ROADMAP.md、references/sources.md | 每一讲正式开课前继续核对对应 PDF/代码/handout |
 | Lecture 1：导论与 Tokenization | 讲义与笔记已修复；验收待完成 | lectures/01_overview_tokenization.md、notes/01_tokenization.md、exercises/chapter_01.md | 学习者回答练习并通过口头/书面检查 |
-| Tokenizer 教学实现 | 代码已执行；5 项单元测试通过（此前记录） | code/tokenization_demo.py、tests/test_tokenization_demo.py | 可扩展为带预分词规则、训练语料和复杂度分析的更完整实现 |
+| Tokenizer 教学实现 | 代码已执行；6 项单元测试通过（本次本地验证） | code/tokenization_demo.py、tests/test_tokenization_demo.py | 可扩展为带预分词规则、训练语料和复杂度分析的更完整实现 |
 | Lecture 2：PyTorch / einops / 资源核算 | 未开始 | 参考官方 lecture_02.py | 正式开课前核对源码与版本 |
+
+## 诊断性验收与补课（2026-10-27）
+
+| 问题 | 初答反馈 | 当前掌握状态 | 下一步验证 |
+|---|---|---|---|
+| Q1 Byte-level 与 BPE | 知道文本由字节表示，但 UTF-8、字节级 token、BPE 合并关系尚不清晰 | 需补充 | 解释汉字的 UTF-8 字节与 256 种字节值 |
+| Q2 从左到右合并 | 规则理解正确 | 初步正确 | 区分相邻 pair 的重叠计数与不重叠替换 |
+| Q3 Token 数与延迟 | 知道不能直接按同一比例推断，但未理解复杂度公式 | 正在补课 | 亲自推导 $T^2d$、$Td^2$；计算一个反例，解释 Prefill 与 Decode |
+
+本次已补充独立推导，不能因为导师已经讲解就标记“学习者掌握”。
+
+**代码状态：** 教学代码注释、docstring、错误消息及演示输出已改为中文；新增一项重叠 pair 回归测试，本地实际运行共 6 项测试全部通过。
 
 ## 第一讲掌握检查
 
