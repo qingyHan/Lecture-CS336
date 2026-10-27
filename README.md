@@ -1,0 +1,53 @@
+# Stanford CS336 学习项目
+
+> 课程基准：Stanford CS336 --- Language Modeling from Scratch，Spring
+> 2026\
+> 项目创建日期：2026-10-27\
+> 当前学习位置：第 1 讲------课程导论与 Tokenization
+
+本项目是一套以官方课程为骨架、以独立推导和可验证实现为核心的中文学习资料。官方内容、补充基础和工程扩展会明确区分，避免把教学补充误当成
+Stanford 官方要求。
+
+## 从哪里开始
+
+1.  阅读
+    [`ROADMAP.md`](ROADMAP.md)：确认课程地图、先修路径、作业和算力需求。
+2.  阅读
+    [`references/sources.md`](references/sources.md)：查看官方课程、讲义仓库、作业仓库和论文来源。
+3.  学习
+    [`lectures/01_overview_tokenization.md`](lectures/01_overview_tokenization.md)。
+4.  复习 [`notes/01_tokenization.md`](notes/01_tokenization.md)，运行
+    [`code/tokenization_demo.py`](code/tokenization_demo.py)。
+5.  独立完成 [`exercises/chapter_01.md`](exercises/chapter_01.md)
+    中的题目，再与导师讨论。
+6.  在 [`PROGRESS.md`](PROGRESS.md) 记录理解、代码和实验的真实状态。
+
+## 目录
+
+-   `ROADMAP.md`：课程全景、逐讲地图、先修知识和资源分层。
+-   `COURSE_INDEX.md`：课程主题、讲义、笔记、作业之间的索引。
+-   `PROGRESS.md`：学习进度和验收记录。
+-   `lectures/`：按教学顺序组织的课程讲解。
+-   `notes/`：可脱离对话独立阅读的复习笔记。
+-   `exercises/`：概念、计算、代码和综合练习。
+-   `experiments/`：实验设计、执行记录规范。
+-   `code/`：原创教学实现。
+-   `tests/`：最小正确性测试。
+-   `references/sources.md`：可追溯的资料清单。
+
+## 学习约定
+
+-   先解释问题与直觉，再进入定义、推导、张量形状、代码和验证。
+-   任何未实际运行的实验都标记为"待运行"或"理论预期"，不虚构结果。
+-   课程讲解结束不等于掌握；掌握状态需要通过口头解释、独立实现和验收。
+-   官方作业有学术诚信要求。本项目会讲概念、演示独立的小型实现和帮助调试；如你要正式提交
+    Stanford 作业，应遵守当届课程的 AI
+    使用和协作政策，不直接提交导师生成的作业答案。
+-   课程资料会随版本更新。每次进入新主题前，先核对当届官方讲义和作业手册。
+
+## 版本策略
+
+官方课程主页当前列出的最新版本为 Spring 2026。部分公开作业仓库的 README
+仍显示旧年份，因此不能只看仓库名称就推定其内容与 2026
+完全一致。具体版本核对结果记录在
+[`references/sources.md`](references/sources.md)。
