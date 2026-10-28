@@ -45,7 +45,7 @@ $$
 
 这里的分母应按实际全局样本数定义；若各 rank batch 大小不同，不能简单对 rank 平均。DDP 使用 all-reduce 将各 rank 的梯度同步，之后每个 rank 使用相同 optimizer 更新相同参数，保持副本一致。
 
-### 3.1.1 数值例子：为什么要关注 loss reduction？
+#### 数值例子：为什么要关注 loss reduction？
 
 假设两个 rank 的 local batch 大小相同，局部平均梯度分别为
 
