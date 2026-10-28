@@ -31,7 +31,7 @@
 
 ## 3. KV Cache 的显存成本
 
-对于每层的 key 和 value，若 batch 为 B、缓存长度为 T、KV 头数为 (h_{kv})、每头维度为 (d_h)，每元素占 b 字节，层数为 L，则 KV cache 的粗略大小：
+对于每层的 key 和 value，若 batch 为 B、缓存长度为 T、KV 头数为 $h_{kv}$、每头维度为 $d_h$，每元素占 b 字节，层数为 L，则 KV cache 的粗略大小：
 
 $$
 M_{KV}\approx 2LBT h_{kv}d_h b.
@@ -39,11 +39,23 @@ $$
 
 前面的 2 对应 K 和 V。此式忽略 padding、对齐、量化 scale、临时 buffer 与框架开销，但能解释为何长上下文和高并发会迅速占用显存。
 
+### 数值例子
+
+假设模型有 $L=32$ 层，batch 中有 $B=8$ 个请求，缓存长度 $T=4096$，KV 头数 $h_{kv}=8$，每头维度 $d_h=128$，每个元素占 $b=2$ bytes（例如 BF16）。则
+
+$
+M_{KV}=2\cdot32\cdot8\cdot4096\cdot8\cdot128\cdot2
+=4{,}294{,}967{,}296\text{ bytes}\approx4\text{ GiB}.
+$
+
+这是整个 batch 的 KV 数据粗略量级，平均每个请求约 512 MiB。它不包含权重、激活、临时 buffer 和 allocator 开销；实际服务的峰值显存会更高。这个例子也说明 KV 头数、上下文长度和并发数会直接影响缓存容量。
+
+
 减少 KV cache 的方式包括 GQA/MQA、KV 量化、滑动窗口或压缩缓存；每种方式都可能改变质量、支持的上下文行为或计算成本。
 
 ## 4. 延迟与吞吐：不能只看一个数字
 
-若一个请求有 prompt 长度 (T_p)，生成长度 (T_g)，TTFT 主要反映排队、prefill 与调度；TBT 主要反映逐 token decode 与同步。吞吐则取决于批处理、并发、请求长度分布、KV cache 容量和 GPU 利用率。
+若一个请求有 prompt 长度 $T_p$，生成长度 $T_g$，TTFT 主要反映排队、prefill 与调度；TBT 主要反映逐 token decode 与同步。吞吐则取决于批处理、并发、请求长度分布、KV cache 容量和 GPU 利用率。
 
 对服务系统，平均延迟不足以描述体验。还应关注 p50/p95/p99 延迟、排队时间、失败率、tokens/s、GPU 利用率和显存峰值。长请求可能拖慢短请求，动态 batch 中的序列长度差异会造成 padding 与调度浪费。
 
