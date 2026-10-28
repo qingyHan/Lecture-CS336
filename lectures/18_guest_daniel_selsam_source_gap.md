@@ -2,7 +2,7 @@
 
 > **官方课程安排**：Stanford CS336 Spring 2026，Lecture 18 — *Guest lecture: Daniel Selsam*，日期 2026-06-01。
 >
-> **重要来源边界**：截至本次核查，官方课程 schedule 确认了讲者与讲次，但官方 lecture materials 仓库没有对应的 lecture_18.py、PDF 或 trace；官方播放列表/课程材料中也没有找到可核验的本讲录像。因此，**本文件不是这场讲座的内容摘要**，也不会把第三方猜测写成讲者观点。它记录已确认事实、资料缺口与后续补齐流程。
+> **重要来源边界（截至 2026-10-29）**：官方课程 schedule 确认了讲者与讲次，但该行没有对应讲义链接；官方 lectures 仓库当前树中没有 lecture_18.py、PDF 或 trace。官方课程页提供课程录像 playlist，但本次公开资料核查没有找到可核验的 Daniel Selsam 讲次录像或讲者材料；独立第三方复核清单也将本讲列为来源缺口。第三方复核仅作交叉佐证，不等于官方确认。**本文件不是这场讲座的内容摘要**，不会把研究者背景或第三方推测写成讲者观点。
 
 ## 1. 已确认的信息
 
@@ -17,7 +17,7 @@
 | 可核验官方录像 | 本次核查未找到 |
 | 讲座具体内容 | **未知，不作推断** |
 
-官方日程链接：[CS336 Spring 2026 schedule](https://cs336.stanford.edu/)。官方讲义仓库：[stanford-cs336/lectures](https://github.com/stanford-cs336/lectures)。
+官方日程链接：[CS336 Spring 2026 schedule](https://cs336.stanford.edu/)。官方录像入口：[CS336 YouTube playlist](https://www.youtube.com/playlist?list=PLoROMvodv4rMqXOcazWaTUHhq-yembLCV)。官方讲义仓库：[stanford-cs336/lectures](https://github.com/stanford-cs336/lectures)。第三方交叉核对：[CS336 review checklist](https://jingzechen.github.io/courses/stanford-cs336-s26/review-checklist/)（非官方来源，仅用于确认公开资料缺口）。
 
 ## 2. 为什么不能根据讲者背景补写“课堂内容”？
 
@@ -61,7 +61,9 @@
 ## 参考来源
 
 - [Stanford CS336 Spring 2026 官方课程网站](https://cs336.stanford.edu/)：确认讲次与讲者。
-- [官方 lectures 仓库](https://github.com/stanford-cs336/lectures)：本次检查未发现 Lecture 18 对应的讲义文件。
+- [官方 lectures 仓库](https://github.com/stanford-cs336/lectures)：当前公开文件树未发现 Lecture 18 对应的讲义文件。
+- [官方录像 playlist](https://www.youtube.com/playlist?list=PLoROMvodv4rMqXOcazWaTUHhq-yembLCV)：课程官网提供的录像入口；本次没有找到可核验的 Daniel Selsam 讲次记录。
+- [独立第三方复核清单](https://jingzechen.github.io/courses/stanford-cs336-s26/review-checklist/)：同样将 Lecture 18 标记为来源缺口，作为交叉佐证而非官方内容来源。
 - [第三方 Lecture 18 导读](https://daxd.top/courses/cs336/lessons/0018-guest-daniel-selsam.html)：仅作为“存在第三方背景导读”的记录，不作为课堂事实来源。
 
 > **状态**：资料缺口已记录；本讲内容总结待官方可核验来源出现后再补齐。为了维护准确性，本讲不标记为“内容已完整复原”。
