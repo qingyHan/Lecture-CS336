@@ -49,6 +49,8 @@ reduce-scatter gradients
 
 分片后每卡状态理想上可接近总状态的 1/N，但实际峰值还包括当前正在使用的完整参数、激活、临时 buffer 与通信工作区。模型状态分片比例不等于总显存一定减少到 1/N。
 
+例如，假设有 $P=10^9$ 个参数，每参数存 FP32 权重、FP32 梯度和两组 FP32 Adam 状态，则状态账本约为 $16P$ bytes，即十进制约 16 GB。理想地分到 4 个 rank 后，每 rank 的常驻 shard 约为 4 GB；但前向/反向可能临时 all-gather 完整参数，因此**总峰值显存并不等于 4 GB**，还要加上激活、临时完整参数和通信缓冲区。
+
 每次 all-gather 需要把分片传输到所有 rank；reduce-scatter 需要归约并分发梯度。若模块粒度太小，通信调用频繁，launch/latency 占比上升；粒度太大，完整参数驻留时间和峰值内存增加。FSDP wrap policy 因而会影响内存与吞吐。
 
 ## 5. Checkpointing、重计算与 offload
