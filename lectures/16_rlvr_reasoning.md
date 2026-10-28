@@ -52,8 +52,8 @@ PPO 使用旧策略与新策略的概率比率，并通过 clipping 限制更新
 设同一个 prompt 采样 G 个回答，奖励为 $r_1,\ldots,r_G$，常见组内标准化形式：
 
 $$
-A_i=\frac{r_i-\operatorname{mean}$r_1,\ldots,r_G$}
-{\operatorname{std}$r_1,\ldots,r_G$+\epsilon}.
+A_i=\frac{r_i-\operatorname{mean}(r_1,\ldots,r_G)}
+{\operatorname{std}(r_1,\ldots,r_G)+\epsilon}.
 $$
 
 这只是常见的组相对估计形式；具体 GRPO 变体在 KL 项、clip 目标、token-level/sequence-level loss、长度归一化和奖励标准化上可能不同。实现时必须以指定论文/handout 的精确定义为准。
