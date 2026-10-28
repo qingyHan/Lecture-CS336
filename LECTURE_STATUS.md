@@ -7,7 +7,7 @@
 |---:|---|---|---|---|---|---|
 | 1 | [导论与 Tokenization](lectures/01_overview_tokenization.md) | 已复核主要章节 | 已修复 13 组独立显示公式的定界符 | 有官方 Lecture 1 源码链接；已注明 A1 时机 | **6 项 CPU 单元测试通过；demo 成功；Notebook 6/6 code cells 顺序执行成功** | **复核中**：代码路径通过；Notebook 未做 Jupyter UI/渲染检查；学习者掌握情况仍需通过练习确认 |
 | 2 | [PyTorch 与资源核算](lectures/02_pytorch_resource_accounting.md) | 已将重复编号的附加章节重排为第 8–10 节 | 主要资源公式结构保留；逐式核验仍待继续 | 有官方 Lecture 2 源码链接 | **7 项 CPU 单元测试通过；两个 demo 成功；Notebook 10/10 code cells 顺序执行成功；CUDA 路径未实测** | **复核中**：CPU 代码路径通过；Notebook 未做 Jupyter UI/渲染检查；真实 GPU 峰值显存仍待测 |
-| 3 | [Transformer 架构](lectures/03_architectures_hyperparameters.md) | 已检查主要章节与超参数表 | 已将常见公式从普通括号改为行内数学定界符，并修复 ldots 转义 | 有官方 PDF 与 A1 链接 | 本轮未执行代码 | **复核中**：主要格式问题已修复；下一步核对参数量假设并做小模型形状测试 |
+| 3 | [Transformer 架构](lectures/03_architectures_hyperparameters.md) | 已实现教学版 TinyGPT：多头因果注意力、Pre-LN 残差块、MLP、位置嵌入与 next-token loss；新增练习与架构图 | 7/7 CPU 单元测试通过；Notebook 7/7 code cells 顺序执行成功；SVG XML 解析通过 | 新增 lecture_03_sources.md，含官方 Lecture 3 PDF、A1、Vaswani 论文与 PyTorch API | CPU smoke test；无 CUDA，未测 GPU 性能 | **局部验收通过**：形状、mask、未来 token 不泄漏、loss/梯度均通过；非生产实现，GPU 路径仍待验证 |
 | 4 | [Attention 替代方案与 MoE](lectures/04_attention_alternatives_moe.md) | 已复核主要主题与工程权衡 | 已修复复杂度公式、MoE 专家列表、top-k 与 tilde 符号显示 | 有官方 PDF 与参考论文；已明确 A1/A2/A3 衔接 | 本轮未执行 GPU 实验 | **复核中**：格式已修复；仍需核对复杂度口径并设计小型 GPU 对照实验 |
 | 5 | [GPU 与 TPU](lectures/05_gpus_tpus.md) | 已复核硬件层级、内存层次与工作负载映射 | 已规范化 Roofline、矩阵乘与算术强度公式 | 有官方 PDF；已明确 A2 衔接 | 本轮未运行 GPU benchmark | **复核中**：核心公式格式已修复；待在真实 GPU 上验证示例并核对硬件口径 |
 | 6 | [Kernel 与 Triton](lectures/06_kernels_triton.md) | 已复核 benchmark/profiling、Triton mask、Softmax、reduction 与 matmul 章节 | 核心公式与符号已检查；修复 C=AB 的行内公式格式 | 有官方可执行讲义与 Triton/PyTorch 参考；对应 A2 | 本轮未执行 GPU benchmark | **复核中**：讲义逻辑已检查；仍需在 GPU 上验证代码与性能测量流程 |
@@ -62,6 +62,13 @@
 - [x] Lecture 2 Notebook：更新为 CUDA 可用时优先使用 GPU；当前容器无 CUDA，10 个 code cell 按顺序走 CPU fallback，10/10 成功。
 - [x] Notebook 文件仍保持空 outputs 与 null execution_count，避免把 QA 输出直接提交为学习者的预制输出。
 - [ ] 本轮未使用完整 Jupyter UI/nbclient 对 notebook 文件做渲染验收；未测试 CUDA 分支，也未在 GPU 上测量显存或性能。
+
+## 多材料建设标准（2026-10-29）
+
+- 讲义存在不等于教学单元完成。每讲按主题配置可运行代码、单元测试、Notebook、图示/数值实例、专用来源清单和实验记录。
+- 轻量主题不机械地强制所有材料类型；复杂主题必须至少有可运行最小实现、可检验性质和复现说明。
+- 当前材料覆盖见 [MATERIAL_MATRIX.md](MATERIAL_MATRIX.md)。Lecture 3 是新标准的第一个完整样板；Lecture 4–19 的代码/Notebook/测试覆盖仍是后续工作。
+- 进度反馈按讲次更新：新增了什么、真实运行了什么、结果如何、哪些尚未验证、下一讲计划。
 
 ## 验收原则
 

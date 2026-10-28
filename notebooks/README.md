@@ -6,6 +6,7 @@
 |---|---|---|---|
 | Lecture 1 | [01_tokenization_lab.ipynb](lecture_01/01_tokenization_lab.ipynb) | Unicode/UTF-8、非重叠 pair 合并、Toy BPE、merge budget、round-trip | Python 标准库 |
 | Lecture 2 | [02_resource_accounting_lab.ipynb](lecture_02/02_resource_accounting_lab.ipynb) | Tensor shape/dtype、einops、FLOPs、Roofline、autograd、Adam 状态、激活大小、梯度累积 | Python、PyTorch、einops |
+| Lecture 3 | [03_transformer_architecture_lab.ipynb](lecture_03/03_transformer_architecture_lab.ipynb) | 张量形状、attention heatmap、causal mask、未来 token 泄漏测试、next-token loss、参数量对比、tiny overfit | Python、PyTorch、matplotlib |
 
 ## 设备默认值
 
@@ -18,11 +19,11 @@
 ~~~bash
 python -m pip install jupyter
 # 第二讲额外需要 PyTorch 与 einops
-python -m pip install torch einops
+python -m pip install torch einops matplotlib
 jupyter lab
 ~~~
 
-打开对应 Notebook 后，建议使用 **Restart Kernel and Run All Cells**，确保 Cell 可以按顺序从头运行。第一讲只使用标准库；第二讲需要 PyTorch 和 einops。
+打开对应 Notebook 后，建议使用 **Restart Kernel and Run All Cells**，确保 Cell 可以按顺序从头运行。第一讲只使用标准库；第二讲需要 PyTorch 和 einops；第三讲需要 PyTorch 和 matplotlib。
 
 ## .ipynb 与 .py 的职责
 

@@ -11,14 +11,15 @@
 - 课程地图与学习路径：[ROADMAP.md](ROADMAP.md)。
 - 官方来源和版本记录：[references/sources.md](references/sources.md)。
 - 逐讲质量状态：[LECTURE_STATUS.md](LECTURE_STATUS.md)。
+- 多材料建设进度矩阵：[MATERIAL_MATRIX.md](MATERIAL_MATRIX.md)。
 - 学习进度与提交记录：[PROGRESS.md](PROGRESS.md)。
 
 ## 推荐使用方式
 
 1. 打开 [COURSE_INDEX.md](COURSE_INDEX.md)，选择当前讲次。
-2. 阅读对应的单一 Markdown 讲义。讲义以原创推导、例子、实现思路和复习问题为主，并标明官方来源与补充内容。
-3. 进入对应的作业指南，按课程依赖在合适的讲次后开始实现。
-4. 需要观察中间张量、修改参数或重复运行短实验时，使用 Jupyter Notebook；较长且可复用的实现留在 Python 文件中。
+2. 阅读对应的 Markdown 讲义，再查看 [MATERIAL_MATRIX.md](MATERIAL_MATRIX.md)，确认该讲目前有哪些代码、Notebook、测试、图示和实验记录。
+3. 对已配套的讲次，按顺序运行 Python 教学实现、单元测试和 Notebook；不要把代码文件存在等同于代码运行通过。
+4. 进入对应的作业指南，按课程依赖在合适的讲次后开始实现；优先复用官方作业接口和测试。
 5. 只有在真实运行或检查后，才将代码/实验标记为已验证；资料创建完成不代表学习者已经掌握。
 
 ## 目录约定
@@ -28,7 +29,7 @@
 - notebooks/lecture_XX/：交互式学习实验。
 - code/lecture_XX/：可复用的教学实现。
 - tests/lecture_XX/：正确性测试。
-- 当前教学代码统一测试命令：`python -m unittest discover -s tests -p 'test_*.py' -v`。该命令当前覆盖 Lecture 1–2 的 13 项 CPU 单元测试；GPU 性能测试需在具备 CUDA 的环境单独运行。
+- 当前教学代码统一测试命令：`python -m unittest discover -s tests -p 'test_*.py' -v`。Lecture 1–2 的 13 项 CPU 单元测试此前通过，Lecture 3 新增 7 项并单独通过；本轮新增测试子包后，仍需在完整仓库工作副本中重跑合并后的根目录测试。GPU 性能测试需在具备 CUDA 的环境单独运行。
 - exercises/：章节练习；参考答案采用可展开区域。
 - experiments/：实验设计与结果记录规范。
 - references/：官方来源、论文和版本信息。

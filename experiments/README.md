@@ -59,3 +59,8 @@
 -   **指标**：往返是否一致、token 数量、合并规则。
 -   **状态**：单元测试已执行；测试输出与结论见本项目创建时的交付汇报。
 -   **限制**：这不是生产级 tokenizer 性能测试，也不测量语言模型质量。
+
+
+## 已完成的教学实验记录
+
+- [Lecture 3 — Tiny Transformer smoke test](lecture_03_transformer_smoke.md)：记录单元测试、Notebook 执行、因果性、参数量与小样本过拟合结果，并明确 CPU-only 环境边界。

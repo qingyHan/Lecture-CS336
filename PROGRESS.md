@@ -1,6 +1,6 @@
 # PROGRESS — 学习进度
 
-最后更新：2026-10-28
+最后更新：2026-10-29
 
 ## 总体状态
 
@@ -238,3 +238,45 @@
 - Lecture 2 Notebook 已改为 CUDA 可用时优先使用 GPU，并在 CUDA 环境记录 GPU 名称、设置 CUDA 随机种子；当前执行环境无 CUDA，因此本轮走 CPU fallback。
 - QA 执行时 Notebook 文件保持空 outputs 与 null execution_count，未把临时输出写回学习 Notebook。
 - 这是对当前 notebook JSON 中代码单元的顺序执行检查；尚未使用 Jupyter UI/nbclient 做渲染验收，也未实测 GPU 分支。
+
+
+## 第二阶段：从“讲义覆盖”转向“可运行学习单元”（2026-10-29）
+
+### 仓库盘点结论
+
+- 19 个讲次都有对应 Markdown 文件，但讲次专用教学代码、Notebook 和测试此前主要集中在 Lecture 1–2；A1–A5 的官方作业代码另行存在，不应误当作 19 讲的教学实验覆盖。
+- 新增 [MATERIAL_MATRIX.md](MATERIAL_MATRIX.md)，按讲次跟踪 Markdown、代码、测试、Notebook、图示、来源清单和实验记录，避免只看文档数量判断进度。
+
+### Lecture 3 多材料交付
+
+新增文件：
+- code/lecture_03/tiny_transformer.py：最小 decoder-only Transformer，包含多头 causal self-attention、Pre-LN block、MLP、learned positional embedding、logits 与 shifted next-token loss。
+- tests/lecture_03/test_tiny_transformer.py：7 项单元测试。
+- notebooks/lecture_03/03_transformer_architecture_lab.ipynb：7 个 code cells，包含张量形状、attention heatmap、未来 token 泄漏测试、loss/梯度、参数量对比和小样本过拟合。
+- diagrams/lecture_03_decoder_only_transformer.svg：架构数据流图。
+- references/lecture_03_sources.md：官方课件、A1、原始论文与 PyTorch API 参考。
+- exercises/chapter_03.md：基础、中等、进阶练习。
+- experiments/lecture_03_transformer_smoke.md：记录真实执行环境、结果和未覆盖项。
+- code/lecture_03/README.md：运行命令与实现边界。
+
+### 实际验证结果
+
+- Lecture 3：7/7 CPU 单元测试通过。
+- CLI demo 成功：输入形状 (2, 8)，logits (2, 8, 32)，attention weights (2, 4, 8, 8)，可训练参数 16,320，next-token loss 3.3069，所有梯度有限。
+- Notebook JSON schema 验证通过；临时执行副本的 7/7 code cells 执行成功，无 cell error；提交版保留空 outputs。
+- 因果性实验：修改第 4 位及之后的 token，前 4 个位置 logits 的最大绝对差为 0.0。
+- 参数量对比：d_model=16/32/64 时分别为 11,200 / 34,688 / 118,528；该结果仅用于观察固定词表与位置嵌入时的参数构成。
+- 小样本训练 smoke test：61 步 AdamW，学习率 0.01，loss 从 2.0306 降至 0.0038。它只证明该 toy setup 可拟合，不代表泛化或真实模型效果。
+- SVG XML 解析通过。
+- 当前 PyTorch 为 CPU build，无 CUDA；未测 GPU latency、吞吐、峰值显存、Triton 或多 GPU。
+
+### 本轮尚未完成
+
+- Lecture 3 仍未在真实 GPU 上验证；本讲教学实现也不是官方 staff implementation 或生产级模型。
+- Lecture 4–19 的讲次专用代码、Notebook、测试和图示尚未系统建设；按 MATERIAL_MATRIX.md 逐讲推进。
+- Lecture 18 仍是官方资料缺口，不得伪造课堂内容。
+- Lecture 1–2 的 13 项测试此前已分别通过；Lecture 3 新增 7 项本轮通过。合并后的根目录测试命令需在完整仓库工作副本中再跑一次。
+
+### 下一讲计划：Lecture 4 — Attention Alternatives & MoE
+
+按材料难度建设：讲义 + 参考来源 + 可运行的 dense attention / GQA 或 MoE 路由 toy demo + 数值/形状测试 + Notebook 可视化 + 实验记录。先验证正确性，再考虑 GPU 性能对照。

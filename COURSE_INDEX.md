@@ -44,8 +44,11 @@
 
 - [Lecture 1 Notebook](notebooks/lecture_01/01_tokenization_lab.ipynb)：Unicode/UTF-8、byte-level BPE 与 merge。
 - [Lecture 2 Notebook](notebooks/lecture_02/02_resource_accounting_lab.ipynb)：Tensor shape、einops、FLOPs、Roofline、autograd 与梯度累积。
+- [Lecture 3 Notebook](notebooks/lecture_03/03_transformer_architecture_lab.ipynb)：attention heatmap、causal mask、未来 token 泄漏测试、参数量与小样本过拟合。
+- Lecture 3 教学实现：[tiny_transformer.py](code/lecture_03/tiny_transformer.py)；[7 项测试](tests/lecture_03/test_tiny_transformer.py)；[Transformer 架构图](diagrams/lecture_03_decoder_only_transformer.svg)；[来源清单](references/lecture_03_sources.md)；[实验记录](experiments/lecture_03_transformer_smoke.md)。
+- [材料覆盖矩阵](MATERIAL_MATRIX.md) 显示哪些讲次已有代码、测试、Notebook、图示和实验记录。
 - [Notebook 运行规范](notebooks/README.md)。
-- code/lecture_01/ 与 code/lecture_02/ 保存教学实现；tests/lecture_01/ 与 tests/lecture_02/ 保存正确性测试。
+- code/lecture_01/ 至 code/lecture_03/ 保存教学实现；tests/lecture_01/ 至 tests/lecture_03/ 保存正确性测试。
 - [实验记录规范](experiments/README.md)。
 
 ## 资料来源规则
