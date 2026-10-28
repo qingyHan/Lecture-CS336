@@ -30,13 +30,16 @@ Vision encoder 把图像转换成特征；projector 将视觉特征映射到语�
 
 ## 3. ViT 与图像 tokenization
 
-Vision Transformer 将图像切分成 patch。对尺寸 (H\times W\)，patch 大小 (P\times P)，若不考虑 padding，patch 数约为
+Vision Transformer 将图像切分成 patch。对尺寸 (H\times W\)，patch 大小 $P\times P$，若不考虑 padding，patch 数约为
 
 $$
 N_{patch}=\frac{H}{P}\cdot\frac{W}{P}.
 $$
 
 每个 patch 被展平并线性投影成 embedding，再加上位置/空间信息。若图像分辨率提高，patch 数按像素面积增长，后续 Transformer 的 attention 计算可能按 token 数平方增长。这解释了高分辨率图像和视频为何计算昂贵。
+
+例如，对 $448\times448$ 的图像使用 $14\times14$ patch，若不做额外 crop/padding 且不计特殊 token，则每边有 $448/14=32$ 个 patch，总计 $32^2=1024$ 个视觉 token。仅一个 attention head 的稠密分数矩阵就有约 $1024^2=1{,}048{,}576$ 个位置；真实成本还取决于模型结构、batch、多图策略和高分辨率处理方法。
+
 
 图像预处理（resize、crop、patch 切分、归一化）会影响模型能看到的内容。中心裁剪可能切掉边缘对象；低分辨率缩放可能损失文字；高分辨率切片又会增加 token 和计算成本。
 
@@ -48,7 +51,21 @@ $$
 S_{ij}=\frac{z_i^{(image)}\cdot z_j^{(text)}}{\tau},
 $$
 
-其中 τ 是温度参数。训练目标让配对的图像/文本相似度高于 batch 中不匹配的组合，常用双向对比交叉熵。图像到文本与文本到图像两个方向共同提供监督。
+其中 $\tau$ 是温度参数。训练目标让配对的图像/文本相似度高于 batch 中不匹配的组合，常用双向对比交叉熵。若一个 batch 中第 $i$ 个图像与第 $i$ 个文本为配对样本，常见的对称损失可写为
+
+$
+\mathcal L_{I\to T}=-\frac1N\sum_{i=1}^{N}
+\log\frac{\exp(S_{ii})}{\sum_{j=1}^{N}\exp(S_{ij})},
+$
+
+$
+\mathcal L_{T\to I}=-\frac1N\sum_{i=1}^{N}
+\log\frac{\exp(S_{ii})}{\sum_{j=1}^{N}\exp(S_{ji})},
+\qquad
+\mathcal L_{\mathrm{CLIP}}=\frac{\mathcal L_{I\to T}+\mathcal L_{T\to I}}{2}.
+$
+
+这是假设 batch 内配对索引对齐的常见写法；若 batch 中存在重复图像、重复 caption 或其他 false negatives，负样本构造会影响学习信号。
 
 CLIP 不需要每张图片都拥有人工类别标签，而是从大量 image-caption pairs 学习跨模态对齐。局限是训练数据噪声、caption 偏差、长尾概念、空间关系和细粒度计数可能难以充分学到；embedding 相似度也不等于可靠的逻辑推理。
 
@@ -109,13 +126,13 @@ LLaVA 类系统通常把视觉编码器输出通过 projector 映射到 LLM 的 
 
 ## 10. GPU 与 token 预算
 
-若图像产生 (N_v) 个视觉 token，文本 prompt 有 (N_t) 个 token，则总上下文长度约为 (N=N_v+N_t)。在全注意力结构下，prefill attention 的主要序列项约按 (N^2) 增长。多图与视频容易迅速放大成本，所以视觉 token 压缩、分辨率策略和动态 batching 是系统设计的重要部分。
+若图像产生 $N_v$ 个视觉 token，文本 prompt 有 $N_t$ 个 token，则总上下文长度约为 $N=N_v+N_t$。在全注意力结构下，prefill attention 的主要序列项约按 $N^2$ 增长。多图与视频容易迅速放大成本，所以视觉 token 压缩、分辨率策略和动态 batching 是系统设计的重要部分。
 
 GPU 实验应同时报告图像尺寸、patch/token 数、batch、dtype、TTFT、吞吐、显存和任务质量；只报告模型准确率无法解释推理成本。
 
 ## 11. 自测
 
-1. 对 (448\times448) 图像、patch 大小 14，计算 patch 数并解释其对 attention 成本的影响。
+1. 对 $448\times448$ 图像、patch 大小 14，计算 patch 数并解释其对 attention 成本的影响。
 2. 用自己的话推导 CLIP 为什么需要图像与文本的相似度矩阵。
 3. 比较 CLIP 式对比学习与 LLaVA 式指令微调的训练目标。
 4. 设计一个测试，判断 VLM 是否真正利用图像而不是只看问题文本。
