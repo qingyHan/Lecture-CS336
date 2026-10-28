@@ -18,7 +18,7 @@
 | 11 | [Scaling Laws 实践](lectures/11_scaling_laws_practice.md) | 已复核 recipe、公平比较、muP 直觉与实验陷阱；新增 AdamW 更新式和跨宽度诊断指标 | 已加入优化器与相对更新幅度公式 | 有官方 PDF、muP/Adam/AdamW 论文与 A3 链接；官方 PDF 仍需逐页核对 | 本轮未拟合数据或运行训练 | **复核中**：公式和实验设计已补；待核对官方课件案例并运行小规模宽度对照 |
 | 12 | [Evaluation](lectures/12_evaluation.md) | 已复核 PPL、benchmark、validity、模型裁判、agent 与安全评估；补充 NLL/PPL 数值例子 | 已修复序列 NLL 与条件 NLL 的行内公式格式 | 有官方可执行讲义与评测论文；对应 A3/A4/A5 | 本轮未运行 benchmark | **复核中**：评测框架已检查；待运行独立评估并核验统计区间/污染检查 |
 | 13 | [数据来源与数据集](lectures/13_data_sources_datasets.md) | 已复核数据来源、Common Crawl、数据集比较、治理与质量偏差；补充 provenance metadata 示例 | 本讲无关键公式；代码块为示意 schema | 有官方可执行讲义与数据集原始来源；对应 A4 | 本轮未运行数据管线 | **复核中**：来源与治理框架已检查；待在 A4 小样本中验证 metadata 与来源追踪流程 |
-| 14 | [数据处理与混合](lectures/14_data_processing_mixing.md) | 已创建 | 待检查 data mixing 公式格式 | 有参考来源；对应 A4 | 未运行大数据实验 | **待复核** |
+| 14 | [数据处理与混合](lectures/14_data_processing_mixing.md) | 已复核抽取、过滤、精确/模糊去重、MinHash/LSH、数据混合与合成数据；补充 Jaccard 数值例子 | 已修复复杂度与 mixture 概率公式的行内格式 | 有官方可执行讲义与数据集/MinHash 参考；对应 A4 | 未运行大数据实验 | **复核中**：算法概念与 CPU/GPU 选择边界已检查；待用 fixture 测试过滤/去重并统计误删率 |
 | 15 | [SFT / RLHF](lectures/15_mid_post_training_sft_rlhf.md) | 已创建 | 待检查行内公式与符号格式 | 有官方 PDF 链接；对应 A5 | 未运行训练 | **待复核** |
 | 16 | [RLVR 与推理训练](lectures/16_rlvr_reasoning.md) | 已创建 | 待检查组内 advantage 公式及实现边界 | 有官方 PDF 链接；对应 A5 | 未运行 RL 实验 | **待复核** |
 | 17 | [多模态模型](lectures/17_multimodal_models.md) | 已创建 | 待检查 patch 数公式格式 | 有官方可执行讲义链接；A5 之外的扩展主题已标注 | 未运行视觉模型 | **待复核** |
