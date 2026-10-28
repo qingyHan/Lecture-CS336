@@ -19,7 +19,7 @@
 
 ## 2. Perplexity：预训练语言模型的基本指标
 
-对于 token 序列 (x_{1:T})，平均负对数似然为
+对于 token 序列 $x_{1:T}$，平均负对数似然为
 
 $$
 \operatorname{NLL}(x_{1:T})=-\frac{1}{T}\sum_{t=1}^{T}\log p_\theta(x_t\mid x_{<t}).
@@ -33,11 +33,14 @@ $$
 
 在相同 tokenizer、相同评估语料和相同计数约定下，较低 PPL 表示模型对测试 token 分配了更高的平均概率。PPL 受 tokenizer 与 tokenization 影响，因此不同词表/分词器的 PPL 通常不能直接横向比较。
 
+例如，若平均 NLL 为 2 nats/token，则 $\operatorname{PPL}=e^2\approx7.39$。PPL 可以理解为指数化后的平均 token 不确定性量级，不是准确率，也不能直接解释为模型每次有多少个候选答案。
+
+
 ### 2.1 为什么低 perplexity 不等于所有任务更好？
 
 PPL 评价模型对整段文本的概率分配，许多 token 对具体下游任务并不重要。模型可能对常见格式、标点和背景文字预测得很好，却没有提高数学推理或工具使用能力。PPL 是重要的上游信号，但不是全面的能力指标。
 
-对提示词和回答分开时，可以考虑条件负对数似然 ( -\log p(\text{response}\mid\text{prompt}))，但它仍然受参考答案、tokenizer、长度归一化与数据分布影响。
+对提示词和回答分开时，可以考虑条件负对数似然 $-\log p(\text{response}\mid\text{prompt})$，但它仍然受参考答案、tokenizer、长度归一化与数据分布影响。
 
 ## 3. 常见 benchmark 类型
 
