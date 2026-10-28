@@ -30,7 +30,7 @@ Vision encoder 把图像转换成特征；projector 将视觉特征映射到语�
 
 ## 3. ViT 与图像 tokenization
 
-Vision Transformer 将图像切分成 patch。对尺寸 (H\times W\)，patch 大小 $P\times P$，若不考虑 padding，patch 数约为
+Vision Transformer 将图像切分成 patch。对尺寸 $H\times W$，patch 大小 $P\times P$，若不考虑 padding，patch 数约为
 
 $$
 N_{patch}=\frac{H}{P}\cdot\frac{W}{P}.
