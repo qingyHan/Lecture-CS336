@@ -10,8 +10,8 @@
 
 1. 阅读 [ROADMAP.md](ROADMAP.md)：确认课程地图、先修路径、作业和算力需求。
 2. 阅读 [references/sources.md](references/sources.md)：查看官方课程、讲义仓库、作业仓库和论文来源。
-3. 当前学习第二讲：[主讲](lectures/02_pytorch_resource_accounting.md)、[资源深入篇](lectures/02_resource_accounting_deep_dive.md)。
-4. 复习 [第二讲笔记](notes/02_pytorch_resource_accounting.md)，运行 [第二讲代码](code/resource_accounting_demo.py)。
+3. 当前学习第二讲：[统一讲义](lectures/02_pytorch_resource_accounting.md)，理论、深入推导与复习内容集中在同一文件。
+4. 第一讲：[统一讲义](lectures/01_overview_tokenization.md)。代码按讲次分组在 code/lecture_01/ 与 code/lecture_02/。
 5. 第二讲练习：[exercises/chapter_02.md](exercises/chapter_02.md)。第一讲遗留练习可日后复习，不作为前进门槛。
 6. 在 [PROGRESS.md](PROGRESS.md) 记录理解、代码和实验的真实状态。
 
@@ -20,12 +20,11 @@
 - ROADMAP.md：课程全景、逐讲地图、先修知识和资源分层。
 - COURSE_INDEX.md：课程主题、讲义、笔记、作业之间的索引。
 - PROGRESS.md：学习进度和验收记录。
-- lectures/：按教学顺序组织的课程讲解。
-- notes/：可脱离对话独立阅读的复习笔记。
+- lectures/：每讲一份统一讲义，包含核心讲解、补充推导、复习要点与来源；不再维护重复的 notes/ 目录。
 - exercises/：概念、计算、代码和综合练习。
 - experiments/：实验设计、执行记录规范。
-- code/：原创教学实现。
-- tests/：最小正确性测试。
+- code/lecture_XX/：按讲次分组的原创教学实现。
+- tests/lecture_XX/：按讲次分组的最小正确性测试。
 - references/sources.md：可追溯的资料清单。
 
 ## 学习约定
@@ -54,3 +53,16 @@
 ## 版本策略
 
 官方课程主页当前列出的版本作为课程基准。部分公开作业仓库的 README 可能仍显示旧年份，因此不能只看仓库名称就推定其内容与 2026 完全一致。具体版本核对结果记录在 [references/sources.md](references/sources.md)。
+
+
+## Commit 规范
+
+遵循 Conventional Commits，并区分新讲次、既有内容修改与仓库整理：
+
+- `feat(lecture-03): add architecture and hyperparameters lecture`：新增讲次。
+- `fix(lecture-01): correct BPE explanation`：修复既有讲义/代码错误。
+- `docs(lecture-02): expand memory accounting`：补充既有讲次内容。
+- `refactor(repo): consolidate notes and organize chapter code`：目录结构或文件归并，不混入新讲内容。
+- `test(lecture-02): add resource accounting checks`：测试变更。
+
+一次提交只表达一种主要意图。重构提交只做路径迁移、内容归并、链接修复与索引调整，不顺带引入新章节；新增章节使用单独提交。

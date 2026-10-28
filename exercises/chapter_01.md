@@ -54,7 +54,7 @@ bytes/token。这个指标能证明 B 的语言模型质量更好吗？为什么
 
 ### 题 8：round-trip 测试
 
-阅读 `code/tokenization_demo.py`。为什么 `decode(encode(text)) == text`
+阅读 `code/lecture_01/tokenization_demo.py`。为什么 `decode(encode(text)) == text`
 是必要测试，但不是充分测试？
 
 **提示**：考虑 token 数量、速度、未知输入、训练数据分布和模型质量。

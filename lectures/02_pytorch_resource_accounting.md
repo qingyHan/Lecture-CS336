@@ -2,7 +2,7 @@
 
 > Stanford CS336 Spring 2026，第 2 讲（4 月 1 日）。官方标题：PyTorch (einops), resource accounting (FLOPs, memory, arithmetic intensity)。  
 > 官方代码：https://github.com/stanford-cs336/lectures/blob/main/lecture_02.py  
-> 这是一份原创中文讲义，沿官方主题组织；配套[深入篇](02_resource_accounting_deep_dive.md)、[复习笔记](../notes/02_pytorch_resource_accounting.md)、[练习](../exercises/chapter_02.md)。
+> 这是一份原创中文讲义，沿官方主题组织；核心理论、深入推导与复习内容统一维护在本文件，配套[练习](../exercises/chapter_02.md)。
 
 ## 1. 从 Token ID 到 Tensor
 
@@ -106,8 +106,283 @@ $$
 
 ~~~bash
 python -m pip install torch einops
-python code/resource_accounting_demo.py
+python code/lecture_02/resource_accounting_demo.py
 python -m unittest discover -s tests -v
 ~~~
 
 教学版 CPU 演示的 5 项单元测试已实际通过；尚未进行 GPU benchmark。
+
+
+## 6. 为什么 FLOPs 不能直接变成秒数？
+
+硬件的两个主要限制是计算吞吐率与存储带宽。令算子总 FLOPs 为 $F$、搬运字节数为 $M$；硬件峰值算力为 $P$ FLOP/s、存储带宽为 $W$ byte/s。
+
+$$
+t\ge\max\left(\frac FP,\frac MW\right).
+$$
+
+定义算术强度（Arithmetic Intensity）：
+
+$$
+I=\frac FM\quad(\mathrm{FLOPs/byte}).
+$$
+
+设备的转折点 $I_*=P/W$。若 $I<I_*$，该任务更容易 memory-bound；若 $I>I_*$，则更容易 compute-bound。
+
+Roofline 模型给出理想吞吐上界：
+
+$$
+R\le\min(P,IW).
+$$
+
+例如 bf16 ReLU 若每个元素读取 2 字节、写入 2 字节、约进行一次比较，算术强度约为 $1/4=0.25$ FLOPs/byte。
+
+对 $n\times n$ 两个 bf16 矩阵相乘，假设两份输入理想情况下各加载一次且结果写回一次，则：
+
+$$
+F\approx2n^3,\qquad M_{\min}\approx6n^2,
+\qquad I_{\mathrm{matmul}}\approx n/3.
+$$
+
+大矩阵乘法利用数据复用可获得更高的算术强度。这里使用的是理想字节搬运下界，**不是实际 GPU 的 HBM 流量**。
+
+## 7. 为什么反向传播比一次前向贵？
+
+设：
+
+$$
+Y=XW,\quad X\in\mathbb R^{B\times D},\quad
+W\in\mathbb R^{D\times K}.
+$$
+
+前向约需 $2BDK$ FLOPs。令 $G=\partial L/\partial Y$，反向计算：
+
+$$
+\frac{\partial L}{\partial X}=GW^\top,\qquad
+\frac{\partial L}{\partial W}=X^\top G.
+$$
+
+若两个梯度都需要，这两次矩阵乘法各约 $2BDK$ FLOPs，因此：
+
+$$
+F_{\mathrm{forward+backward}}\approx6BDK.
+$$
+
+当稠密参数矩阵计算占主导，训练 $N$ 个 token、模型有 $P$ 个参数时，常用粗略估算：
+
+$$
+\boxed{F_{\mathrm{training}}\approx6NP}.
+$$
+
+这不是通用的精确训练 FLOPs，未完整包含长度相关的 Attention、归一化、优化器等成本。
+
+~~~python
+import torch
+x = torch.tensor([1., 2., 3.])
+w = torch.tensor([1., 1., 1.], requires_grad=True)
+loss = 0.5 * (x @ w - 5).pow(2)
+loss.backward()
+assert torch.equal(w.grad, torch.tensor([1., 2., 3.]))
+~~~
+
+训练循环通常是前向求 loss、backward 得到参数梯度、optimizer.step 更新，再使用 zero_grad 重置梯度。
+
+## 8. 训练为什么占用额外显存？
+
+**若这里的四项显存账本还比较抽象，请先阅读[训练显存逐项推导（上）]()、[激活与两种省显存策略（下）]()。**两篇补课从单参数求导开始，解释 Adam 状态、激活的维度和梯度累积的机制，并提供[实际跑通的中文代码](../code/lecture_02/training_memory_walkthrough.py)。
+
+
+需要同时考虑参数、梯度、优化器状态、激活和临时工作空间。
+
+一个特定假设是每个参数各存一份 fp32 权重、fp32 梯度和两组 fp32 Adam 状态，则每参数 $4+4+4+4=16$ bytes，10 亿参数仅这几项约 16 GB（十进制），尚未算激活。
+
+实际混合精度、额外主权重、梯度类型和优化器实现都会改变这一数值。
+
+**梯度累积**：用多个 micro-batch 累积梯度，减少单次需要保留的激活量，但参数和优化器状态依然存在；应正确处理损失缩放。
+
+**激活检查点**：前向少保存部分激活，反向时重新计算，相当于计算时间换内存。
+
+## 9. MFU 与实测
+
+若实际运行完成估算 FLOPs $F$、耗时 $t$，则计算吞吐估算为 $F/t$。与同种硬件精度下的峰值速率比较：
+
+$$
+\mathrm{MFU}\approx\frac{F/t}{R_{\mathrm{peak}}}.
+$$
+
+真实测量应报告 dtype、device、shape、batch size、预热和同步。CUDA 运算异步，计时不当会得出错误结果。
+
+**本章核心：shape → 字节数 → FLOPs → 算术强度 → 系统瓶颈 → 实际测量。**
+
+
+## 1. 一个参数为什么不只需要一个数字？
+
+设预测为 $\hat y=wx$，其中 $w=3,x=2$，目标 $y=4$，损失为：
+
+$$
+L(w)=\frac12(wx-y)^2.
+$$
+
+前向预测 $\hat y=6$，损失为 2；反向求导：
+
+$$
+g=\frac{\partial L}{\partial w}=(wx-y)x=(6-4)\times2=4.
+$$
+
+若使用学习率为 0.1 的 SGD，更新后 $w=3-0.1\times4=2.6$。
+
+参数 $w$ 和梯度 $g$ 是**不同数值，不能互相覆盖**：反向完成后既需要知道当前权重，也需要知道更新方向和幅度。对 FP32 情况，这两个标量至少分别占 4 bytes。
+
+## 2. Adam 为什么还要保存额外状态？
+
+SGD 只使用当前梯度（若带动量则另当别论）；Adam 还记录梯度的一阶和二阶指数移动统计：
+
+$$
+m_t=\beta_1m_{t-1}+(1-\beta_1)g_t,
+$$
+
+$$
+v_t=\beta_2v_{t-1}+(1-\beta_2)g_t^2.
+$$
+
+- $m_t$ 反映近期梯度方向的一阶统计。
+- $v_t$ 反映近期梯度平方的二阶统计，用于缩放更新。
+- 每一个权重元素通常都对应一个 $m_t$ 元素和一个 $v_t$ 元素。它们跨训练步骤持久保存。
+- Adam 更新还包含偏差修正、学习率与数值稳定项，不能简单视为 SGD。
+
+在 FP32 权重与 FP32 梯度、两组 FP32 Adam 状态各一份的假设下：
+
+| 数据 | 每参数字节数 |
+|---|---:|
+| 参数 $w$ | 4 |
+| 梯度 $g$ | 4 |
+| 一阶矩 $m$ | 4 |
+| 二阶矩 $v$ | 4 |
+| **合计** | **16** |
+
+$$
+M_{\rm persistent}\approx P(4+4+4+4)=16P\ \mathrm{bytes}.
+$$
+
+如果 $P=10^9$，这四项为 16 GB（十进制），尚未计入前向激活或临时工作空间。**16 bytes/参数只针对上述假设，不是所有精度方案的通用常数。**
+
+## 3. 为什么 BF16 权重不等于训练显存自动减半？
+
+假设每参数有 BF16 权重（2 B）、BF16 梯度（2 B），但 Adam 两个动量用 FP32（各 4 B），不另存主权重，此时为：
+
+$$
+2+2+4+4=12\ \mathrm{bytes/parameter}.
+$$
+
+若这个特定方案**另外保存一份 FP32 master weight**（4 B），则变成 16 bytes/parameter。某些自动混合精度方案反而会始终持有 FP32 权重；因此必须按实际优化器、梯度和权重的存储方式建立账本，不能只看前向运算的 dtype。
+
+## 4. PyTorch 中何时会出现这些东西？
+
+~~~python
+import torch
+
+# 单参数训练实验
+w = torch.nn.Parameter(torch.tensor(3.0))
+optimizer = torch.optim.AdamW([w], lr=0.1)
+
+x = torch.tensor(2.0)
+loss = 0.5 * (w * x - 4.0).square()
+loss.backward()
+assert torch.allclose(w.grad, torch.tensor(4.0))
+
+# AdamW 的状态一般在第一次 step 时按需建立。
+optimizer.step()
+state = optimizer.state[w]
+print("参数：", w.item())
+print("梯度：", w.grad.item())
+print("一阶矩：", state["exp_avg"].item())
+print("二阶矩：", state["exp_avg_sq"].item())
+~~~
+
+上面没有宣称运行结果；可在本机执行，观察参数、梯度与 optimizer state 分别存在。实际内存还会有张量管理结构和训练计算图，不仅是这些标量。
+
+
+## 1. 什么是激活（activation）？
+
+考虑多层网络：
+
+~~~text
+输入 x -> 线性层 1 -> h1 -> 激活层 -> a1 -> 线性层 2 -> 输出
+~~~
+
+$h_1,a_1$ 是计算过程中的**中间结果**，不是可学习的参数。在训练中，反向传播为了计算梯度，通常需要保存其中若干中间结果或相关信息。
+
+如果一个保存的激活张量形状为 $(B,T,D)$，每个元素占 $s$ 字节，则：
+
+$$
+M_{\rm one\ activation}=BTDs.
+$$
+
+例如 $B=8,T=128,D=768,s=2$（bf16）：
+
+$$
+8\times128\times768\times2=1{,}572{,}864\ \mathrm{bytes}
+=1.5\ \mathrm{MiB}.
+$$
+
+假设有 12 层、且**每层恰好只保留一个这样的张量**，则这部分为 18 MiB。但真实 Transformer 会保存更多与注意力、FFN、归一化等有关的张量，因此 18 MiB 绝不能作为完整模型的实际激活显存预测。
+
+重要关系：如果其它条件不变，很多激活存储量随 $B$、$T$、$D$ 或层数 $L$ 增长。参数和 Adam 状态则主要随参数数目 $P$ 增长。
+
+## 2. 梯度累积为什么能省内存？
+
+目标 batch 8 条样本。如果全部一起做前向，某种激活可能形状为 $(8,T,D)$。
+
+把它拆成 4 个 micro-batch，每次只处理 2 条：同一种激活的单次形状变成 $(2,T,D)$，这部分**单次激活存储约减少 75%**。
+
+做法：
+
+~~~python
+optimizer.zero_grad()
+for x_micro, y_micro in micro_batches:
+    prediction = model(x_micro)
+    # 四个 micro-batch 大小相同，平均损失各除以 4。
+    loss = criterion(prediction, y_micro) / 4
+    loss.backward()  # 梯度累加；这里不清零
+optimizer.step()     # 四次反向结束后，才更新一次参数
+~~~
+
+核心细节：不能在每个 micro-batch 的 backward 后清空梯度，也不能每次都 step。若 micro-batch 大小不相等，应按样本数或实际有效 token 数正确加权，而不是无条件除以 4。
+
+梯度累积通常能减少**同时保存的激活**，却不会自动缩减权重、梯度或 Adam 状态；还可能增加执行与调度成本。
+
+## 3. 激活检查点到底做了什么？
+
+普通训练可能保存大量中间激活，以便反向直接使用。
+
+激活检查点（activation checkpointing）有意不保留部分中间结果：
+
+~~~text
+普通方式：前向 -> 保存 h1,h2,h3,h4 -> 反向直接读取
+检查点：  前向 -> 只保存部分边界激活
+          反向 -> 需要时重新计算 h2,h3 等
+~~~
+
+**本质：用更多计算换更少内存。** 它不需要缩小 batch，也不会直接减少参数/Adam 状态；具体节省取决于哪些层或子模块设置了检查点。
+
+## 4. 两种策略到底有何区别？
+
+| 策略 | 减少的主要内存 | 增加的代价 |
+|---|---|---|
+| 梯度累积 | 单次 micro-batch 的激活峰值 | 更多顺序执行、可能降低吞吐 |
+| 激活检查点 | 反向需要保留的部分中间激活 | 反向阶段重新计算前向内容 |
+
+它们可以结合使用。
+
+## 5. 最后建立完整资源账本
+
+粗略思路是：
+
+$$
+M_{\rm train}\approx M_{\rm parameters}+M_{\rm gradients}
++M_{\rm optimizer}+M_{\rm activations}+M_{\rm workspace}.
+$$
+
+这是用于列举内存类别的**近似账本**，不是任何时刻的精确显存恒等式：各项峰值未必同时出现，分配器、内存复用、通信缓冲区和框架实现都可能改变实际峰值。
+
+运行[可验证示例](../code/lecture_02/training_memory_walkthrough.py)，查看 Adam 状态与 micro-batch 梯度一致性。该脚本运行于 CPU，不是 GPU 显存 benchmark。

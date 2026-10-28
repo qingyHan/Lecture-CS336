@@ -27,13 +27,13 @@
 ## 本地实践代码
 
 - **code/tokenization_demo.py**：字符 tokenizer、UTF-8 字节 tokenizer 和教学用 byte-level BPE。
-- **tests/test_tokenization_demo.py**：round-trip、BPE 合并和 Unicode 测试。
+- **tests/lecture_01/test_tokenization_demo.py**：round-trip、BPE 合并和 Unicode 测试。
 - **code/resource_accounting_demo.py**：第二讲的 PyTorch/einops/FLOPs 教学代码。
-- **tests/test_resource_accounting_demo.py**：第二讲新增 5 项 CPU 单元测试。
+- **tests/lecture_02/test_resource_accounting_demo.py**：第二讲新增 5 项 CPU 单元测试。
 - **exercises/chapter_02.md**：第二讲独立练习。
-- **notes/01_tokenization_followup.md**：第一讲关键混淆点的简明补课。
+- **lectures/01_overview_tokenization.md**：第一讲关键混淆点的简明补课。
 - **notes/02_training_memory_explained.md** / **notes/02_training_memory_strategies.md**：训练内存与优化策略深入补课。
-- **code/training_memory_walkthrough.py** / **tests/test_training_memory_walkthrough.py**：CPU 梯度累积与 Adam 状态的可验证示例。
+- **code/training_memory_walkthrough.py** / **tests/lecture_02/test_training_memory_walkthrough.py**：CPU 梯度累积与 Adam 状态的可验证示例。
 - **experiments/README.md**：实验记录规范。
 
 ## 版本控制原则

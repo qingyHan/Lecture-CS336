@@ -32,9 +32,9 @@
 | 阶段 | 状态 | 证据/文件 | 未完成项 |
 |---|---|---|---|
 | 官方课程调研与课程地图 | 已完成初版 | ROADMAP.md、references/sources.md | 每一讲正式开课前继续核对对应 PDF/代码/handout |
-| Lecture 1：导论与 Tokenization | 讲义与笔记已修复；验收待完成 | lectures/01_overview_tokenization.md、notes/01_tokenization.md、exercises/chapter_01.md | 学习者回答练习并通过口头/书面检查 |
-| Tokenizer 教学实现 | 代码已执行；6 项单元测试通过（本次本地验证） | code/tokenization_demo.py、tests/test_tokenization_demo.py | 可扩展为带预分词规则、训练语料和复杂度分析的更完整实现 |
-| Lecture 2：PyTorch / einops / 资源核算 | **正在学习，讲义和代码已创建** | lectures/02_pytorch_resource_accounting.md、lectures/02_resource_accounting_deep_dive.md、notes/02_pytorch_resource_accounting.md、code/resource_accounting_demo.py | 暂未进行 GPU 性能实验，等待学习者学习与实践 |
+| Lecture 1：导论与 Tokenization | 讲义与笔记已修复；验收待完成 | lectures/01_overview_tokenization.md、lectures/01_overview_tokenization.md、exercises/chapter_01.md | 学习者回答练习并通过口头/书面检查 |
+| Tokenizer 教学实现 | 代码已执行；6 项单元测试通过（本次本地验证） | code/lecture_01/tokenization_demo.py、tests/lecture_01/test_tokenization_demo.py | 可扩展为带预分词规则、训练语料和复杂度分析的更完整实现 |
+| Lecture 2：PyTorch / einops / 资源核算 | **正在学习，讲义和代码已创建** | lectures/02_pytorch_resource_accounting.md、lectures/02_resource_accounting_deep_dive.md、lectures/02_pytorch_resource_accounting.md、code/lecture_02/resource_accounting_demo.py | 暂未进行 GPU 性能实验，等待学习者学习与实践 |
 
 ## 诊断性验收与补课（2026-10-27）
 
@@ -67,8 +67,8 @@
 ## 第一讲薄弱点与第二讲显存补课（2026-10-28）
 
 - 根据学习者要求继续补讲第一讲：UTF-8/基础字节值/BPE 的区别，重叠 pair 的非重叠替换，Prefill/Decode 与端到端延迟。讲解和学习资料已更新；尚未将未独立验证的知识点标为“已通过”。
-- 第二讲显存专题按参数、梯度、Adam 一阶矩与二阶矩、前向激活、梯度累积及激活检查点的顺序补课。配套文件：notes/01_tokenization_followup.md、notes/02_training_memory_explained.md、notes/02_training_memory_strategies.md。
-- 新增 code/training_memory_walkthrough.py 和 tests/test_training_memory_walkthrough.py。**本地 CPU 实际验证：2 项单元测试通过**，涵盖 FP32 状态账本与正确缩放的梯度累积；未测 GPU 峰值显存，也未测 activation checkpointing 的真实性能。
+- 第二讲显存专题按参数、梯度、Adam 一阶矩与二阶矩、前向激活、梯度累积及激活检查点的顺序补课。配套文件：lectures/01_overview_tokenization.md、lectures/02_pytorch_resource_accounting.md。
+- 新增 code/lecture_02/training_memory_walkthrough.py 和 tests/lecture_02/test_training_memory_walkthrough.py。**本地 CPU 实际验证：2 项单元测试通过**，涵盖 FP32 状态账本与正确缩放的梯度累积；未测 GPU 峰值显存，也未测 activation checkpointing 的真实性能。
 - 课程仍处于 Lecture 2，允许之后继续第三讲，不需要无限重复第一讲验收。
 
 ## 第一讲掌握检查

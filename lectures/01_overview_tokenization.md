@@ -289,7 +289,7 @@ $
 在仓库根目录运行：
 
 ~~~bash
-python code/tokenization_demo.py
+python code/lecture_01/tokenization_demo.py
 python -m unittest discover -s tests -v
 ~~~
 
@@ -360,7 +360,7 @@ decode(encode(text)) == text
 - Tokenization 影响输入长度、词表和计算/内存成本。
 - 任何关于质量或速度的结论都需要独立测量，不能仅凭 token 数判断。
 
-> 如果 UTF-8、字节级 BPE 与推理延迟的区别仍有疑问，阅读[第一讲针对性补课](../notes/01_tokenization_followup.md)。这一补课不强制阻挡第二讲进度。
+> 如果 UTF-8、字节级 BPE 与推理延迟的区别仍有疑问，阅读[第一讲针对性补课]()。这一补课不强制阻挡第二讲进度。
 
 ## Part 11 — 自测与验收
 
