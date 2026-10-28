@@ -32,7 +32,7 @@
 - **tests/lecture_02/test_resource_accounting_demo.py**：第二讲新增 5 项 CPU 单元测试。
 - **exercises/chapter_02.md**：第二讲独立练习。
 - **lectures/01_overview_tokenization.md**：第一讲关键混淆点的简明补课。
-- **notes/02_training_memory_explained.md** / **notes/02_training_memory_strategies.md**：训练内存与优化策略深入补课。
+- 第二讲训练内存、梯度累积和激活检查点的深入讲解统一位于 lectures/02_pytorch_resource_accounting.md。
 - **code/lecture_02/training_memory_walkthrough.py** / **tests/lecture_02/test_training_memory_walkthrough.py**：CPU 梯度累积与 Adam 状态的可验证示例。
 - **experiments/README.md**：实验记录规范。
 

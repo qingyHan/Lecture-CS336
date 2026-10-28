@@ -34,7 +34,7 @@
 | 官方课程调研与课程地图 | 已完成初版 | ROADMAP.md、references/sources.md | 每一讲正式开课前继续核对对应 PDF/代码/handout |
 | Lecture 1：导论与 Tokenization | 讲义与笔记已修复；验收待完成 | lectures/01_overview_tokenization.md、lectures/01_overview_tokenization.md、exercises/chapter_01.md | 学习者回答练习并通过口头/书面检查 |
 | Tokenizer 教学实现 | 代码已执行；6 项单元测试通过（本次本地验证） | code/lecture_01/tokenization_demo.py、tests/lecture_01/test_tokenization_demo.py | 可扩展为带预分词规则、训练语料和复杂度分析的更完整实现 |
-| Lecture 2：PyTorch / einops / 资源核算 | **正在学习，讲义和代码已创建** | lectures/02_pytorch_resource_accounting.md、lectures/02_resource_accounting_deep_dive.md、lectures/02_pytorch_resource_accounting.md、code/lecture_02/resource_accounting_demo.py | 暂未进行 GPU 性能实验，等待学习者学习与实践 |
+| Lecture 2：PyTorch / einops / 资源核算 | **正在学习，讲义和代码已创建** | lectures/02_pytorch_resource_accounting.md、code/lecture_02/resource_accounting_demo.py | 暂未进行 GPU 性能实验，等待学习者学习与实践 |
 
 ## 诊断性验收与补课（2026-10-27）
 

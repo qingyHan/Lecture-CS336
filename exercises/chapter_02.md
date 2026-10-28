@@ -29,13 +29,12 @@
 ## 阅读与执行
 
 - [中文主讲](../lectures/02_pytorch_resource_accounting.md)
-- [深入篇](../lectures/02_resource_accounting_deep_dive.md)
 - [代码](../code/lecture_02/resource_accounting_demo.py)
 - [测试](../tests/lecture_02/test_resource_accounting_demo.py)
 
 ~~~bash
 python -m pip install torch einops
-python code/resource_accounting_demo.py
+python code/lecture_02/resource_accounting_demo.py
 python -m unittest discover -s tests -v
 ~~~
 

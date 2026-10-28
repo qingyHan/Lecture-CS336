@@ -43,7 +43,7 @@
 每个阶段按以下流程维护：
 
 1. 核对对应的官方课程材料。
-2. 完成讲解并更新 lectures/、notes/ 等文件。
+2. 完成讲解并更新 lectures/、exercises/、code/ 等文件。
 3. 运行适用的代码与测试；如未运行，明确标注。
 4. 更新 COURSE_INDEX.md 和 PROGRESS.md。
 5. 将相关文件作为一个逻辑完整的 Git commit 提交。
