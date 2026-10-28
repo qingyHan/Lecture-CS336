@@ -26,15 +26,23 @@
 
 ## 本地实践代码
 
+- **notebooks/lecture_01/01_tokenization_lab.ipynb**：逐步观察 Unicode、UTF-8 字节、pair 合并、Toy BPE 和 token 数变化。
 - **code/lecture_01/tokenization_demo.py**：字符 tokenizer、UTF-8 字节 tokenizer 和教学用 byte-level BPE。
 - **tests/lecture_01/test_tokenization_demo.py**：round-trip、BPE 合并和 Unicode 测试。
+- **notebooks/lecture_02/02_resource_accounting_lab.ipynb**：逐步观察 Tensor shape/dtype、einops、FLOPs、Roofline、梯度和梯度累积。
 - **code/lecture_02/resource_accounting_demo.py**：第二讲的 PyTorch/einops/FLOPs 教学代码。
 - **tests/lecture_02/test_resource_accounting_demo.py**：第二讲新增 5 项 CPU 单元测试。
 - **exercises/chapter_02.md**：第二讲独立练习。
-- **lectures/01_overview_tokenization.md**：第一讲关键混淆点的简明补课。
+- **lectures/01_overview_tokenization.md**：第一讲统一讲义，包含关键概念、推导、复习与扩展。
 - 第二讲训练内存、梯度累积和激活检查点的深入讲解统一位于 lectures/02_pytorch_resource_accounting.md。
 - **code/lecture_02/training_memory_walkthrough.py** / **tests/lecture_02/test_training_memory_walkthrough.py**：CPU 梯度累积与 Adam 状态的可验证示例。
 - **experiments/README.md**：实验记录规范。
+
+## Notebook 与脚本的分工
+
+- `.ipynb` 用于学习过程、需要频繁查看中间输出的实验和参数探索。
+- `.py` 用于较完整、可复用的实现、命令行工具与自动化测试。
+- Notebook 优先调用 `code/lecture_XX/` 中的实现，不复制整份核心实现；新手动实验应有明确的观察目标与结论问题。
 
 ## 版本控制原则
 

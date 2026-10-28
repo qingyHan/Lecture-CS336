@@ -360,7 +360,7 @@ decode(encode(text)) == text
 - Tokenization 影响输入长度、词表和计算/内存成本。
 - 任何关于质量或速度的结论都需要独立测量，不能仅凭 token 数判断。
 
-> 如果 UTF-8、字节级 BPE 与推理延迟的区别仍有疑问，阅读[第一讲针对性补课]()。这一补课不强制阻挡第二讲进度。
+> UTF-8、字节级 BPE 与推理延迟的补充推导已合并在本讲 Part 3–5；对应的逐步实验见[第一讲交互实验 Notebook](../notebooks/lecture_01/01_tokenization_lab.ipynb)。
 
 ## Part 11 — 自测与验收
 
@@ -370,6 +370,10 @@ decode(encode(text)) == text
 - **计算：** 能独立手算 ababab 的两次 merge。
 - **代码：** 能运行 demo 与测试，并解释测试覆盖和未覆盖的性质。
 - **综合：** 能解释 tokenizer 改动为什么会影响 embedding、训练成本与生成长度。
+
+## 交互式实验 Notebook
+
+需要逐步观察中间结果时，使用[第一讲 Tokenization 实验](../notebooks/lecture_01/01_tokenization_lab.ipynb)。Notebook 导入 `code/lecture_01/tokenization_demo.py` 中的实现，围绕 Unicode、BPE 合并与 token 数变化组织实验。
 
 ## 参考来源
 
