@@ -100,7 +100,7 @@ $$
 4. 参数、梯度、优化器状态、激活各需要多少显存？
 5. 梯度累积和激活检查点怎样以性能换内存？
 
-这些问题在[第二讲深入篇](02_resource_accounting_deep_dive.md)逐项推导。代码见[资源核算演示](../code/resource_accounting_demo.py)，测试见[单元测试](../tests/test_resource_accounting_demo.py)。
+相关推导已集中在本文件第 7–10 节。代码见[资源核算演示](../code/lecture_02/resource_accounting_demo.py)，测试见[单元测试](../tests/lecture_02/test_resource_accounting_demo.py)。
 
 运行：
 
@@ -189,7 +189,7 @@ assert torch.equal(w.grad, torch.tensor([1., 2., 3.]))
 
 ## 8. 训练为什么占用额外显存？
 
-**若这里的四项显存账本还比较抽象，请先阅读[训练显存逐项推导（上）]()、[激活与两种省显存策略（下）]()。**两篇补课从单参数求导开始，解释 Adam 状态、激活的维度和梯度累积的机制，并提供[实际跑通的中文代码](../code/lecture_02/training_memory_walkthrough.py)。
+如需复习训练显存，直接查看本文件第 9 节；对应的[中文 CPU 教学代码](../code/lecture_02/training_memory_walkthrough.py)可用于验证简化账本与梯度累积。
 
 
 需要同时考虑参数、梯度、优化器状态、激活和临时工作空间。
