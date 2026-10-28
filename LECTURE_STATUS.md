@@ -11,7 +11,7 @@
 | 4 | [Attention 替代方案与 MoE](lectures/04_attention_alternatives_moe.md) | 已复核主要主题与工程权衡 | 已修复复杂度公式、MoE 专家列表、top-k 与 tilde 符号显示 | 有官方 PDF 与参考论文；已明确 A1/A2/A3 衔接 | 本轮未执行 GPU 实验 | **复核中**：格式已修复；仍需核对复杂度口径并设计小型 GPU 对照实验 |
 | 5 | [GPU 与 TPU](lectures/05_gpus_tpus.md) | 已复核硬件层级、内存层次与工作负载映射 | 已规范化 Roofline、矩阵乘与算术强度公式 | 有官方 PDF；已明确 A2 衔接 | 本轮未运行 GPU benchmark | **复核中**：核心公式格式已修复；待在真实 GPU 上验证示例并核对硬件口径 |
 | 6 | [Kernel 与 Triton](lectures/06_kernels_triton.md) | 已复核 benchmark/profiling、Triton mask、Softmax、reduction 与 matmul 章节 | 核心公式与符号已检查；修复 C=AB 的行内公式格式 | 有官方可执行讲义与 Triton/PyTorch 参考；对应 A2 | 本轮未执行 GPU benchmark | **复核中**：讲义逻辑已检查；仍需在 GPU 上验证代码与性能测量流程 |
-| 7 | [并行计算 I](lectures/07_parallelism_collectives.md) | 已创建 | 初步检查无裸美元定界符异常 | 有参考来源；对应 A2 | 本轮未运行多卡实验 | **待复核** |
+| 7 | [并行计算 I](lectures/07_parallelism_collectives.md) | 已复核 collective、DDP、TP/PP 与 scaling efficiency；补充等/不等 batch 的梯度平均例子 | 核心公式已检查 | 有官方可执行讲义与 PyTorch Distributed 参考；对应 A2 | 本轮未运行多卡实验 | **复核中**：概念与梯度缩放示例已补；待在多 GPU 环境验证通信和更新一致性 |
 | 8 | [并行计算 II](lectures/08_parallelism_sharding.md) | 已创建 | 初步检查无裸美元定界符异常 | 有参考来源；对应 A2 | 本轮未运行多卡实验 | **待复核** |
 | 9 | [Scaling Laws 基础](lectures/09_scaling_laws_basics.md) | 已创建 | 待修复若干公式被普通括号包裹的问题 | 有参考来源；对应 A3 | 未拟合数据 | **待复核** |
 | 10 | [Inference](lectures/10_inference.md) | 已创建 | 待检查 KV cache 公式和行内格式 | 有参考来源；对应 A2/A3 | 未运行性能实验 | **待复核** |
