@@ -6,7 +6,7 @@
 | 讲次 | 笔记 | 结构与内容 | 数学 / Markdown | 来源与作业衔接 | 代码 / 实验 | 当前状态与剩余工作 |
 |---:|---|---|---|---|---|---|
 | 1 | [导论与 Tokenization](lectures/01_overview_tokenization.md) | 已复核主要章节 | 已修复 13 组独立显示公式的定界符 | 有官方 Lecture 1 源码链接；已注明 A1 时机 | 本轮未执行 demo/tests | **复核中**：下一步实际运行 demo 与测试，检查 toy BPE 边界案例 |
-| 2 | [PyTorch 与资源核算](lectures/02_pytorch_resource_accounting.md) | 待整理：第 8–9 节后出现重复编号的附加章节 | 待检查 | 有官方 Lecture 2 源码链接 | 本轮未执行代码 | **待复核**：先整理章节顺序，再核验资源估算 |
+| 2 | [PyTorch 与资源核算](lectures/02_pytorch_resource_accounting.md) | 已将重复编号的附加章节重排为第 8–10 节 | 主要资源公式结构保留；待做逐式核验 | 有官方 Lecture 2 源码链接 | 本轮未执行教学脚本或 GPU benchmark | **复核中**：结构问题已修复，下一步核对资源账本并运行小型代码示例 |
 | 3 | [Transformer 架构](lectures/03_architectures_hyperparameters.md) | 已创建 | 待修复若干公式被普通括号包裹、ldots 缺反斜杠的问题 | 有官方 PDF 与 A1 链接 | 本轮未执行代码 | **待复核** |
 | 4 | [Attention 替代方案与 MoE](lectures/04_attention_alternatives_moe.md) | 已创建 | 待检查行内公式格式与复杂度口径 | 有参考来源；需核对 A1/A2/A3 衔接 | 本轮未执行代码 | **待复核** |
 | 5 | [GPU 与 TPU](lectures/05_gpus_tpus.md) | 已创建 | 待检查 | 有参考来源；对应 A2 | 本轮未执行代码 | **待复核** |
