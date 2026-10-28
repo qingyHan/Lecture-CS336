@@ -15,7 +15,7 @@
 | 8 | [并行计算 II](lectures/08_parallelism_sharding.md) | 已复核 ZeRO、FSDP 生命周期、checkpointing/offload 与组合并行；补充参数状态分片的数值账本 | 公式与表格已检查 | 有官方 PDF 与 PyTorch FSDP 参考；对应 A2 | 本轮未运行多卡实验 | **复核中**：内存/通信概念已补充；待在多 GPU 环境验证峰值显存与数值一致性 |
 | 9 | [Scaling Laws 基础](lectures/09_scaling_laws_basics.md) | 已复核幂律、数据/模型/计算权衡、Kaplan/Chinchilla 与实验设计 | 已修复主要幂律与计算预算公式的行内定界符 | 有官方 PDF、原始论文与 A3 链接 | 本轮未拟合实验数据 | **复核中**：理论说明与格式已检查；待用实际数据拟合并检查残差/外推误差 |
 | 10 | [Inference](lectures/10_inference.md) | 已复核 prefill/decode、KV cache、量化、speculative decoding、continuous batching 与 PagedAttention；补充 KV cache 数值例子 | 已规范化 KV 头数、head dimension 和长度符号 | 有官方可执行讲义与论文/文档；对应 A2/A3/A5 | 本轮未运行推理 benchmark | **复核中**：公式与概念已检查；待用真实模型/请求集测量 TTFT、TBT、吞吐和显存 |
-| 11 | [Scaling Laws 实践](lectures/11_scaling_laws_practice.md) | 已创建 | 初步检查无裸美元定界符异常 | 有参考来源；对应 A3 | 未拟合数据 | **待复核** |
+| 11 | [Scaling Laws 实践](lectures/11_scaling_laws_practice.md) | 已复核 recipe、公平比较、muP 直觉与实验陷阱；新增 AdamW 更新式和跨宽度诊断指标 | 已加入优化器与相对更新幅度公式 | 有官方 PDF、muP/Adam/AdamW 论文与 A3 链接；官方 PDF 仍需逐页核对 | 本轮未拟合数据或运行训练 | **复核中**：公式和实验设计已补；待核对官方课件案例并运行小规模宽度对照 |
 | 12 | [Evaluation](lectures/12_evaluation.md) | 已创建 | 待修复条件负对数似然公式格式 | 有参考来源；对应 A3/A4/A5 | 未运行评测 | **待复核** |
 | 13 | [数据来源与数据集](lectures/13_data_sources_datasets.md) | 已创建 | 初步检查无裸美元定界符异常 | 有参考来源；对应 A4 | 未运行数据管线 | **待复核** |
 | 14 | [数据处理与混合](lectures/14_data_processing_mixing.md) | 已创建 | 待检查 data mixing 公式格式 | 有参考来源；对应 A4 | 未运行大数据实验 | **待复核** |
