@@ -12,7 +12,7 @@ RLHF 的 reward model 试图预测人类偏好；但在数学、代码和有明�
 
 ## 2. 从语言模型到策略梯度
 
-对 prompt (x)，策略 (pi_\theta) 采样回答 (y)，验证器给出奖励 (R(x,y))。目标是最大化期望奖励：
+对 prompt $x$，策略 $\pi_\theta$ 采样回答 $y$，验证器给出奖励 $R(x,y)$。目标是最大化期望奖励：
 
 $$
 J(\theta)=\mathbb E_{x\sim D,\,y\sim\pi_\theta(\cdot\mid x)}[R(x,y)].
@@ -31,7 +31,7 @@ $$
 \log\pi_\theta(y\mid x)=\sum_{t=1}^{T}\log\pi_\theta(y_t\mid x,y_{<t}).
 $$
 
-因此序列奖励会影响回答中的 token 概率。直接使用原始奖励会产生高方差；baseline 或 advantage 可降低方差而不改变理想期望梯度（前提是 baseline 不依赖当前 action 的不当方式）。
+因此序列奖励会影响回答中的 token 概率。直接使用原始奖励会产生高方差；baseline 或 advantage 可降低方差。标准无偏推导中，baseline 可以依赖 prompt/state，但不应依赖当前采样的 action；若依赖 action，通常会引入偏差，除非使用了相应修正。
 
 ## 3. Advantage 与策略更新
 
@@ -41,7 +41,7 @@ $$
 A_i=R_i-b(x),
 $$
 
-其中 (b(x)) 可为同一 prompt 下奖励的平均值或 value model 估计。正 advantage 会提高对应回答的 log-probability，负 advantage 则降低。
+其中 $b(x)$ 可为同一 prompt 下奖励的平均值或 value model 估计。正 advantage 会提高对应回答的 log-probability，负 advantage 则降低。
 
 在语言模型中，token-level loss 通常包含 response mask；prompt token、padding、被排除的 token 不能被错误地计入 policy loss。若使用长度归一化或按 token 平均 advantage，优化目标会与按序列求和不同，必须检查算法定义。
 
@@ -49,14 +49,17 @@ $$
 
 PPO 使用旧策略与新策略的概率比率，并通过 clipping 限制更新幅度。GRPO（Group Relative Policy Optimization）的一种常见形式是：对同一个 prompt 采样一组回答，按组内奖励计算相对 advantage，从而减少或替代单独的 value model。
 
-设同一个 prompt 采样 G 个回答，奖励为 (r_1,\ldots,r_G)，常见组内标准化形式：
+设同一个 prompt 采样 G 个回答，奖励为 $r_1,\ldots,r_G$，常见组内标准化形式：
 
 $$
-A_i=\frac{r_i-\operatorname{mean}(r_1,\ldots,r_G)}
-{\operatorname{std}(r_1,\ldots,r_G)+\epsilon}.
+A_i=\frac{r_i-\operatorname{mean}$r_1,\ldots,r_G$}
+{\operatorname{std}$r_1,\ldots,r_G$+\epsilon}.
 $$
 
 这只是常见的组相对估计形式；具体 GRPO 变体在 KL 项、clip 目标、token-level/sequence-level loss、长度归一化和奖励标准化上可能不同。实现时必须以指定论文/handout 的精确定义为准。
+
+例如，若一组奖励是 $[0,1,1,0]$，组内均值为 $0.5$，中心化后的奖励为 $[-0.5,0.5,0.5,-0.5]$。奖励高于组均值的回答得到正的相对信号，低于均值的回答得到负信号。若再除以标准差，数值取决于标准差的定义与 $\epsilon$；复现时不能忽略这些实现约定。
+
 
 ### 4.1 为什么使用 group-relative reward？
 
