@@ -78,6 +78,9 @@ assert torch.equal(w.grad, torch.tensor([1., 2., 3.]))
 
 ## 8. 训练为什么占用额外显存？
 
+**若这里的四项显存账本还比较抽象，请先阅读[训练显存逐项推导（上）](../notes/02_training_memory_explained.md)、[激活与两种省显存策略（下）](../notes/02_training_memory_strategies.md)。**两篇补课从单参数求导开始，解释 Adam 状态、激活的维度和梯度累积的机制，并提供[实际跑通的中文代码](../code/training_memory_walkthrough.py)。
+
+
 需要同时考虑参数、梯度、优化器状态、激活和临时工作空间。
 
 一个特定假设是每个参数各存一份 fp32 权重、fp32 梯度和两组 fp32 Adam 状态，则每参数 $4+4+4+4=16$ bytes，10 亿参数仅这几项约 16 GB（十进制），尚未算激活。

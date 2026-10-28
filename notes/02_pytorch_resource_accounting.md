@@ -71,3 +71,10 @@ $$
 梯度累积通过顺序处理 micro-batch 降低单次激活峰值；激活检查点通过反向重新计算中间结果来省内存。都不是无条件免费加速。
 
 研究的顺序：**shape → 字节数 → FLOPs → 数据搬运 → 瓶颈 → 真实 benchmark**。
+
+
+## 本讲进一步补课
+
+- [训练显存逐项推导：权重、梯度、Adam 状态](02_training_memory_explained.md)
+- [激活、梯度累积和激活检查点](02_training_memory_strategies.md)
+- [已运行的中文 CPU 教学代码](../code/training_memory_walkthrough.py)

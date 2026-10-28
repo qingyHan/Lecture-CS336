@@ -1,6 +1,6 @@
 # PROGRESS — 学习进度
 
-最后更新：2026-10-27
+最后更新：2026-10-28
 
 ## 总体状态
 
@@ -63,6 +63,13 @@
 学习者对第一讲第三题已明确理解核心逻辑：总推理延迟由不同部分决定，只改善某一部分不能代表整体降低比例。在 40 ms 固定 + 60 ms 线性开销的假设下，若 token 减少 30%，理论新延迟是 $40+60\times0.7=82$ ms，降低 18%；具体数字由导师补充，不算个人独立计算验收。
 
 按学习者明确要求**不再因第一讲遗留小题阻挡进度**，已开始官方 Spring 2026 第二讲。第二讲 5 项 CPU 测试实际通过，GPU benchmark 未开展。
+
+## 第一讲薄弱点与第二讲显存补课（2026-10-28）
+
+- 根据学习者要求继续补讲第一讲：UTF-8/基础字节值/BPE 的区别，重叠 pair 的非重叠替换，Prefill/Decode 与端到端延迟。讲解和学习资料已更新；尚未将未独立验证的知识点标为“已通过”。
+- 第二讲显存专题按参数、梯度、Adam 一阶矩与二阶矩、前向激活、梯度累积及激活检查点的顺序补课。配套文件：notes/01_tokenization_followup.md、notes/02_training_memory_explained.md、notes/02_training_memory_strategies.md。
+- 新增 code/training_memory_walkthrough.py 和 tests/test_training_memory_walkthrough.py。**本地 CPU 实际验证：2 项单元测试通过**，涵盖 FP32 状态账本与正确缩放的梯度累积；未测 GPU 峰值显存，也未测 activation checkpointing 的真实性能。
+- 课程仍处于 Lecture 2，允许之后继续第三讲，不需要无限重复第一讲验收。
 
 ## 第一讲掌握检查
 

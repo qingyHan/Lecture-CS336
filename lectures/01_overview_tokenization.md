@@ -62,7 +62,7 @@ list(map(ord, "Hi!"))  # [72, 105, 33]
 
 ~~~python
 "🌍".encode("utf-8")
-# b'\\xf0\\x9f\\x8c\\x8d'
+# b'\xf0\x9f\x8c\x8d'
 ~~~
 
 基础字节表固定为 256 种取值，任何合法 UTF-8 文本都能由字节表示，不必为每个新词设置 UNK。但一个 Unicode 字符可能占多个字节，序列通常更长。任意字节序列却不一定能解码为合法 UTF-8。
@@ -359,6 +359,8 @@ decode(encode(text)) == text
 - BPE 的核心是统计相邻 pair 并按顺序合并。
 - Tokenization 影响输入长度、词表和计算/内存成本。
 - 任何关于质量或速度的结论都需要独立测量，不能仅凭 token 数判断。
+
+> 如果 UTF-8、字节级 BPE 与推理延迟的区别仍有疑问，阅读[第一讲针对性补课](../notes/01_tokenization_followup.md)。这一补课不强制阻挡第二讲进度。
 
 ## Part 11 — 自测与验收
 
