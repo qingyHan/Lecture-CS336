@@ -18,7 +18,7 @@
 
 ## 2. SFT 的目标函数
 
-数据集由 prompt (x) 和示范回答 (y=(y_1,\ldots,y_T)) 组成。SFT 对回答 token 做条件最大似然：
+数据集由 prompt $x$ 和示范回答 $y=(y_1,\ldots,y_T)$ 组成。SFT 对回答 token 做条件最大似然：
 
 $$
 \mathcal L_{SFT}(\theta)=-\mathbb E_{(x,y)}\left[\sum_{t=1}^{T}\log\pi_\theta(y_t\mid x,y_{<t})\right].
@@ -30,13 +30,32 @@ $$
 
 对话常被序列化为带角色标记的 token 流。模型需要学会何时轮到 assistant、何时结束回答、何时调用工具。Packing 可以把多个短样本拼到固定长度序列以减少 padding，但必须防止不同样本之间意外互相注意或跨样本计算 loss，除非该训练格式明确允许。
 
-### 2.2 SFT 的局限
+### 2.2 最小 loss mask 例子
+
+假设序列化后的 token 是
+
+$
+[p_1,p_2,y_1,y_2,y_3],
+$
+
+其中 $p_1,p_2$ 属于 prompt，$y_1,y_2,y_3$ 属于 assistant response。自回归模型在位置 $t$ 用 logits 预测下一个 token；SFT 通常只对 response 对应的目标 token 计算损失。常见实现会把 prompt 目标位置标记为忽略值（例如 PyTorch cross-entropy 常用的 $-100$），并确保 labels 与 logits 按 causal shift 对齐。
+
+示意 labels 可以写成
+
+$
+[-100,-100,y_1,y_2,y_3].
+$
+
+这只是展示 mask 的意图；不同训练框架的内部 shift 约定不同，必须检查实际 loss 实现。错误地把 prompt token 也计入 loss，会让目标函数偏离“模仿 assistant response”；错误地移位则可能让模型预测错 token。
+
+
+### 2.3 SFT 的局限
 
 示范数据告诉模型“应该怎么回答”，但数据覆盖有限；模仿也不一定让模型在所有可行回答之间做出最佳选择。SFT 质量高度依赖 prompt 分布、标注一致性、答案准确性、风格和长度。大量低质量示范可能压过少量高质量样本。
 
 ## 3. 偏好数据：从单答案监督到成对比较
 
-对同一个 prompt (x)，采样两个回答 (y_w) 和 (y_l)，标注者选择更偏好的回答。与给每个答案打绝对分数相比，成对比较往往更容易让标注者保持相对一致，但它仍受标注者偏好、指引、位置、长度与领域知识影响。
+对同一个 prompt $x$，采样两个回答 $y_w$ 和 $y_l$，标注者选择更偏好的回答。与给每个答案打绝对分数相比，成对比较往往更容易让标注者保持相对一致，但它仍受标注者偏好、指引、位置、长度与领域知识影响。
 
 常见来源包括：
 - 人类对候选回答的比较；
@@ -48,13 +67,13 @@ $$
 
 ## 4. Reward Model 与 Bradley–Terry 偏好模型
 
-奖励模型 (r_\phi(x,y)) 为 prompt/回答对输出标量分数。一个常见偏好模型假设：
+奖励模型 $r_\phi(x,y)$ 为 prompt/回答对输出标量分数。一个常见偏好模型假设：
 
 $$
 P(y_w\succ y_l\mid x)=\sigma\big(r_\phi(x,y_w)-r_\phi(x,y_l)\big),
 $$
 
-其中 (sigma(z)=1/(1+e^{-z}))。对应负对数似然损失：
+其中 $\sigma(z)=1/(1+e^{-z})$。对应负对数似然损失：
 
 $$
 \mathcal L_{RM}=-\log\sigma\big(r_\phi(x,y_w)-r_\phi(x,y_l)\big).
@@ -64,7 +83,7 @@ $$
 
 ## 5. KL 正则化的 RLHF 目标
 
-令 (pi_\theta) 为待优化策略，(pi_{ref}) 为参考模型，奖励为 (r(x,y))。一种常见目标形式是
+令 $\pi_\theta$ 为待优化策略，$\pi_{ref}$ 为参考模型，奖励为 $r(x,y)$。一种常见目标形式是
 
 $$
 \max_\pi\;\mathbb E_{x\sim D,\,y\sim\pi(\cdot\mid x)}[r(x,y)]
