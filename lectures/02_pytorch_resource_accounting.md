@@ -112,6 +112,8 @@ python -m unittest discover -s tests -v
 
 教学版 CPU 演示的 5 项单元测试已实际通过；尚未进行 GPU benchmark。
 
+需要逐步观察中间结果时，使用[第二讲资源核算实验](../notebooks/lecture_02/02_resource_accounting_lab.ipynb)。该 Notebook 覆盖 shape/dtype、einops、FLOPs、Roofline、autograd、Adam 状态与梯度累积；它不替代 `.py` 实现及自动化测试。
+
 
 ## 6. 为什么 FLOPs 不能直接变成秒数？
 
