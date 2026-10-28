@@ -221,3 +221,11 @@
 - 当前执行环境：PyTorch CPU build（2.10.0+cpu）、einops 0.8.2；无可用 CUDA 设备。
 - 本轮没有运行任何 GPU benchmark、Triton kernel、多 GPU 通信、真实训练、scaling fit、A4 大数据处理或 A5 RL 实验。
 - 所以本轮的“通过”只适用于上述 6 个文件的 CPU 单元测试与 3 个教学 demo，不代表整个 CS336 作业或所有课程实验通过。
+
+
+## Lecture 2 Notebook 设备策略修订（2026-10-29）
+
+- 更新 `notebooks/lecture_02/02_resource_accounting_lab.ipynb`：检测到 CUDA 时，将张量、Embedding、线性层与梯度累积实验放到 GPU；仅当当前环境没有 CUDA 时才 fallback 到 CPU。
+- 保留 dtype、FLOPs 和 Roofline 的纯数值 cell，不为没有张量运算的公式演算强行创建 GPU 张量。
+- 为 CUDA 路径加入设备名称输出与 `torch.cuda.manual_seed_all(0)`，方便记录实验设备并复现随机实验。
+- Notebook 继续保持无预制输出；执行状态需要单独记录，不能将修改文件视为执行通过。

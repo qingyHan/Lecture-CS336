@@ -6,7 +6,7 @@
 | 讲次 | 笔记 | 结构与内容 | 数学 / Markdown | 来源与作业衔接 | 代码 / 实验 | 当前状态与剩余工作 |
 |---:|---|---|---|---|---|---|
 | 1 | [导论与 Tokenization](lectures/01_overview_tokenization.md) | 已复核主要章节 | 已修复 13 组独立显示公式的定界符 | 有官方 Lecture 1 源码链接；已注明 A1 时机 | **CPU 实际运行 6 项单元测试并执行 demo**；代码/测试 Git blob SHA 与仓库一致 | **复核中**：基础 round-trip、两次 merge、重叠 pair 与负合并预算测试通过；学习者掌握情况仍需通过练习确认 |
-| 2 | [PyTorch 与资源核算](lectures/02_pytorch_resource_accounting.md) | 已将重复编号的附加章节重排为第 8–10 节 | 主要资源公式结构保留；逐式核验仍待继续 | 有官方 Lecture 2 源码链接 | **CPU 实际运行 7 项单元测试及两个 demo**；当前执行环境无 CUDA，未运行 GPU benchmark | **复核中**：张量形状、FLOPs、字节数、autograd 与梯度累积测试通过；真实 GPU 峰值显存仍待测 |
+| 2 | [PyTorch 与资源核算](lectures/02_pytorch_resource_accounting.md) | 已将重复编号的附加章节重排为第 8–10 节 | 主要资源公式结构保留；逐式核验仍待继续 | 有官方 Lecture 2 源码链接 | **CPU 实际运行 7 项单元测试及两个 demo**；Notebook 已改为 CUDA 可用时优先使用 GPU，当前环境无 CUDA | **复核中**：张量形状、FLOPs、字节数、autograd 与梯度累积测试通过；Notebook 所有 code cell 待执行；真实 GPU 峰值显存仍待测 |
 | 3 | [Transformer 架构](lectures/03_architectures_hyperparameters.md) | 已检查主要章节与超参数表 | 已将常见公式从普通括号改为行内数学定界符，并修复 ldots 转义 | 有官方 PDF 与 A1 链接 | 本轮未执行代码 | **复核中**：主要格式问题已修复；下一步核对参数量假设并做小模型形状测试 |
 | 4 | [Attention 替代方案与 MoE](lectures/04_attention_alternatives_moe.md) | 已复核主要主题与工程权衡 | 已修复复杂度公式、MoE 专家列表、top-k 与 tilde 符号显示 | 有官方 PDF 与参考论文；已明确 A1/A2/A3 衔接 | 本轮未执行 GPU 实验 | **复核中**：格式已修复；仍需核对复杂度口径并设计小型 GPU 对照实验 |
 | 5 | [GPU 与 TPU](lectures/05_gpus_tpus.md) | 已复核硬件层级、内存层次与工作负载映射 | 已规范化 Roofline、矩阵乘与算术强度公式 | 有官方 PDF；已明确 A2 衔接 | 本轮未运行 GPU benchmark | **复核中**：核心公式格式已修复；待在真实 GPU 上验证示例并核对硬件口径 |
