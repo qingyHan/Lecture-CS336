@@ -82,6 +82,29 @@ Common Crawl 提供大规模网页抓取档案，是很多开放预训练数据�
 
 从工程治理角度，建议保留来源元数据、抓取时间、许可证/条款状态、处理步骤、删除/排除记录和数据版本。这样才能追溯某个样本为何进入语料，并在发现问题时定位、过滤或重新构建数据集。
 
+### 6.1 最小可追溯 metadata 示例
+
+下面是一个**示意 schema**，字段值均为占位符，不代表真实数据源。实际系统应按来源和许可要求增删字段。
+
+~~~json
+{
+  "document_id": "stable-internal-id",
+  "source_url": "https://example.org/page",
+  "crawl_snapshot": "crawl-or-dataset-version",
+  "retrieved_at": "YYYY-MM-DD",
+  "content_sha256": "hex-digest-of-normalized-content",
+  "parser_version": "parser-name-and-version",
+  "language": "detected-language",
+  "license_status": "reviewed | restricted | unknown",
+  "filter_decisions": ["language_filter:pass", "quality_filter:pass"],
+  "dedup_cluster_id": "cluster-id-or-null",
+  "exclusion_reason": null
+}
+~~~
+
+应区分原始字节 hash 与规范化正文 hash：前者用于确认原始文件是否完全相同，后者用于追踪抽取和规范化后的内容。若支持删除/排除请求，还需要将请求映射到所有相关版本、重复簇和已生成的下游数据清单。
+
+
 ## 7. 数据质量的目标依赖性
 
 “高质量文本”没有单一通用标准：
