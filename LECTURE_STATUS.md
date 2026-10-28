@@ -8,7 +8,7 @@
 | 1 | [导论与 Tokenization](lectures/01_overview_tokenization.md) | 已复核主要章节 | 已修复 13 组独立显示公式的定界符 | 有官方 Lecture 1 源码链接；已注明 A1 时机 | 本轮未执行 demo/tests | **复核中**：下一步实际运行 demo 与测试，检查 toy BPE 边界案例 |
 | 2 | [PyTorch 与资源核算](lectures/02_pytorch_resource_accounting.md) | 已将重复编号的附加章节重排为第 8–10 节 | 主要资源公式结构保留；待做逐式核验 | 有官方 Lecture 2 源码链接 | 本轮未执行教学脚本或 GPU benchmark | **复核中**：结构问题已修复，下一步核对资源账本并运行小型代码示例 |
 | 3 | [Transformer 架构](lectures/03_architectures_hyperparameters.md) | 已检查主要章节与超参数表 | 已将常见公式从普通括号改为行内数学定界符，并修复 ldots 转义 | 有官方 PDF 与 A1 链接 | 本轮未执行代码 | **复核中**：主要格式问题已修复；下一步核对参数量假设并做小模型形状测试 |
-| 4 | [Attention 替代方案与 MoE](lectures/04_attention_alternatives_moe.md) | 已创建 | 待检查行内公式格式与复杂度口径 | 有参考来源；需核对 A1/A2/A3 衔接 | 本轮未执行代码 | **待复核** |
+| 4 | [Attention 替代方案与 MoE](lectures/04_attention_alternatives_moe.md) | 已复核主要主题与工程权衡 | 已修复复杂度公式、MoE 专家列表及 tilde 符号显示 | 有官方 PDF 与参考论文；已明确 A1/A2/A3 衔接 | 本轮未执行 GPU 实验 | **复核中**：格式已修复；仍需核对复杂度口径并设计小型 GPU 对照实验 |
 | 5 | [GPU 与 TPU](lectures/05_gpus_tpus.md) | 已创建 | 待检查 | 有参考来源；对应 A2 | 本轮未执行代码 | **待复核** |
 | 6 | [Kernel 与 Triton](lectures/06_kernels_triton.md) | 已创建 | 初步检查无裸美元定界符异常 | 有参考来源；对应 A2 | 本轮未执行 GPU benchmark | **待复核** |
 | 7 | [并行计算 I](lectures/07_parallelism_collectives.md) | 已创建 | 初步检查无裸美元定界符异常 | 有参考来源；对应 A2 | 本轮未运行多卡实验 | **待复核** |
