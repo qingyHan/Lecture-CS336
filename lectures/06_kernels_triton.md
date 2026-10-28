@@ -92,7 +92,7 @@ $$
 
 ### 5.4 Matmul + ReLU：tiling 与 fusion
 
-矩阵乘法 C=AB 的每个输出元素是内积：
+矩阵乘法 $C=AB$ 的每个输出元素是内积：
 
 $$
 C_{ij}=\sum_{k=1}^{K}A_{ik}B_{kj}.
