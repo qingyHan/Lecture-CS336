@@ -2,6 +2,8 @@
 
 课程基准：Stanford CS336, Spring 2026。课程安排以[官方课程主页](https://cs336.stanford.edu/)为准；本地讲义是原创中文教学资料，不是官方逐字翻译。
 
+逐讲内容与验收状态见[LECTURE_STATUS.md](LECTURE_STATUS.md)；本轮进度、提交记录和未完成实验见[PROGRESS.md](PROGRESS.md)。
+
 ## 全部讲次
 
 | 讲次 | 官方主题 | 本地讲义 | 主要衔接 |

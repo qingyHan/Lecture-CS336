@@ -128,3 +128,61 @@
 - 笔记创建完成不代表课程内容已逐页复核，也不代表学习者掌握。
 - 后续答疑应修改对应的 lectures/XX 文件，不新建重复的补充笔记。
 - 新讲次、既有内容修复、仓库重构必须使用不同且符合 Conventional Commits 的提交。
+
+
+## CS336 全课程逐讲 QA 进度（2026-10-29）
+
+### 本轮已完成的仓库工作
+
+- 建立 [LECTURE_STATUS.md](LECTURE_STATUS.md)，按 19 讲记录结构、数学/Markdown、来源/作业衔接、代码/实验状态和剩余工作。
+- 第 1 讲：规范化 13 组显示公式定界符。
+- 第 2 讲：重排重复编号章节，形成连续的 10 个主章节。
+- 第 3–5 讲：修复行内数学表达式；补齐 Transformer、Attention/MoE、Roofline 等公式格式。
+- 第 6 讲：复核 Triton/benchmark 主线并修正矩阵乘记号。
+- 第 7 讲：增加 DDP 等/不等 batch 的梯度平均例子。
+- 第 8 讲：增加参数状态分片的数值内存账本。
+- 第 9 讲：规范化 scaling law 公式。
+- 第 10 讲：增加 KV Cache 容量的可手算示例。
+- 第 11 讲：增加 AdamW 更新式与相对更新幅度诊断。
+- 第 12 讲：修复 NLL/PPL 公式并增加数值例子。
+- 第 13 讲：增加数据 provenance metadata schema。
+- 第 14 讲：增加 Jaccard/MinHash 数值例子，明确 CPU-bound 数据解析与 GPU 优先原则的适用边界。
+- 第 15 讲：增加 SFT response-only loss mask 示例。
+- 第 16 讲：补充 GRPO 组内奖励例子，并明确 baseline 的无偏条件。
+- 第 17 讲：增加 CLIP 对称对比损失与视觉 patch/token 预算示例。
+- 第 18 讲：交叉核对官方日程、讲义仓库和录像入口，仍然缺少可核验课堂材料；没有编造内容。
+- 第 19 讲：修复 recurrence 与 KV Cache 的数学符号格式，明确录像与第三方辅助来源的证据边界。
+- 对 19 份讲义完成一次统一 Markdown/math delimiter scan；扫描未发现裸单美元显示定界符、未转义 ldots 或已知损坏符号模式。详见 [LECTURE_STATUS.md](LECTURE_STATUS.md)。
+
+### 本轮提交记录
+
+- [Lecture 1: display math](https://github.com/qingyHan/Lecture-CS336/commit/7d959748499f07ba329cee4f371b920b3a06c40b)
+- [Lecture 2: section structure](https://github.com/qingyHan/Lecture-CS336/commit/d4dc39f0a6873b9c5a91e7ce8f246648303a3e3a)
+- [Lecture 3: inline math](https://github.com/qingyHan/Lecture-CS336/commit/a3e098c0bb644f8635bbfed8c8fabe02f9a85d6d)
+- [Lecture 4: Attention/MoE notation](https://github.com/qingyHan/Lecture-CS336/commit/bd36c141c37d740504b2ec04fbe73f04695af418)
+- [Lecture 5: Roofline notation](https://github.com/qingyHan/Lecture-CS336/commit/7c30aade6c00ec9257b5dee70ffed44dbf3ee7e3)
+- [Lecture 6: Triton notation](https://github.com/qingyHan/Lecture-CS336/commit/4c6adb474ffaacedfcaf04cb721638a8f63bb6ca)
+- [Lecture 7: DDP example](https://github.com/qingyHan/Lecture-CS336/commit/6ec51c3fcb04c543b7c4834998aa8b5cb785f6b8)
+- [Lecture 8: sharded memory example](https://github.com/qingyHan/Lecture-CS336/commit/4b0f3648396ee005a4400d489ab7477c8d908054)
+- [Lecture 9: scaling equations](https://github.com/qingyHan/Lecture-CS336/commit/a2c07e99435b2e6435a0d8268335d10591e77afa)
+- [Lecture 10: KV cache sizing](https://github.com/qingyHan/Lecture-CS336/commit/a8179decdecb6e80e8897bb8143ea70f3e276150)
+- [Lecture 11: optimizer diagnostics](https://github.com/qingyHan/Lecture-CS336/commit/33d60b3fd35a7fe96ec45dd3e6c8526baabd86bc)
+- [Lecture 12: PPL example](https://github.com/qingyHan/Lecture-CS336/commit/ae5a646c1ff15ba2b1216276493ef05ec9c33a59)
+- [Lecture 13: provenance schema](https://github.com/qingyHan/Lecture-CS336/commit/28f186dedac8474f95ffb9d82dda993b4cebacb2)
+- [Lecture 14: Jaccard/MinHash](https://github.com/qingyHan/Lecture-CS336/commit/bc019d7a05a387be9a2defdb5fefcba424b06da3)
+- [Lecture 15: SFT mask](https://github.com/qingyHan/Lecture-CS336/commit/19a15533ad06d6bdeb0b9120c067f491d60a9abb)
+- [Lecture 16: GRPO example](https://github.com/qingyHan/Lecture-CS336/commit/83ed327c86fe0f76637e0ea65cc103e80c6eb054)
+- [Lecture 17: CLIP and vision token budget](https://github.com/qingyHan/Lecture-CS336/commit/c4bf00a9e80ab59a60bf1777c65c3ee209c487d8)
+- [Lecture 18: source gap audit](https://github.com/qingyHan/Lecture-CS336/commit/9c023d9d5a4b2d8729fd6f483d32c86182a89fe7)
+- [Lecture 19: recurrence notation](https://github.com/qingyHan/Lecture-CS336/commit/2b1a57fa67d1aa30f17f1588f45d51b8a09f9598)
+- [Cross-lecture display math normalization](https://github.com/qingyHan/Lecture-CS336/commit/725fe608825b90899ac10a7ca2b6f13e373a2c5e)
+
+### 下一阶段计划
+
+1. 逐份运行现有代码和 tests；先做可在当前环境执行的小测试，再记录需要 GPU/多 GPU 的任务。
+2. 逐份实际执行两份现有 Jupyter Notebook，检查每个 code cell 和输出；空输出 Notebook 不能标记为运行通过。
+3. 继续逐页复核官方 PDF 讲次，特别是 Lecture 3–5、8–9、11、15–16；把课程原始主线与本项目补充讲解分开标注。
+4. 按课程依赖推进 A1→A2→A3→A4→A5 的作业实践；每项作业先做小规模正确性测试，再决定 GPU 预算。
+5. 继续监测 Lecture 18 的官方资料缺口；只有出现可核验来源后才补写讲座内容。
+
+**验收口径提醒：** 当前进度是“19 讲均有文件 + 主要内容/公式格式做过逐讲修订 + 跨讲 Markdown 扫描完成”，不是“所有代码、Notebook、GPU 实验和全部课堂细节已验收通过”。

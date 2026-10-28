@@ -10,7 +10,8 @@
 - 课程索引：[COURSE_INDEX.md](COURSE_INDEX.md)。
 - 课程地图与学习路径：[ROADMAP.md](ROADMAP.md)。
 - 官方来源和版本记录：[references/sources.md](references/sources.md)。
-- 学习进度：[PROGRESS.md](PROGRESS.md)。
+- 逐讲质量状态：[LECTURE_STATUS.md](LECTURE_STATUS.md)。
+- 学习进度与提交记录：[PROGRESS.md](PROGRESS.md)。
 
 ## 推荐使用方式
 
