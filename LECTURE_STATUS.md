@@ -5,8 +5,8 @@
 
 | 讲次 | 笔记 | 结构与内容 | 数学 / Markdown | 来源与作业衔接 | 代码 / 实验 | 当前状态与剩余工作 |
 |---:|---|---|---|---|---|---|
-| 1 | [导论与 Tokenization](lectures/01_overview_tokenization.md) | 已复核主要章节 | 已修复 13 组独立显示公式的定界符 | 有官方 Lecture 1 源码链接；已注明 A1 时机 | **CPU 实际运行 6 项单元测试并执行 demo**；代码/测试 Git blob SHA 与仓库一致 | **复核中**：基础 round-trip、两次 merge、重叠 pair 与负合并预算测试通过；学习者掌握情况仍需通过练习确认 |
-| 2 | [PyTorch 与资源核算](lectures/02_pytorch_resource_accounting.md) | 已将重复编号的附加章节重排为第 8–10 节 | 主要资源公式结构保留；逐式核验仍待继续 | 有官方 Lecture 2 源码链接 | **CPU 实际运行 7 项单元测试及两个 demo**；Notebook 已改为 CUDA 可用时优先使用 GPU，当前环境无 CUDA | **复核中**：张量形状、FLOPs、字节数、autograd 与梯度累积测试通过；Notebook 所有 code cell 待执行；真实 GPU 峰值显存仍待测 |
+| 1 | [导论与 Tokenization](lectures/01_overview_tokenization.md) | 已复核主要章节 | 已修复 13 组独立显示公式的定界符 | 有官方 Lecture 1 源码链接；已注明 A1 时机 | **6 项 CPU 单元测试通过；demo 成功；Notebook 6/6 code cells 顺序执行成功** | **复核中**：代码路径通过；Notebook 未做 Jupyter UI/渲染检查；学习者掌握情况仍需通过练习确认 |
+| 2 | [PyTorch 与资源核算](lectures/02_pytorch_resource_accounting.md) | 已将重复编号的附加章节重排为第 8–10 节 | 主要资源公式结构保留；逐式核验仍待继续 | 有官方 Lecture 2 源码链接 | **7 项 CPU 单元测试通过；两个 demo 成功；Notebook 10/10 code cells 顺序执行成功；CUDA 路径未实测** | **复核中**：CPU 代码路径通过；Notebook 未做 Jupyter UI/渲染检查；真实 GPU 峰值显存仍待测 |
 | 3 | [Transformer 架构](lectures/03_architectures_hyperparameters.md) | 已检查主要章节与超参数表 | 已将常见公式从普通括号改为行内数学定界符，并修复 ldots 转义 | 有官方 PDF 与 A1 链接 | 本轮未执行代码 | **复核中**：主要格式问题已修复；下一步核对参数量假设并做小模型形状测试 |
 | 4 | [Attention 替代方案与 MoE](lectures/04_attention_alternatives_moe.md) | 已复核主要主题与工程权衡 | 已修复复杂度公式、MoE 专家列表、top-k 与 tilde 符号显示 | 有官方 PDF 与参考论文；已明确 A1/A2/A3 衔接 | 本轮未执行 GPU 实验 | **复核中**：格式已修复；仍需核对复杂度口径并设计小型 GPU 对照实验 |
 | 5 | [GPU 与 TPU](lectures/05_gpus_tpus.md) | 已复核硬件层级、内存层次与工作负载映射 | 已规范化 Roofline、矩阵乘与算术强度公式 | 有官方 PDF；已明确 A2 衔接 | 本轮未运行 GPU benchmark | **复核中**：核心公式格式已修复；待在真实 GPU 上验证示例并核对硬件口径 |
@@ -55,6 +55,13 @@
 - [x] 首次运行 `python -m unittest discover -s tests` 发现 0 项测试，原因是测试子目录没有 `__init__.py`，unittest 没有递归进入子包。
 - [x] 新增 `tests/__init__.py`、`tests/lecture_01/__init__.py`、`tests/lecture_02/__init__.py` 后，根目录 discovery 成功发现并通过 **13/13 项测试**。
 - [ ] 当前执行容器的 PyTorch 是 CPU build，`torch.cuda.is_available()` 为 False；因此 GPU benchmark、显存峰值、Triton 和多 GPU 测试未运行，不能标记通过。
+
+### Notebook code-cell 执行结果（2026-10-29）
+
+- [x] Lecture 1 Notebook：从当前仓库 notebook JSON 读取的 6 个 code cell 按原顺序在共享 Python namespace 中执行，6/6 成功。
+- [x] Lecture 2 Notebook：更新为 CUDA 可用时优先使用 GPU；当前容器无 CUDA，10 个 code cell 按顺序走 CPU fallback，10/10 成功。
+- [x] Notebook 文件仍保持空 outputs 与 null execution_count，避免把 QA 输出直接提交为学习者的预制输出。
+- [ ] 本轮未使用完整 Jupyter UI/nbclient 对 notebook 文件做渲染验收；未测试 CUDA 分支，也未在 GPU 上测量显存或性能。
 
 ## 验收原则
 

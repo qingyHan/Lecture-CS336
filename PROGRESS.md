@@ -229,3 +229,12 @@
 - 保留 dtype、FLOPs 和 Roofline 的纯数值 cell，不为没有张量运算的公式演算强行创建 GPU 张量。
 - 为 CUDA 路径加入设备名称输出与 `torch.cuda.manual_seed_all(0)`，方便记录实验设备并复现随机实验。
 - Notebook 继续保持无预制输出；执行状态需要单独记录，不能将修改文件视为执行通过。
+
+
+## Notebook code-cell 顺序执行（2026-10-29）
+
+- Lecture 1 Notebook：6/6 code cells 顺序执行成功。覆盖 UTF-8/Unicode 观察、非重叠 pair merge、两轮 Toy BPE、merge budget 变化和多语言 round-trip。
+- Lecture 2 Notebook：10/10 code cells 顺序执行成功。覆盖 Embedding shape、dtype 字节数、einops、FLOPs、Roofline、autograd、Adam 状态、激活字节数和梯度累积。
+- Lecture 2 Notebook 已改为 CUDA 可用时优先使用 GPU，并在 CUDA 环境记录 GPU 名称、设置 CUDA 随机种子；当前执行环境无 CUDA，因此本轮走 CPU fallback。
+- QA 执行时 Notebook 文件保持空 outputs 与 null execution_count，未把临时输出写回学习 Notebook。
+- 这是对当前 notebook JSON 中代码单元的顺序执行检查；尚未使用 Jupyter UI/nbclient 做渲染验收，也未实测 GPU 分支。
