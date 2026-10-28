@@ -95,3 +95,36 @@
 - 新增 `notebooks/lecture_02/02_resource_accounting_lab.ipynb`：Tensor shape/dtype、einops、FLOPs、Roofline、autograd、Adam 状态、激活字节数与梯度累积一致性。
 - 两份 Notebook 的输出保持为空，要求学习者在自己的环境中实际执行；创建文件和 JSON 结构检查不等于已验证所有代码 Cell。目标环境完整执行待完成。
 - 以后 Notebook 负责逐步探索和可观察输出；`.py` 保留可复用实现、完整逻辑与自动化测试。
+
+## 课程资料建设批次（2026-10-28）
+
+### 讲义建设状态
+
+| 讲次 | 笔记状态 | 官方资料证据 | 备注 |
+|---:|---|---|---|
+| 1–2 | 已有讲义；待继续逐页复核与修订 | 官方 lecture_01.py、lecture_02.py | 原有笔记保留；Notebook 运行验证仍待完成 |
+| 3–5 | 已创建 | 官方 schedule 与 lecture_03–05 PDF | 原创中文讲义，后续可按问题针对性修订 |
+| 6–8 | 已创建 | 官方 lecture_06.py、lecture_07.py、lecture_08.pdf | 包含 kernel、Triton 与多 GPU 并行 |
+| 9–11 | 已创建 | 官方 lecture_09.pdf、lecture_10.py、lecture_11.pdf | scaling law / inference；PDF 讲次仍可进一步逐页复核 |
+| 12–14 | 已创建 | 官方 lecture_12.py、lecture_13.py、lecture_14.py | evaluation 与 data pipeline |
+| 15–17 | 已创建 | 官方 lecture_15.pdf、lecture_16.pdf、lecture_17.py | SFT/RLHF、RLVR、多模态 |
+| 18 | 已创建资料缺口记录 | 官方 schedule 仅确认讲者与日期；本次未找到官方 PDF/trace/可核验录像 | **不能标记为课堂内容已完整复原** |
+| 19 | 已创建 | 官方 schedule 与公开 Stanford Online 录像；第三方讲座笔记仅作辅助 | 明确区分官方安排与补充整理 |
+
+### 作业真实性审计
+
+- [x] A1：51/51 文件 SHA 与官方当前 main 一致；官方课程主页仍链接该仓库，handout PDF SHA 一致；上游 README 标题年份仍为 Spring 2025，已记录。
+- [x] A2：28/28 文件 SHA 与官方当前 main 一致。
+- [x] A3：60/60 文件 SHA 与官方当前 main 一致。
+- [x] A4：52/52 文件 SHA 与官方当前 main 一致。
+- [x] A5：代码、配置、handout 与测试来源匹配；45 个 SHA 差异均位于 CSV 数据文件，抽样文件在换行符标准化后内容相同；大文件 professional_law_test.csv 尚未完成归一化全文核验。补入官方 .python-version（3.12）。
+- [x] 为 A1–A5 新增中文学习指南；官方源文件与测试尽量保持原样。
+- [x] 建立 [ASSIGNMENT_AUDIT.md](assignments/ASSIGNMENT_AUDIT.md) 记录证据和边界。
+
+### 资源与后续维护规则
+
+- GPU 为默认实验设备；只有 CPU 特有测试、GPU 不适用或明确的对照实验才选择 CPU。
+- 数据集、模型权重和缓存可按官方脚本下载；大文件不进入 Git，需记录来源、版本与校验信息。
+- 笔记创建完成不代表课程内容已逐页复核，也不代表学习者掌握。
+- 后续答疑应修改对应的 lectures/XX 文件，不新建重复的补充笔记。
+- 新讲次、既有内容修复、仓库重构必须使用不同且符合 Conventional Commits 的提交。

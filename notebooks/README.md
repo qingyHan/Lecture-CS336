@@ -7,6 +7,10 @@
 | Lecture 1 | [01_tokenization_lab.ipynb](lecture_01/01_tokenization_lab.ipynb) | Unicode/UTF-8、非重叠 pair 合并、Toy BPE、merge budget、round-trip | Python 标准库 |
 | Lecture 2 | [02_resource_accounting_lab.ipynb](lecture_02/02_resource_accounting_lab.ipynb) | Tensor shape/dtype、einops、FLOPs、Roofline、autograd、Adam 状态、激活大小、梯度累积 | Python、PyTorch、einops |
 
+## 设备默认值
+
+涉及训练、推理性能、显存、CUDA、Triton 或 GPU kernel 的实验默认使用 GPU。只有 CPU 特有测试或明确的 CPU/GPU 对照才使用 CPU。性能测量需在真实 GPU 环境执行。
+
 ## 运行方式
 
 从仓库根目录启动 Jupyter：

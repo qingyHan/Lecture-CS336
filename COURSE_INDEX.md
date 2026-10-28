@@ -1,51 +1,51 @@
 # COURSE_INDEX — 课程资料索引
 
-## 官方课程与项目资料的映射
+课程基准：Stanford CS336, Spring 2026。课程安排以[官方课程主页](https://cs336.stanford.edu/)为准；本地讲义是原创中文教学资料，不是官方逐字翻译。
 
-| 官方讲次 | 官方主题 | 本地讲义 | 本地笔记 | 对应作业 |
-|---:|---|---|---|---|
-| 1 | Overview, tokenization | [统一讲义](lectures/01_overview_tokenization.md) | 同一讲义内的复习与拓展 | A1 |
-| 2 | PyTorch (einops), resource accounting | [统一讲义](lectures/02_pytorch_resource_accounting.md) | 同一讲义内的深入推导与复习 | A1 / A2 |
-| 3 | Architectures, hyperparameters | 待创建 | 待创建 | A1 |
-| 4 | Attention alternatives and mixture of experts | 待创建 | 待创建 | A1 / A3 |
-| 5 | GPUs, TPUs | 待创建 | 待创建 | A2 |
-| 6 | Kernels, Triton | 待创建 | 待创建 | A2 |
-| 7 | Parallelism | 待创建 | 待创建 | A2 |
-| 8 | Parallelism | 待创建 | 待创建 | A2 |
-| 9 | Scaling laws | 待创建 | 待创建 | A3 |
-| 10 | Inference | 待创建 | 待创建 | A2 / A3 |
-| 11 | Scaling laws | 待创建 | 待创建 | A3 |
-| 12 | Evaluation | 待创建 | 待创建 | A3 / A4 |
-| 13 | Data: sources, datasets | 待创建 | 待创建 | A4 |
-| 14 | Data filtering, deduplication, mixing, synthetic data | 待创建 | 待创建 | A4 |
-| 15 | Mid/post-training (SFT/RLHF) | 待创建 | 待创建 | A5 |
-| 16 | Post-training — RLVR | 待创建 | 待创建 | A5 |
-| 17 | Alignment — multimodality | 待创建 | 待创建 | A5 / 扩展 |
-| 18 | Guest lecture: Daniel Selsam | 资料核实后创建 | 资料核实后创建 | — |
-| 19 | Guest lecture: Dan Fu | 资料核实后创建 | 资料核实后创建 | — |
+## 全部讲次
 
-## 本地实践代码
+| 讲次 | 官方主题 | 本地讲义 | 主要衔接 |
+|---:|---|---|---|
+| 1 | Overview, tokenization | [第 1 讲](lectures/01_overview_tokenization.md) | A1 |
+| 2 | PyTorch (einops), resource accounting | [第 2 讲](lectures/02_pytorch_resource_accounting.md) | A1 / A2 |
+| 3 | Architectures, hyperparameters | [第 3 讲](lectures/03_architectures_hyperparameters.md) | A1 |
+| 4 | Attention alternatives and mixture of experts | [第 4 讲](lectures/04_attention_alternatives_moe.md) | A1 / A2 / A3 |
+| 5 | GPUs, TPUs | [第 5 讲](lectures/05_gpus_tpus.md) | A2 |
+| 6 | Kernels, Triton | [第 6 讲](lectures/06_kernels_triton.md) | A2 |
+| 7 | Parallelism | [第 7 讲](lectures/07_parallelism_collectives.md) | A2 |
+| 8 | Parallelism | [第 8 讲](lectures/08_parallelism_sharding.md) | A2 |
+| 9 | Scaling laws | [第 9 讲](lectures/09_scaling_laws_basics.md) | A3 |
+| 10 | Inference | [第 10 讲](lectures/10_inference.md) | A2 / A3 / A5 |
+| 11 | Scaling laws | [第 11 讲](lectures/11_scaling_laws_practice.md) | A3 |
+| 12 | Evaluation | [第 12 讲](lectures/12_evaluation.md) | A3 / A4 / A5 |
+| 13 | Data: sources, datasets | [第 13 讲](lectures/13_data_sources_datasets.md) | A4 |
+| 14 | Data filtering, deduplication, mixing, synthetic data | [第 14 讲](lectures/14_data_processing_mixing.md) | A4 |
+| 15 | Mid/post-training (SFT/RLHF) | [第 15 讲](lectures/15_mid_post_training_sft_rlhf.md) | A5 |
+| 16 | Post-training — RLVR | [第 16 讲](lectures/16_rlvr_reasoning.md) | A5 |
+| 17 | Alignment — multimodality | [第 17 讲](lectures/17_multimodal_models.md) | A5 / 扩展 |
+| 18 | Guest lecture: Daniel Selsam | [第 18 讲：官方资料缺口记录](lectures/18_guest_daniel_selsam_source_gap.md) | 待找到可核验官方材料 |
+| 19 | Guest lecture: Dan Fu | [第 19 讲](lectures/19_guest_dan_fu_frontier_systems.md) | 推理系统与全栈优化 |
 
-- **notebooks/lecture_01/01_tokenization_lab.ipynb**：逐步观察 Unicode、UTF-8 字节、pair 合并、Toy BPE 和 token 数变化。
-- **code/lecture_01/tokenization_demo.py**：字符 tokenizer、UTF-8 字节 tokenizer 和教学用 byte-level BPE。
-- **tests/lecture_01/test_tokenization_demo.py**：round-trip、BPE 合并和 Unicode 测试。
-- **notebooks/lecture_02/02_resource_accounting_lab.ipynb**：逐步观察 Tensor shape/dtype、einops、FLOPs、Roofline、梯度和梯度累积。
-- **code/lecture_02/resource_accounting_demo.py**：第二讲的 PyTorch/einops/FLOPs 教学代码。
-- **tests/lecture_02/test_resource_accounting_demo.py**：第二讲新增 5 项 CPU 单元测试。
-- **exercises/chapter_02.md**：第二讲独立练习。
-- **lectures/01_overview_tokenization.md**：第一讲统一讲义，包含关键概念、推导、复习与扩展。
-- 第二讲训练内存、梯度累积和激活检查点的深入讲解统一位于 lectures/02_pytorch_resource_accounting.md。
-- **code/lecture_02/training_memory_walkthrough.py** / **tests/lecture_02/test_training_memory_walkthrough.py**：CPU 梯度累积与 Adam 状态的可验证示例。
-- **experiments/README.md**：实验记录规范。
+## 作业与学习时机
 
-## Notebook 与脚本的分工
+| 作业 | 官方目标摘要 | 建议开始时机 | 中文指南 |
+|---|---|---|---|
+| A1 — Basics | Tokenizer、模型架构、优化器与最小 LM 训练 | Lecture 1–3 后分组件进行 | [A1 指南](assignments/assignment1-basics/STUDY_GUIDE.zh-CN.md) |
+| A2 — Systems | Profiling、Triton Attention kernel、内存高效分布式训练 | Lecture 5–8 后 | [A2 指南](assignments/assignment2-systems/STUDY_GUIDE.zh-CN.md) |
+| A3 — Scaling | 训练 API、scaling law 拟合与规模预测 | Lecture 9–12 后 | [A3 指南](assignments/assignment3-scaling/STUDY_GUIDE.zh-CN.md) |
+| A4 — Data | Common Crawl 数据处理、过滤与去重 | Lecture 13–14 后 | [A4 指南](assignments/assignment4-data/STUDY_GUIDE.zh-CN.md) |
+| A5 — Alignment and Reasoning RL | SFT、强化学习与数学推理 | Lecture 15–16 后 | [A5 指南](assignments/assignment5-alignment/STUDY_GUIDE.zh-CN.md) |
 
-- `.ipynb` 用于学习过程、需要频繁查看中间输出的实验和参数探索。
-- `.py` 用于较完整、可复用的实现、命令行工具与自动化测试。
-- Notebook 优先调用 `code/lecture_XX/` 中的实现，不复制整份核心实现；新手动实验应有明确的观察目标与结论问题。
+五项作业的真实性与文件差异见[作业审计](assignments/ASSIGNMENT_AUDIT.md)。
 
-## 版本控制原则
+## 交互式实验与代码
 
-官方课程链接是版本入口；本地笔记是原创教学材料。每一讲开课前会把官方源文件、文件名/链接、版本线索和重要差异写入 references/sources.md，再据此更新本地讲义。
+- [Lecture 1 Notebook](notebooks/lecture_01/01_tokenization_lab.ipynb)：Unicode/UTF-8、byte-level BPE 与 merge。
+- [Lecture 2 Notebook](notebooks/lecture_02/02_resource_accounting_lab.ipynb)：Tensor shape、einops、FLOPs、Roofline、autograd 与梯度累积。
+- [Notebook 运行规范](notebooks/README.md)。
+- code/lecture_01/ 与 code/lecture_02/ 保存教学实现；tests/lecture_01/ 与 tests/lecture_02/ 保存正确性测试。
+- [实验记录规范](experiments/README.md)。
 
-Markdown 文件使用 GitHub 原生支持的 $...$ / $$...$$ 数学定界符与标准 pipe table；不要把 Pandoc 转换后产生的 {=tex} 等中间标记直接提交。
+## 资料来源规则
+
+官方课程安排和官方 handout 决定课程主题与作业要求。每份讲义都链接对应的官方 PDF 或可执行讲义。第三方材料只作为辅助阅读并明确标记。对没有可核验官方材料的讲次，不根据讲者背景编造课堂摘要。
