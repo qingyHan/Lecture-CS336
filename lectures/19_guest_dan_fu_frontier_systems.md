@@ -50,7 +50,7 @@ Prefill 通常一次处理多个 prompt token，矩阵运算规模大，较容�
 
 Continuous batching 允许新请求在其他请求仍在生成时进入执行队列，并在请求完成后动态调整活跃 batch。它能减少静态 batch 中等待最长序列的浪费，但引入动态内存管理、调度公平性和长尾延迟问题。
 
-KV cache 避免每生成一个 token 就重新计算所有历史 token 的 K/V。粗略地，若模型有 L 层、batch 为 B、历史长度 T、KV 头数 (h_{kv})、每头维度 (d_h)，每元素 b 字节，则
+KV cache 避免每生成一个 token 就重新计算所有历史 token 的 K/V。粗略地，若模型有 L 层、batch 为 B、历史长度 T、KV 头数 $h_{kv}$、每头维度 $d_h$，每元素 b 字节，则
 
 $$
 M_{KV}\approx 2LBT h_{kv}d_hb.
@@ -106,7 +106,7 @@ $$
 h_{t+1}=Ah_t+Be+\mathcal R(h_t,e),
 $$
 
-其中 h 是循环状态，e 是输入注入，A/B 表示简化的线性状态变换，(mathcal R) 表示复杂非线性更新。暂时忽略非线性，可得到
+其中 $h$ 是循环状态，$e$ 是输入注入，$A/B$ 表示简化的线性状态变换，$\mathcal R$ 表示复杂非线性更新。暂时忽略非线性，可得到
 
 $$
 h_{t+1}=A^t h_1+\left(\sum_{n=0}^{t-1}A^n\right)Be.

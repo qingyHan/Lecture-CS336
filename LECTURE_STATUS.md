@@ -23,7 +23,7 @@
 | 16 | [RLVR 与推理训练](lectures/16_rlvr_reasoning.md) | 已复核 RLVR、REINFORCE、advantage、PPO/GRPO、verifier 与失败模式；补充组内奖励数值例子 | 已规范化策略/奖励符号并明确 baseline 无偏条件 | 有官方 PDF、RLVR/推理论文与 A5 链接 | 本轮未运行 RL 实验 | **复核中**：公式与实现边界已补；待用 toy rollout 验证 reward、mask、advantage 和更新方向 |
 | 17 | [多模态模型](lectures/17_multimodal_models.md) | 已复核 ViT、CLIP/SigLIP、LLaVA、高分辨率与视频；补充 CLIP 对称对比损失和 patch 数值例子 | 已规范化 patch/token 预算公式 | 有官方可执行讲义与 CLIP/SigLIP/VLM 论文；作为课程扩展主题已标注 | 本轮未运行视觉模型 | **复核中**：主要公式与成本直觉已补；待用真实 VLM 对照测试验证图像依赖和视觉 token 成本 |
 | 18 | [Daniel Selsam 客座讲座](lectures/18_guest_daniel_selsam_source_gap.md) | 已交叉核对官方 schedule、官方讲义仓库和录像入口；第三方复核也报告同一缺口 | 不适用 | 已记录来源边界与第三方佐证，未推断讲座内容 | 不适用 | **资料缺口已核实记录**：内容仍未完成；需等待官方录像、字幕或讲者材料出现 |
-| 19 | [Dan Fu 客座讲座](lectures/19_guest_dan_fu_frontier_systems.md) | 已创建，基于公开录像并标注第三方辅助来源 | 待检查 recurrence 公式与符号 | 有公开录像链接；与 Lecture 10 推理系统衔接 | 未复现性能数字 | **待复核**：核对讲座主线与引用边界 |
+| 19 | [Dan Fu 客座讲座](lectures/19_guest_dan_fu_frontier_systems.md) | 已复核公开录像主线、serving pipeline、KV cache、Megakernel 与 recurrence scaling | 已修复 KV cache 和 recurrence 公式中的符号格式 | 有 Stanford Online 录像链接；第三方笔记仅作辅助 | 未复现性能数字或 GPU benchmark | **复核中**：讲义与来源边界已检查；仍需对照时间戳核验细节，不能把第三方性能数字当作实测 |
 
 ## 验收原则
 
