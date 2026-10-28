@@ -15,6 +15,18 @@
 - 解释 Pre-LN、残差连接、位置编码、注意力和 MLP 的职责；
 - 在不依赖高层模型库的情况下实现一个小型 GPT 的前向传播。
 
+## 1.1 配套学习材料与建议顺序
+
+本讲不建议只阅读 Markdown。按以下顺序完成一个小型学习闭环：
+
+1. 先阅读本讲的数据流和张量形状推导，再查看[Decoder-only Transformer 架构图](../diagrams/lecture_03_decoder_only_transformer.svg)。
+2. 运行[最小 Transformer 教学实现](../code/lecture_03/tiny_transformer.py)，观察 logits、attention weights 与 next-token loss。
+3. 运行[7 项自动化测试](../tests/lecture_03/test_tiny_transformer.py)，重点理解 causal mask 与 future-token test 验证了什么。
+4. 从仓库根目录启动 Jupyter，按顺序执行[交互式实验 Notebook](../notebooks/lecture_03/03_transformer_architecture_lab.ipynb)。
+5. 做完[第 3 讲练习](../exercises/chapter_03.md)，并阅读[来源清单](../references/lecture_03_sources.md)和[实验记录](../experiments/lecture_03_transformer_smoke.md)。
+
+教学实现是用于理解张量和因果性的最小参考模型，不是官方 staff implementation，也不是生产级模型。当前已在 CPU 环境完成正确性测试；GPU 性能尚未验证。
+
 ## 2. 从下一个 token 预测出发
 
 令 token 序列为 $x_1,\ldots,x_T$。自回归语言模型按链式法则分解联合概率：
