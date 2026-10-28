@@ -53,17 +53,17 @@ $$
 
 其中 $\tau$ 是温度参数。训练目标让配对的图像/文本相似度高于 batch 中不匹配的组合，常用双向对比交叉熵。若一个 batch 中第 $i$ 个图像与第 $i$ 个文本为配对样本，常见的对称损失可写为
 
-$
+$$
 \mathcal L_{I\to T}=-\frac1N\sum_{i=1}^{N}
 \log\frac{\exp(S_{ii})}{\sum_{j=1}^{N}\exp(S_{ij})},
-$
+$$
 
-$
+$$
 \mathcal L_{T\to I}=-\frac1N\sum_{i=1}^{N}
 \log\frac{\exp(S_{ii})}{\sum_{j=1}^{N}\exp(S_{ji})},
 \qquad
 \mathcal L_{\mathrm{CLIP}}=\frac{\mathcal L_{I\to T}+\mathcal L_{T\to I}}{2}.
-$
+$$
 
 这是假设 batch 内配对索引对齐的常见写法；若 batch 中存在重复图像、重复 caption 或其他 false negatives，负样本构造会影响学习信号。
 

@@ -34,17 +34,17 @@ $$
 
 假设序列化后的 token 是
 
-$
+$$
 [p_1,p_2,y_1,y_2,y_3],
-$
+$$
 
 其中 $p_1,p_2$ 属于 prompt，$y_1,y_2,y_3$ 属于 assistant response。自回归模型在位置 $t$ 用 logits 预测下一个 token；SFT 通常只对 response 对应的目标 token 计算损失。常见实现会把 prompt 目标位置标记为忽略值（例如 PyTorch cross-entropy 常用的 $-100$），并确保 labels 与 logits 按 causal shift 对齐。
 
 示意 labels 可以写成
 
-$
+$$
 [-100,-100,y_1,y_2,y_3].
-$
+$$
 
 这只是展示 mask 的意图；不同训练框架的内部 shift 约定不同，必须检查实际 loss 实现。错误地把 prompt token 也计入 loss，会让目标函数偏离“模仿 assistant response”；错误地移位则可能让模型预测错 token。
 

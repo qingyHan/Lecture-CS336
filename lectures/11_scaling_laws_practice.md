@@ -35,26 +35,26 @@
 
 以 AdamW 为例，简化更新式为
 
-$
+$$
 m_t=\beta_1m_{t-1}+(1-\beta_1)g_t,\qquad
 v_t=\beta_2v_{t-1}+(1-\beta_2)g_t^2,
-$
+$$
 
-$
+$$
 \theta_{t+1}
 =\theta_t-\eta\frac{\hat m_t}{\sqrt{\hat v_t}+\epsilon}
 -\eta\lambda\theta_t.
-$
+$$
 
 其中 $\hat m_t,\hat v_t$ 是偏差修正后的矩估计，最后一项表示与梯度更新解耦的 weight decay。该式用于解释优化器如何把梯度、学习率和参数共同映射成更新，不是所有优化器的通用公式。
 
 跨宽度比较时，可以记录每层的相对更新幅度：
 
-$
+$$
 \rho_\ell=
 \frac{\|\Delta W_\ell\|_F}
 {\|W_\ell\|_F+\epsilon}.
-$
+$$
 
 还可以跟踪激活 RMS 与反向梯度 RMS。若扩大宽度后这些统计量出现系统性漂移，说明仅保持同一学习率或初始化方差未必能维持相似的训练动力学。$\rho_\ell$ 是诊断指标，而不是证明两个模型等价的充分条件。
 
