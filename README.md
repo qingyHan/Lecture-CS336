@@ -10,8 +10,9 @@
 
 1. 阅读 [ROADMAP.md](ROADMAP.md)：确认课程地图、先修路径、作业和算力需求。
 2. 阅读 [references/sources.md](references/sources.md)：查看官方课程、讲义仓库、作业仓库和论文来源。
-3. 当前学习第二讲：[统一讲义](lectures/02_pytorch_resource_accounting.md)，理论、深入推导与复习内容集中在同一文件。
-4. 第一讲：[统一讲义](lectures/01_overview_tokenization.md)。代码按讲次分组在 code/lecture_01/ 与 code/lecture_02/。
+3. 当前学习第二讲：[统一讲义](lectures/02_pytorch_resource_accounting.md) + [交互式实验 Notebook](notebooks/lecture_02/02_resource_accounting_lab.ipynb)。
+4. 第一讲：[统一讲义](lectures/01_overview_tokenization.md) + [Tokenization 实验 Notebook](notebooks/lecture_01/01_tokenization_lab.ipynb)。
+5. 运行指南：[notebooks/README.md](notebooks/README.md)。代码按讲次分组在 code/lecture_01/ 与 code/lecture_02/。
 5. 第二讲练习：[exercises/chapter_02.md](exercises/chapter_02.md)。第一讲遗留练习可日后复习，不作为前进门槛。
 6. 在 [PROGRESS.md](PROGRESS.md) 记录理解、代码和实验的真实状态。
 
@@ -22,6 +23,7 @@
 - PROGRESS.md：学习进度和验收记录。
 - lectures/：每讲一份统一讲义，包含核心讲解、补充推导、复习要点与来源；不再维护重复的 notes/ 目录。
 - exercises/：概念、计算、代码和综合练习。
+- notebooks/lecture_XX/：按知识点拆分的交互式实验，观察中间输出、修改参数并验证假设。
 - experiments/：实验设计、执行记录规范。
 - code/lecture_XX/：按讲次分组的原创教学实现。
 - tests/lecture_XX/：按讲次分组的最小正确性测试。
@@ -43,7 +45,7 @@
 每个阶段按以下流程维护：
 
 1. 核对对应的官方课程材料。
-2. 完成讲解并更新 lectures/、exercises/、code/ 等文件。
+2. 完成讲解并按需更新 lectures/、exercises/、notebooks/ 和 code/ 等文件。
 3. 运行适用的代码与测试；如未运行，明确标注。
 4. 更新 COURSE_INDEX.md 和 PROGRESS.md。
 5. 将相关文件作为一个逻辑完整的 Git commit 提交。

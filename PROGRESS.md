@@ -7,16 +7,19 @@
 - [x] 初步调查当前官方课程主页和课程版本
 - [x] 建立覆盖 19 次排课和 5 项作业的初版课程地图
 - [x] 建立官方来源索引与版本注意事项
-- [x] 创建第一讲讲义、独立学习笔记和练习题
+- [x] 创建第一讲统一讲义和练习题
 - [x] 创建 tokenizer 教学代码和单元测试
-- [x] 修复第一讲讲义与笔记中的数学公式、表格和 BPE 示例说明
+- [x] 修复第一讲讲义中的数学公式、表格和 BPE 示例说明
 - [x] 补充第三题从矩阵乘法到复杂度、延迟的完整推导
 - [x] 教学代码注释与演示输出改为中文；新增并通过第 6 项测试
 - [ ] 学习者完成第一讲概念/计算/代码/综合验收
 - [ ] 学习者独立完成第一讲练习
-- [x] 已正式进入 Lecture 2；建立讲义、资源核算深入篇、复习笔记和练习
+- [x] 已正式进入 Lecture 2；建立统一讲义、练习和可复用教学代码
 - [x] 第二讲 CPU 教学代码 5 项单元测试实际通过
 - [ ] 第二讲个人学习验收
+- [x] 建立第一讲 Tokenization 交互式 Notebook（6 个代码 Cell，未预置运行输出）
+- [x] 建立第二讲资源核算交互式 Notebook（10 个代码 Cell，未预置运行输出）
+- [ ] 在目标 Python 环境执行两个 Notebook 的 Restart Kernel and Run All 验证
 
 ## 状态定义
 
@@ -32,9 +35,9 @@
 | 阶段 | 状态 | 证据/文件 | 未完成项 |
 |---|---|---|---|
 | 官方课程调研与课程地图 | 已完成初版 | ROADMAP.md、references/sources.md | 每一讲正式开课前继续核对对应 PDF/代码/handout |
-| Lecture 1：导论与 Tokenization | 讲义与笔记已修复；验收待完成 | lectures/01_overview_tokenization.md、lectures/01_overview_tokenization.md、exercises/chapter_01.md | 学习者回答练习并通过口头/书面检查 |
+| Lecture 1：导论与 Tokenization | 统一讲义已整理；验收待完成 | lectures/01_overview_tokenization.md、notebooks/lecture_01/01_tokenization_lab.ipynb、exercises/chapter_01.md | 学习者回答练习并通过口头/书面检查 |
 | Tokenizer 教学实现 | 代码已执行；6 项单元测试通过（本次本地验证） | code/lecture_01/tokenization_demo.py、tests/lecture_01/test_tokenization_demo.py | 可扩展为带预分词规则、训练语料和复杂度分析的更完整实现 |
-| Lecture 2：PyTorch / einops / 资源核算 | **正在学习，讲义和代码已创建** | lectures/02_pytorch_resource_accounting.md、code/lecture_02/resource_accounting_demo.py | 暂未进行 GPU 性能实验，等待学习者学习与实践 |
+| Lecture 2：PyTorch / einops / 资源核算 | **正在学习，讲义、Notebook 和代码已创建** | lectures/02_pytorch_resource_accounting.md、notebooks/lecture_02/02_resource_accounting_lab.ipynb、code/lecture_02/resource_accounting_demo.py | 暂未进行 GPU 性能实验，等待学习者学习与实践 |
 
 ## 诊断性验收与补课（2026-10-27）
 
@@ -84,4 +87,11 @@
 
 - 已有第一讲三题初答及 Attention 计算量专项追问数据。当前薄弱点为 UTF-8/Byte-level/BPE 的完整区分、端到端推理延迟与 Prefill/Decode 差异；不再视为“没有学习者答题数据”。
 - 全部讲义的逐讲深读将在各讲正式开始前完成；当前课程地图基于官方主页、课表、作业入口与第一讲源码的初步核查。
-- 本次修复统一第一讲数学公式为标准 $...$ / $$...$$，并将讲义、笔记、课程索引和进度表改为 GitHub 可识别的标准 Markdown 表格。提交后仍建议在 GitHub 页面检查实际渲染。
+- 本次修复统一第一讲数学公式为标准 $...$ / $...$，并将讲义、课程索引和进度表改为 GitHub 可识别的标准 Markdown 表格。提交后仍建议在 GitHub 页面检查实际渲染。
+
+## 交互式学习格式（2026-10-28）
+
+- 新增 `notebooks/lecture_01/01_tokenization_lab.ipynb`：Unicode/UTF-8、非重叠 pair 合并、Toy BPE、merge budget 与 round-trip 检查。
+- 新增 `notebooks/lecture_02/02_resource_accounting_lab.ipynb`：Tensor shape/dtype、einops、FLOPs、Roofline、autograd、Adam 状态、激活字节数与梯度累积一致性。
+- 两份 Notebook 的输出保持为空，要求学习者在自己的环境中实际执行；创建文件和 JSON 结构检查不等于已验证所有代码 Cell。目标环境完整执行待完成。
+- 以后 Notebook 负责逐步探索和可观察输出；`.py` 保留可复用实现、完整逻辑与自动化测试。
