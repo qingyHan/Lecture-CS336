@@ -51,7 +51,7 @@
 
 稠密 MLP 对每个 token 使用同一组参数。MoE 把 MLP 替换为多个专家网络 $E_1,\ldots,E_N$，由 router 为每个 token 选择少量专家。
 
-一种 top-(k) 路由形式：
+一种 top-$k$ 路由形式：
 
 $$
 r(x)=\operatorname{softmax}(W_rx),\qquad
@@ -62,7 +62,7 @@ $$
 \operatorname{MoE}(x)=\sum_{i\in\mathcal S(x)}\tilde r_i(x)E_i(x),
 $$
 
-其中 (	ilde r_i) 是选中专家的归一化权重。若专家数为 $N$，每个 token 只激活 $k\ll N$ 个专家，则**总参数容量**可随 $N$ 增长，而每 token 的专家计算主要由 (k) 决定。这不是“免费参数”：router、专家分发、跨设备 all-to-all、负载不均和专家容量限制都会产生开销。
+其中 $\tilde r_i$ 是选中专家的归一化权重。若专家数为 $N$，每个 token 只激活 $k\ll N$ 个专家，则**总参数容量**可随 $N$ 增长，而每 token 的专家计算主要由 $k$ 决定。这不是“免费参数”：router、专家分发、跨设备 all-to-all、负载不均和专家容量限制都会产生开销。
 
 ### 4.1 路由与负载均衡
 
