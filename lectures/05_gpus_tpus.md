@@ -45,7 +45,7 @@ GPU
 
 从近到远，常见层级包括寄存器、shared memory/L1、L2、HBM。越靠近计算单元通常越快但容量越小。数据移动有成本，重复从 HBM 读取同一数据可能比在片上复用更昂贵。
 
-例如，矩阵乘 (C=AB) 中，一个 tile 的 (A) 和 (B) 可以被加载到片上并供多次乘加使用。若每个元素只从 HBM 读一次但参与很多次运算，算术强度就更高。Tiling 的价值不仅是“把矩阵分块”，而是控制每个数据块被复用多少次，以及复用所需的片上存储是否足够。
+例如，矩阵乘 $C=AB$ 中，一个 tile 的 $A$ 和 $B$ 可以被加载到片上并供多次乘加使用。若每个元素只从 HBM 读一次但参与很多次运算，算术强度就更高。Tiling 的价值不仅是“把矩阵分块”，而是控制每个数据块被复用多少次，以及复用所需的片上存储是否足够。
 
 ## 5. Tensor Cores 与低精度
 
@@ -60,13 +60,13 @@ GPU
 
 ## 6. 理论峰值为什么不是实际吞吐？
 
-设硬件峰值计算吞吐为 (P_{peak})，内存带宽为 (BW)，算法算术强度为 (I=\text{FLOPs}/\text{Bytes})。Roofline 给出的性能上界为
+设硬件峰值计算吞吐为 $P_{peak}$，内存带宽为 $BW$，算法算术强度为 $I=\text{FLOPs}/\text{Bytes}$。Roofline 给出的性能上界为
 
 $$
 P_{achievable}\le \min(P_{peak}, BW\cdot I).
 $$
 
-若 (BW\cdot I<P_{peak})，工作负载在该模型下是 memory-bound；否则更可能 compute-bound。真实性能还会受 kernel launch、同步、非合并访存、占用率、数据依赖、通信、编译质量等影响。Roofline 是上界分析工具，不是精确延迟预测器。
+若 $BW\cdot I<P_{peak}$，工作负载在该模型下是 memory-bound；否则更可能 compute-bound。真实性能还会受 kernel launch、同步、非合并访存、占用率、数据依赖、通信、编译质量等影响。Roofline 是上界分析工具，不是精确延迟预测器。
 
 ## 7. Transformer 工作负载的映射
 
@@ -86,7 +86,7 @@ $$
 \text{Bytes}=\text{numel}\times\text{bytes per element}.
 $$
 
-估算矩阵乘 (M\times K) 乘 (K\times N) 的运算量约为 (2MKN) FLOPs（乘加计 2 FLOPs）。随后：
+估算矩阵乘 $M\times K$ 乘 $K\times N$ 的运算量约为 $2MKN$ FLOPs（乘加计 2 FLOPs）。随后：
 1. 列出输入、权重、中间激活和输出的大小；
 2. 估算 FLOPs 与实际需从 HBM 搬运的字节数；
 3. 计算算术强度；
@@ -97,7 +97,7 @@ $$
 
 ## 9. 实验建议（GPU 默认）
 
-- 用矩阵乘改变 (M,N,K)，比较 FP32、BF16 等 dtype 的吞吐和误差。
+- 用矩阵乘改变 $M,N,K$，比较 FP32、BF16 等 dtype 的吞吐和误差。
 - 对同一 kernel 测量不同 tile/输入形状，观察小矩阵为何难以达到峰值。
 - 用 profiler 检查一次 Transformer step 中的主要算子、kernel launch 和内存流量。
 - 记录 GPU 型号、驱动、CUDA、PyTorch 版本和功耗/时钟策略；跨机器数据不能无条件比较。
