@@ -28,6 +28,7 @@
 - notebooks/lecture_XX/：交互式学习实验。
 - code/lecture_XX/：可复用的教学实现。
 - tests/lecture_XX/：正确性测试。
+- 当前教学代码统一测试命令：`python -m unittest discover -s tests -p 'test_*.py' -v`。该命令当前覆盖 Lecture 1–2 的 13 项 CPU 单元测试；GPU 性能测试需在具备 CUDA 的环境单独运行。
 - exercises/：章节练习；参考答案采用可展开区域。
 - experiments/：实验设计与结果记录规范。
 - references/：官方来源、论文和版本信息。

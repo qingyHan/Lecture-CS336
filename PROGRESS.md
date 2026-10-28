@@ -186,3 +186,38 @@
 5. 继续监测 Lecture 18 的官方资料缺口；只有出现可核验来源后才补写讲座内容。
 
 **验收口径提醒：** 当前进度是“19 讲均有文件 + 主要内容/公式格式做过逐讲修订 + 跨讲 Markdown 扫描完成”，不是“所有代码、Notebook、GPU 实验和全部课堂细节已验收通过”。
+
+
+## 代码与自动化测试执行结果（2026-10-29）
+
+### 已实际运行的内容
+
+本次从 GitHub 主分支获取以下文件，先在临时目录重建，再通过 Git blob SHA 验证重建内容与仓库完全一致：
+
+- `code/lecture_01/tokenization_demo.py`
+- `tests/lecture_01/test_tokenization_demo.py`
+- `code/lecture_02/resource_accounting_demo.py`
+- `tests/lecture_02/test_resource_accounting_demo.py`
+- `code/lecture_02/training_memory_walkthrough.py`
+- `tests/lecture_02/test_training_memory_walkthrough.py`
+
+执行结果：
+- Lecture 1：**6/6 tests passed**；Tokenization demo 执行成功。
+- Lecture 2：**7/7 tests passed**；Resource accounting 与 training memory 两个 demo 均执行成功。
+- 合计：**13/13 unit tests passed**。
+
+### 发现并修复的测试发现问题
+
+最初运行 `python -m unittest discover -s tests` 时返回 0 项测试。这不是测试通过，而是 unittest 没有递归进入缺少 `__init__.py` 的测试子目录。已新增以下文件以支持从根目录统一发现测试：
+
+- `tests/__init__.py`
+- `tests/lecture_01/__init__.py`
+- `tests/lecture_02/__init__.py`
+
+修复后，`python -m unittest discover -s tests -p 'test_*.py' -v` 实际发现并通过 13 项测试。
+
+### 环境与边界
+
+- 当前执行环境：PyTorch CPU build（2.10.0+cpu）、einops 0.8.2；无可用 CUDA 设备。
+- 本轮没有运行任何 GPU benchmark、Triton kernel、多 GPU 通信、真实训练、scaling fit、A4 大数据处理或 A5 RL 实验。
+- 所以本轮的“通过”只适用于上述 6 个文件的 CPU 单元测试与 3 个教学 demo，不代表整个 CS336 作业或所有课程实验通过。

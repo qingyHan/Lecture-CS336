@@ -5,8 +5,8 @@
 
 | 讲次 | 笔记 | 结构与内容 | 数学 / Markdown | 来源与作业衔接 | 代码 / 实验 | 当前状态与剩余工作 |
 |---:|---|---|---|---|---|---|
-| 1 | [导论与 Tokenization](lectures/01_overview_tokenization.md) | 已复核主要章节 | 已修复 13 组独立显示公式的定界符 | 有官方 Lecture 1 源码链接；已注明 A1 时机 | 本轮未执行 demo/tests | **复核中**：下一步实际运行 demo 与测试，检查 toy BPE 边界案例 |
-| 2 | [PyTorch 与资源核算](lectures/02_pytorch_resource_accounting.md) | 已将重复编号的附加章节重排为第 8–10 节 | 主要资源公式结构保留；待做逐式核验 | 有官方 Lecture 2 源码链接 | 本轮未执行教学脚本或 GPU benchmark | **复核中**：结构问题已修复，下一步核对资源账本并运行小型代码示例 |
+| 1 | [导论与 Tokenization](lectures/01_overview_tokenization.md) | 已复核主要章节 | 已修复 13 组独立显示公式的定界符 | 有官方 Lecture 1 源码链接；已注明 A1 时机 | **CPU 实际运行 6 项单元测试并执行 demo**；代码/测试 Git blob SHA 与仓库一致 | **复核中**：基础 round-trip、两次 merge、重叠 pair 与负合并预算测试通过；学习者掌握情况仍需通过练习确认 |
+| 2 | [PyTorch 与资源核算](lectures/02_pytorch_resource_accounting.md) | 已将重复编号的附加章节重排为第 8–10 节 | 主要资源公式结构保留；逐式核验仍待继续 | 有官方 Lecture 2 源码链接 | **CPU 实际运行 7 项单元测试及两个 demo**；当前执行环境无 CUDA，未运行 GPU benchmark | **复核中**：张量形状、FLOPs、字节数、autograd 与梯度累积测试通过；真实 GPU 峰值显存仍待测 |
 | 3 | [Transformer 架构](lectures/03_architectures_hyperparameters.md) | 已检查主要章节与超参数表 | 已将常见公式从普通括号改为行内数学定界符，并修复 ldots 转义 | 有官方 PDF 与 A1 链接 | 本轮未执行代码 | **复核中**：主要格式问题已修复；下一步核对参数量假设并做小模型形状测试 |
 | 4 | [Attention 替代方案与 MoE](lectures/04_attention_alternatives_moe.md) | 已复核主要主题与工程权衡 | 已修复复杂度公式、MoE 专家列表、top-k 与 tilde 符号显示 | 有官方 PDF 与参考论文；已明确 A1/A2/A3 衔接 | 本轮未执行 GPU 实验 | **复核中**：格式已修复；仍需核对复杂度口径并设计小型 GPU 对照实验 |
 | 5 | [GPU 与 TPU](lectures/05_gpus_tpus.md) | 已复核硬件层级、内存层次与工作负载映射 | 已规范化 Roofline、矩阵乘与算术强度公式 | 有官方 PDF；已明确 A2 衔接 | 本轮未运行 GPU benchmark | **复核中**：核心公式格式已修复；待在真实 GPU 上验证示例并核对硬件口径 |
@@ -44,6 +44,17 @@
 - **内容状态**：Lecture 1–17 的主要章节已逐讲做针对性复核与修订；Lecture 18 只有来源缺口记录，不能视为内容已完成；Lecture 19 依据公开录像并明确标注第三方辅助材料。
 - **作业衔接**：A1–A5 均有中文学习指南，建议开始时机见 [COURSE_INDEX.md](COURSE_INDEX.md)。
 - **未完成的关键工作**：运行教学代码与 tests、实际执行 Notebook、逐页核对尚未细读的官方 PDF、验证 A2/A3/A4/A5 的实验流程，以及继续寻找 Lecture 18 的可核验官方材料。
+
+
+### 代码与自动化测试实际执行（2026-10-29）
+
+- [x] 从 GitHub 获取 Lecture 1–2 的 3 个教学脚本与 3 个测试文件，并在临时 QA 目录中重建副本。
+- [x] 用 Git blob SHA 校验 6 个重建文件，均与仓库文件完全匹配后才运行测试。
+- [x] Lecture 1：6 项 unittest 通过；tokenization demo 执行成功，Unicode/UTF-8 round-trip 与 toy BPE 示例通过。
+- [x] Lecture 2：5 项 resource accounting 测试 + 2 项 training memory 测试通过；两个 demo 均执行成功。
+- [x] 首次运行 `python -m unittest discover -s tests` 发现 0 项测试，原因是测试子目录没有 `__init__.py`，unittest 没有递归进入子包。
+- [x] 新增 `tests/__init__.py`、`tests/lecture_01/__init__.py`、`tests/lecture_02/__init__.py` 后，根目录 discovery 成功发现并通过 **13/13 项测试**。
+- [ ] 当前执行容器的 PyTorch 是 CPU build，`torch.cuda.is_available()` 为 False；因此 GPU benchmark、显存峰值、Triton 和多 GPU 测试未运行，不能标记通过。
 
 ## 验收原则
 
