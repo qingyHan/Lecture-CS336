@@ -339,7 +339,7 @@
 - [x] Notebook：5/5 code cells 经 nbclient 从头执行成功，无 cell error；GPU 分支明确打印 skip，不生成虚假性能结果。
 - [x] SVG XML 解析通过，CairoSVG PNG 渲染通过并进行视觉审查。图中 1D mask 示例 N=26、BLOCK=8，最后 tile 只有 2 个有效 lane、6 个 masked lanes；matmul 图已调整为 K-loop 内重复加载 A/B tiles、tl.dot 与 C tile 累加，再执行 ReLU/store，避免误画成先做一次 dot 再进入循环。
 - [x] GELU 的 tanh 近似使用基于 exp(-2|x|) 的稳定形式，避免直接 exp(2x) 在大正值时溢出。
-- [ ] 当前无 CUDA、未安装 Triton；自定义 kernels 的 JIT、数值结果、PTX 与 GPU 性能仍未验证。CPU reference 通过不代表 GPU kernel 正确。
+- [ ] 本轮作者 QA 容器无 CUDA、未安装 Triton；自定义 kernels 的 JIT、数值结果、PTX 与 GPU 性能尚未由作者环境验证。用户已说明目标执行环境为 torch 2.14.1+cu130 / device cuda，并将在拉取仓库后自行运行 GPU 专项测试；CPU reference 通过不代表 GPU kernel 正确。
 
 
 ## Lecture 7 多材料建设与 QA（2026-10-29）
@@ -358,3 +358,9 @@
 - [x] Notebook 4/4 code cells 经 nbclient 顺序执行成功，无 cell error；提交版 outputs 为空。
 - [x] SVG XML 解析、CairoSVG 渲染和视觉审查通过。修正了“每 rank 持有 1/P 个 chunk”的不严谨措辞，明确为“持有完整 tensor 的 1/P 分片”。
 - [ ] 未运行 torch.distributed 多进程、Gloo/NCCL、跨节点网络或真实 collective benchmark。CPU simulation 通过不证明实际分布式通信正确或更快。
+
+
+### Lecture 6 CUDA 目标环境说明（2026-10-29）
+- 用户已明确：CUDA 会在拉取仓库后由用户选择的环境提供，目标环境为 \`torch 2.14.1+cu130 | device cuda\`。
+- 因此，作者 QA 容器无 CUDA 只限制本轮作者实测，不构成项目环境假设；Lecture 6 README 与实验记录已增加预检、单元测试和 Notebook 执行命令。
+- 3 个 GPU 专项测试目前保持待目标环境实测状态。只有用户环境实际执行并通过后，才能更新为 GPU 验收通过。

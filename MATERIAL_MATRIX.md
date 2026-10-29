@@ -9,7 +9,7 @@
 | 3 | 有 | 有，TinyGPT | 有，7 项已通过 | 有，7 个 code cells 已执行 | 有，SVG | 有，lecture_03_sources.md | 有，CPU smoke test | GPU 路径未测；后续可补 RoPE、SwiGLU 和权重绑定消融 |
 | 4 | 有 | 有，GQA + Top-k MoE | 有，10 项已通过 | 有，5 个 code cells 已执行 | 有，SVG 已 XML 校验、渲染并视觉审查 | 有，lecture_04_sources.md | 有，CPU smoke test | GPU kernel、吞吐、真实 all-to-all 与偏斜路由性能待测 |
 | 5 | 有 | 有，资源核算 + matmul benchmark | 有，9 项已通过 | 有，5 个 code cells 已执行 | 有，SVG 已 XML 校验、PNG 渲染并视觉审查 | 有，lecture_05_sources.md | 有，CPU smoke test | GPU 型号实测、Nsight profiler 与设备特定 Roofline 待做 |
-| 6 | 有 | 有，CPU reference + 可选 Triton kernels | 有，8 项通过、3 项因环境跳过 | 有，5 个 code cells 已执行 | 有，SVG 已 XML 校验、PNG 渲染并视觉审查 | 有，lecture_06_sources.md | 有，CPU smoke test | Triton JIT/GPU correctness、PTX、GPU benchmark 待在 CUDA 环境验证 |
+| 6 | 有 | 有，CPU reference + 可选 Triton kernels | 作者 QA：8 项通过、3 项 GPU 测试因 CPU-only 环境 skip | 有，5 个 code cells 已执行 | 有，SVG 已 XML 校验、PNG 渲染并视觉审查 | 有，lecture_06_sources.md | 有，CPU smoke test 与 CUDA 验收命令 | 用户目标环境为 torch 2.14.1+cu130 / CUDA；Triton JIT/GPU correctness/benchmark 待用户实测 |
 | 7 | 有 | 有，all-reduce / ring simulation / 加权梯度 | 有，11 项已通过 | 有，4 个 code cells 已执行 | 有，SVG 已 XML 校验、PNG 渲染并视觉审查 | 有，lecture_07_sources.md | 有，CPU simulation smoke test | 真实 torch.distributed 多进程、Gloo/NCCL 与网络性能待测 |
 | 8 | 有 | 待建设 | 待建设 | 待建设 | 待建设 | 讲义内有参考链接 | 待建设 | 需要 shard 内存账本和 FSDP/GPU 验证 |
 | 9 | 有 | 待建设 | 待建设 | 待建设 | 待建设 | 讲义内有参考链接 | 待建设 | 需要可复现 scaling-law 数据拟合 Notebook |
