@@ -66,7 +66,7 @@ def estimate_zero_stage_memory(
         raise ValueError("parameter_count must be positive")
     if not isinstance(world_size, int) or isinstance(world_size, bool) or world_size <= 0:
         raise ValueError("world_size must be a positive integer")
-    if stage not in STAGE_NAMES:
+    if not isinstance(stage, int) or isinstance(stage, bool) or stage not in STAGE_NAMES:
         raise ValueError("stage must be one of 0, 1, 2, 3")
     for value, name in (
         (weight_bytes_per_param, "weight_bytes_per_param"),
@@ -237,7 +237,7 @@ def cuda_checkpointing_probe(
             "peak_above_baseline_bytes": max(0, peak_bytes - baseline_bytes),
             "final_loss": float(loss.item()),
         }
-        del model, optimizer, loss
+        del step, model, optimizer, loss
         torch.cuda.empty_cache()
 
     results["metadata"] = {

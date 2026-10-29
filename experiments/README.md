@@ -72,5 +72,6 @@
 - [Lecture 6 — Triton kernel smoke test](lecture_06_triton_smoke.md)：记录 CPU reference 测试、GPU 测试跳过原因、Notebook fallback 和图示审查结果。
 
 - [Lecture 7 — Collectives CPU simulation smoke test](lecture_07_collectives_smoke.md)：记录 ring 语义、梯度加权、通信量估算、Notebook 执行与 SVG 审查结果，明确真实分布式验证缺口。
+- [Lecture 8 — ZeRO/FSDP memory accounting smoke test](lecture_08_sharding_smoke.md)：记录 9/9 CPU 公式测试、Notebook 执行、SVG 审查与待用户 CUDA / 多 GPU 验收的范围。
 
 - [Lecture 8 — ZeRO/FSDP memory accounting smoke test](lecture_08_sharding_smoke.md)：区分理想化状态账本、单卡 checkpointing probe 与真正多 GPU FSDP 验收。

@@ -78,6 +78,8 @@ class ShardingLabTests(unittest.TestCase):
             estimate_zero_stage_memory(0, world_size=2, stage=1)
         with self.assertRaisesRegex(ValueError, "one of 0"):
             estimate_zero_stage_memory(10, world_size=2, stage=4)
+        with self.assertRaisesRegex(ValueError, "one of 0"):
+            estimate_zero_stage_memory(10, world_size=2, stage=True)
         with self.assertRaisesRegex(ValueError, "cannot exceed"):
             estimate_zero_stage_memory(10, world_size=2, stage=3, gathered_parameter_count=11)
 

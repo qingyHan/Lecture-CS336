@@ -375,7 +375,10 @@
 - diagrams/lecture_08_zero_fsdp_memory.svg：原创 ZeRO stage 对照与 FSDP 生命周期示意图。
 - references/lecture_08_sources.md、exercises/chapter_08.md、experiments/lecture_08_sharding_smoke.md、code/lecture_08/README.md。
 
-### 验收计划与证据边界
-- [ ] 本轮创建材料后先执行 CPU 公式测试、Notebook fallback 与 SVG XML/PNG/视觉检查，再据实更新结果。
-- [ ] 用户目标环境为 torch 2.14.1+cu130 / device cuda；单 GPU probe 可在该环境执行，但这不等于真实 FSDP 多 GPU 验收。
+### 实际验收结果
+- [x] 9/9 CPU 公式与边界测试通过；1 项 CUDA checkpointing probe 测试在作者 QA 容器中 skip。
+- [x] CLI demo 成功，ZeRO-0/1/2/3 内存账本单调下降；输出明确标注为估算，不冒充 GPU 实测。
+- [x] Notebook 5/5 code cells 使用 nbclient 从头执行成功，无 cell error；提交版 outputs 保持为空。
+- [x] SVG XML 解析通过、CairoSVG 渲染为 1440×900 PNG，完成视觉审查；ZeRO stage 状态范围与 FSDP lifecycle 的概念边界清楚。
+- [ ] 用户目标环境为 torch 2.14.1+cu130 / device cuda；单 GPU probe 待用户执行，但这不等于真实 FSDP 多 GPU 验收。
 - [ ] 多 GPU FSDP/NCCL 数值一致性、每 rank 峰值显存、通信时间与 scaling efficiency 仍需真实多进程环境实测。
