@@ -64,3 +64,5 @@
 ## 已完成的教学实验记录
 
 - [Lecture 3 — Tiny Transformer smoke test](lecture_03_transformer_smoke.md)：记录单元测试、Notebook 执行、因果性、参数量与小样本过拟合结果，并明确 CPU-only 环境边界。
+
+- [Lecture 4 — GQA and Top-k MoE smoke test](lecture_04_attention_moe_smoke.md)：记录 GQA KV cache、专家负载、单元测试与 Notebook 执行结果，并注明 CPU-only 限制。

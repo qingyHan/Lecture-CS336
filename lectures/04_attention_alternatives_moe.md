@@ -4,6 +4,16 @@
 >
 > **资料边界**：官方课件为 [lecture_04.pdf](https://github.com/stanford-cs336/lectures/blob/main/lecture_04.pdf)。以下是原创中文讲义，解释课程主题涉及的核心设计空间；具体方法的优劣依赖模型、序列长度、硬件和训练配置，不把任何单一方法写成普遍最优。
 
+## 0. 配套材料与建议学习顺序
+
+1. 先阅读本讲的成本分析，再查看[原创 GQA / MoE 数据流图](../diagrams/lecture_04_gqa_moe.svg)。图示用于帮助理解，不是官方课件或论文原图。
+2. 运行[GQA 与 Top-k MoE 参考实现](../code/lecture_04/attention_moe_lab.py)，检查 attention score 形状、KV cache 估算与专家负载。
+3. 执行[自动化测试](../tests/lecture_04/test_attention_moe_lab.py)，重点关注未来 token 不泄漏、cache 比例与 router/expert 梯度。
+4. 从仓库根目录启动 Jupyter，按顺序运行[交互式实验 Notebook](../notebooks/lecture_04/04_attention_moe_lab.ipynb)。
+5. 完成[本讲练习](../exercises/chapter_04.md)，并核对[来源清单](../references/lecture_04_sources.md)与[实验记录](../experiments/lecture_04_attention_moe_smoke.md)。
+
+**实现边界**：GQA 为可读性显式展开 K/V，MoE 使用 Python dispatch loop；这些代码用于验证概念，不代表生产级 kernel 或 GPU 性能。
+
 ## 1. 为什么需要替代标准 Attention？
 
 标准全注意力在长度 $T$ 的序列上构造 $T\times T$ 分数矩阵，注意力计算的序列维度成本随 $T^2$ 增长。长上下文、多轮对话、代码仓库或视频 token 会迅速放大计算和显存压力。另一个问题是，标准 Transformer 每个 token 通常经过同一组 MLP 权重，参数规模与每 token 计算量一起增长。

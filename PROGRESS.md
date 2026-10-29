@@ -280,3 +280,17 @@
 ### 下一讲计划：Lecture 4 — Attention Alternatives & MoE
 
 按材料难度建设：讲义 + 参考来源 + 可运行的 dense attention / GQA 或 MoE 路由 toy demo + 数值/形状测试 + Notebook 可视化 + 实验记录。先验证正确性，再考虑 GPU 性能对照。
+
+
+## Lecture 4 多材料建设与 QA（2026-10-29，验收中）
+
+### 新增材料
+- code/lecture_04/attention_moe_lab.py：GQA、KV cache 估算、Top-k MoE、专家负载和教学用 load-balance proxy。
+- tests/lecture_04/test_attention_moe_lab.py：10 项测试。
+- notebooks/lecture_04/04_attention_moe_lab.ipynb：GQA cache/shape、causal heatmap、MoE 路由/负载与辅助损失梯度。
+- diagrams/lecture_04_gqa_moe.svg：原创 GQA/MoE 数据流示意图，需做 XML、渲染和语义审查。
+- references/lecture_04_sources.md、exercises/chapter_04.md、experiments/lecture_04_attention_moe_smoke.md、code/lecture_04/README.md。
+
+### QA 状态
+- 当前为材料已创建、验收进行中；测试和 Notebook 未确认执行前，不标记通过。
+- GPU 性能、fused GQA、容量受限 MoE 和跨设备 all-to-all 不在 CPU smoke test 的证明范围。
