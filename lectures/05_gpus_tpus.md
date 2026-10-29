@@ -4,6 +4,16 @@
 >
 > **官方材料**：[lecture_05.pdf](https://github.com/stanford-cs336/lectures/blob/main/lecture_05.pdf)。本笔记是围绕课程主题的原创系统说明。硬件规格随代际、SKU、功耗和软件版本而变化；除非注明具体设备与来源，不把示例数字当成最新规格保证。
 
+## 0. 配套材料与建议学习顺序
+
+1. 先阅读本讲的硬件执行模型和 Roofline 推导，再看[CUDA 执行与内存层次原创示意图](../diagrams/lecture_05_cuda_memory_hierarchy.svg)。图中只表示常见 NVIDIA CUDA 抽象，不描绘 TPU 内部结构或某一款 GPU 的真实 die。
+2. 运行[资源核算与 benchmark 参考实现](../code/lecture_05/accelerator_lab.py)，计算 FLOPs、理想化数据流量和算术强度。
+3. 执行[自动化测试](../tests/lecture_05/test_accelerator_lab.py)，检查公式、Roofline 上界和计时路径。
+4. 执行[交互式 Notebook](../notebooks/lecture_05/05_accelerator_roofline_lab.ipynb)，观察 Roofline 曲线、数据账本、延迟与数值误差。
+5. 完成[本讲练习](../exercises/chapter_05.md)，并阅读[来源清单](../references/lecture_05_sources.md)和[实验记录](../experiments/lecture_05_accelerator_smoke.md)。
+
+**证据边界**：Notebook 中 Roofline 参数是合成教学数值；CPU benchmark 只验证代码路径，不代表 GPU 性能。真实设备结论必须使用对应 GPU 的规格和 profiler 数据。
+
 ## 1. 本讲要解决的问题
 
 为什么同一个数学运算，在 CPU 上、GPU 上和 TPU 上的实际时间会差很多？为什么“理论 FLOPs 更高”并不保证训练更快？理解加速器，需要同时理解计算单元、存储层次、并行执行模型和工作负载形态。

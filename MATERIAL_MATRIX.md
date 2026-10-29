@@ -8,7 +8,7 @@
 | 2 | 有 | 有 | 有，7 项已通过 | 有，10 个 code cells 已执行 | 暂无 | 有 | 暂无独立记录 | GPU 显存/性能路径待实测 |
 | 3 | 有 | 有，TinyGPT | 有，7 项已通过 | 有，7 个 code cells 已执行 | 有，SVG | 有，lecture_03_sources.md | 有，CPU smoke test | GPU 路径未测；后续可补 RoPE、SwiGLU 和权重绑定消融 |
 | 4 | 有 | 有，GQA + Top-k MoE | 有，10 项已通过 | 有，5 个 code cells 已执行 | 有，SVG 已 XML 校验、渲染并视觉审查 | 有，lecture_04_sources.md | 有，CPU smoke test | GPU kernel、吞吐、真实 all-to-all 与偏斜路由性能待测 |
-| 5 | 有 | 待建设 | 待建设 | 待建设 | 待建设 | 讲义内有参考链接 | 待建设 | 需要 Roofline/内存带宽可视化与真实 GPU profiling |
+| 5 | 有 | 有，资源核算 + matmul benchmark | 有，9 项已通过 | 有，5 个 code cells 已执行 | 有，SVG 已 XML 校验、PNG 渲染并视觉审查 | 有，lecture_05_sources.md | 有，CPU smoke test | GPU 型号实测、Nsight profiler 与设备特定 Roofline 待做 |
 | 6 | 有 | 待建设 | 待建设 | 待建设 | 待建设 | 讲义内有参考链接 | 待建设 | 需要 Triton kernel、reference test 与 GPU benchmark |
 | 7 | 有 | 待建设 | 待建设 | 待建设 | 待建设 | 讲义内有参考链接 | 待建设 | 需要 collective toy demo 和多进程测试 |
 | 8 | 有 | 待建设 | 待建设 | 待建设 | 待建设 | 讲义内有参考链接 | 待建设 | 需要 shard 内存账本和 FSDP/GPU 验证 |

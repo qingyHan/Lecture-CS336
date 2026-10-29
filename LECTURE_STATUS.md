@@ -9,7 +9,7 @@
 | 2 | [PyTorch 与资源核算](lectures/02_pytorch_resource_accounting.md) | 已将重复编号的附加章节重排为第 8–10 节 | 主要资源公式结构保留；逐式核验仍待继续 | 有官方 Lecture 2 源码链接 | **7 项 CPU 单元测试通过；两个 demo 成功；Notebook 10/10 code cells 顺序执行成功；CUDA 路径未实测** | **复核中**：CPU 代码路径通过；Notebook 未做 Jupyter UI/渲染检查；真实 GPU 峰值显存仍待测 |
 | 3 | [Transformer 架构](lectures/03_architectures_hyperparameters.md) | 已实现教学版 TinyGPT：多头因果注意力、Pre-LN 残差块、MLP、位置嵌入与 next-token loss；新增练习与架构图 | 7/7 CPU 单元测试通过；Notebook 7/7 code cells 顺序执行成功；SVG XML 解析通过 | 新增 lecture_03_sources.md，含官方 Lecture 3 PDF、A1、Vaswani 论文与 PyTorch API | CPU smoke test；无 CUDA，未测 GPU 性能 | **局部验收通过**：形状、mask、未来 token 不泄漏、loss/梯度均通过；非生产实现，GPU 路径仍待验证 |
 | 4 | [Attention 替代方案与 MoE](lectures/04_attention_alternatives_moe.md) | 新增 GQA、KV cache 账本、Top-k MoE、专家负载与练习；配套材料已提交 | 10/10 CPU 单元测试通过；CLI demo 成功；Notebook 5/5 code cells 顺序执行成功 | 官方 PDF、MQA/GQA、FlashAttention、Switch Transformer 与 PyTorch API 均列入来源清单 | CPU smoke test；无 CUDA，GPU 性能未测 | **局部验收通过**：GQA 维度/cache 公式、因果 mask、MoE assignment/梯度通过；SVG XML 与 PNG 渲染通过，字体问题已修复并复查；GPU/分布式路径仍待验证 |
-| 5 | [GPU 与 TPU](lectures/05_gpus_tpus.md) | 已复核硬件层级、内存层次与工作负载映射 | 已规范化 Roofline、矩阵乘与算术强度公式 | 有官方 PDF；已明确 A2 衔接 | 本轮未运行 GPU benchmark | **复核中**：核心公式格式已修复；待在真实 GPU 上验证示例并核对硬件口径 |
+| 5 | [GPU 与 TPU](lectures/05_gpus_tpus.md) | 新增张量字节数、矩阵乘 FLOPs/理想化流量、算术强度、Roofline 上界与 benchmark | 9/9 CPU 单元测试通过；CLI demo 成功；Notebook 5/5 code cells 顺序执行成功 | 新增来源清单，链接官方 Lecture 5 PDF、NVIDIA CUDA/Nsight、Google TPU docs 与 Roofline 原始论文 | CPU smoke test；无 CUDA，GPU 性能未测 | **局部验收通过**：公式/计时路径通过；SVG XML、PNG 渲染与视觉审查通过；真实 GPU profiler 与设备特定 Roofline 待验证 |
 | 6 | [Kernel 与 Triton](lectures/06_kernels_triton.md) | 已复核 benchmark/profiling、Triton mask、Softmax、reduction 与 matmul 章节 | 核心公式与符号已检查；修复 C=AB 的行内公式格式 | 有官方可执行讲义与 Triton/PyTorch 参考；对应 A2 | 本轮未执行 GPU benchmark | **复核中**：讲义逻辑已检查；仍需在 GPU 上验证代码与性能测量流程 |
 | 7 | [并行计算 I](lectures/07_parallelism_collectives.md) | 已复核 collective、DDP、TP/PP 与 scaling efficiency；补充等/不等 batch 的梯度平均例子 | 已将 3 组显示公式的单美元定界符修复为双美元 | 有官方可执行讲义与 PyTorch Distributed 参考；对应 A2 | 本轮未运行多卡实验 | **复核中**：概念与格式已检查；待在多 GPU 环境验证通信和更新一致性 |
 | 8 | [并行计算 II](lectures/08_parallelism_sharding.md) | 已复核 ZeRO、FSDP 生命周期、checkpointing/offload 与组合并行；补充参数状态分片的数值账本 | 公式与表格已检查 | 有官方 PDF 与 PyTorch FSDP 参考；对应 A2 | 本轮未运行多卡实验 | **复核中**：内存/通信概念已补充；待在多 GPU 环境验证峰值显存与数值一致性 |
@@ -62,13 +62,14 @@
 - [x] Lecture 2 Notebook：更新为 CUDA 可用时优先使用 GPU；当前容器无 CUDA，10 个 code cell 按顺序走 CPU fallback，10/10 成功。
 - [x] Notebook 文件仍保持空 outputs 与 null execution_count，避免把 QA 输出直接提交为学习者的预制输出。
 - [x] Lecture 4 Notebook：5 个 code cells 使用 nbclient 从头顺序执行，5/5 成功；提交文件保留空 outputs/null execution_count。
+- [x] Lecture 5 Notebook：5 个 code cells 使用 nbclient 从头顺序执行，5/5 成功；提交文件保留空 outputs/null execution_count。
 - [ ] 未测试 CUDA 分支，也未在 GPU 上测量显存或性能。
 
 ## 多材料建设标准（2026-10-29）
 
 - 讲义存在不等于教学单元完成。每讲按主题配置可运行代码、单元测试、Notebook、图示/数值实例、专用来源清单和实验记录。
 - 轻量主题不机械地强制所有材料类型；复杂主题必须至少有可运行最小实现、可检验性质和复现说明。
-- 当前材料覆盖见 [MATERIAL_MATRIX.md](MATERIAL_MATRIX.md)。Lecture 3–4 已按多材料标准建立可运行学习单元；Lecture 5–19 的讲次专用代码/Notebook/测试覆盖仍是后续工作。
+- 当前材料覆盖见 [MATERIAL_MATRIX.md](MATERIAL_MATRIX.md)。Lecture 3–5 已按多材料标准建立可运行学习单元；Lecture 6–19 的讲次专用代码/Notebook/测试覆盖仍是后续工作。
 - 进度反馈按讲次更新：新增了什么、真实运行了什么、结果如何、哪些尚未验证、下一讲计划。
 
 ## 验收原则

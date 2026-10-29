@@ -305,3 +305,21 @@
 - [x] SVG XML 解析通过，使用 CairoSVG 渲染 PNG，并进行视觉检查。检查发现首版字体回退与 Unicode 下标兼容问题；已将字体族收敛到 Noto Sans CJK SC，并把 E₁/E₂/Eₙ 改为跨平台可读的 E1/E2/E_n，再次渲染检查通过。
 - [x] 图示语义复核：GQA 的 attention score 维度仍为 query-head 数，KV cache 按 KV-head 数缩放；MoE 图明确是 token-choice top-k assignments，且注明为原创示意图、非官方原图。
 - [ ] 无 CUDA：未测 GPU 延迟/吞吐/峰值显存，未验证优化 GQA kernel、capacity-limited MoE 或跨设备 all-to-all。
+
+
+## Lecture 5 多材料建设与 QA（2026-10-29）
+
+### 新增材料
+- code/lecture_05/accelerator_lab.py：张量字节数、矩阵乘 FLOPs/理想化流量、算术强度、Roofline 上界与 CUDA-event/CPU perf_counter benchmark。
+- tests/lecture_05/test_accelerator_lab.py：9 项单元测试。
+- notebooks/lecture_05/05_accelerator_roofline_lab.ipynb：5 个 code cells，包含资源账本、合成 Roofline 曲线、benchmark 与误差图。
+- diagrams/lecture_05_cuda_memory_hierarchy.svg：原创 CUDA/NVIDIA 执行与内存层次概念图。
+- references/lecture_05_sources.md、exercises/chapter_05.md、experiments/lecture_05_accelerator_smoke.md、code/lecture_05/README.md。
+
+### 实际验收结果
+- [x] 9/9 CPU 单元测试通过；代码与测试文件的本地 Git blob SHA 与仓库提交内容匹配。
+- [x] CLI demo 成功：512×512×512 矩阵乘，按乘加 2 FLOPs 计为 268,435,456 FLOPs；理想化 FP32 数据流量 3,145,728 bytes；算术强度 85.33 FLOPs/byte。
+- [x] 本环境为 PyTorch 2.10.0+cpu、无 CUDA。CLI 的 5 次迭代平均 CPU latency 在本次 smoke run 中为 1.010 ms，FP32 相对 RMSE 为 0；这只是本机小型 smoke 观测，不是稳健性能比较，更不是 GPU 数据。
+- [x] Notebook 5/5 code cells 经 nbclient 顺序执行成功，无 cell error；提交版 outputs 为空。
+- [x] SVG XML 解析通过，CairoSVG PNG 渲染通过，完成视觉审查。修正了“Grid 包含多个 CTA”的过强表述，改为“Grid 由 CTAs 组成”；补充箭头只表示相对层次/成本趋势而非严格访问路径的说明。
+- [ ] 无 CUDA，未测 Tensor Core 吞吐、HBM 带宽、显存峰值、GPU 延迟或 Nsight profiler 指标。合成 Roofline 曲线不得解释为任何真实 GPU 的规格。

@@ -8,6 +8,7 @@
 | Lecture 2 | [02_resource_accounting_lab.ipynb](lecture_02/02_resource_accounting_lab.ipynb) | Tensor shape/dtype、einops、FLOPs、Roofline、autograd、Adam 状态、激活大小、梯度累积 | Python、PyTorch、einops |
 | Lecture 3 | [03_transformer_architecture_lab.ipynb](lecture_03/03_transformer_architecture_lab.ipynb) | 张量形状、attention heatmap、causal mask、未来 token 泄漏测试、next-token loss、参数量对比、tiny overfit | Python、PyTorch、matplotlib |
 | Lecture 4 | [04_attention_moe_lab.ipynb](lecture_04/04_attention_moe_lab.ipynb) | GQA KV cache 账本、causal mask heatmap、Top-k MoE 路由、专家负载、辅助损失与梯度 | Python、PyTorch、matplotlib |
+| Lecture 5 | [05_accelerator_roofline_lab.ipynb](lecture_05/05_accelerator_roofline_lab.ipynb) | FLOPs/bytes 账本、合成 Roofline、matmul benchmark、数值误差 | Python、PyTorch、matplotlib、NumPy |
 
 ## 设备默认值
 
@@ -24,7 +25,7 @@ python -m pip install torch einops matplotlib
 jupyter lab
 ~~~
 
-打开对应 Notebook 后，建议使用 **Restart Kernel and Run All Cells**，确保 Cell 可以按顺序从头运行。第一讲只使用标准库；第二讲需要 PyTorch 和 einops；第三、四讲需要 PyTorch 和 matplotlib。
+打开对应 Notebook 后，建议使用 **Restart Kernel and Run All Cells**，确保 Cell 可以按顺序从头运行。第一讲只使用标准库；第二讲需要 PyTorch 和 einops；第三、四、五讲需要 PyTorch 和 matplotlib；第五讲还需要 NumPy。
 
 ## .ipynb 与 .py 的职责
 

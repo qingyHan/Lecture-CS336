@@ -48,6 +48,7 @@
 - Lecture 3 教学实现：[tiny_transformer.py](code/lecture_03/tiny_transformer.py)；[7 项测试](tests/lecture_03/test_tiny_transformer.py)；[Transformer 架构图](diagrams/lecture_03_decoder_only_transformer.svg)；[来源清单](references/lecture_03_sources.md)；[实验记录](experiments/lecture_03_transformer_smoke.md)。
 - [材料覆盖矩阵](MATERIAL_MATRIX.md) 显示哪些讲次已有代码、测试、Notebook、图示和实验记录。
 - Lecture 4 教学实现：[attention_moe_lab.py](code/lecture_04/attention_moe_lab.py)；[10 项测试](tests/lecture_04/test_attention_moe_lab.py)；[Notebook](notebooks/lecture_04/04_attention_moe_lab.ipynb)；[原创图示](diagrams/lecture_04_gqa_moe.svg)；[来源清单](references/lecture_04_sources.md)；[实验记录](experiments/lecture_04_attention_moe_smoke.md)。
+- Lecture 5 教学实现：[accelerator_lab.py](code/lecture_05/accelerator_lab.py)；[9 项测试](tests/lecture_05/test_accelerator_lab.py)；[Notebook](notebooks/lecture_05/05_accelerator_roofline_lab.ipynb)；[CUDA/内存层次图](diagrams/lecture_05_cuda_memory_hierarchy.svg)；[来源清单](references/lecture_05_sources.md)；[实验记录](experiments/lecture_05_accelerator_smoke.md)。
 - [Notebook 运行规范](notebooks/README.md)。
 - code/lecture_01/ 至 code/lecture_03/ 保存教学实现；tests/lecture_01/ 至 tests/lecture_03/ 保存正确性测试。
 - [实验记录规范](experiments/README.md)。
