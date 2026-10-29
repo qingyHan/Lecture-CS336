@@ -4,6 +4,16 @@
 >
 > **官方资料**：[lecture_10.py](https://github.com/stanford-cs336/lectures/blob/main/lecture_10.py)。官方可执行讲义覆盖推理工作负载、吞吐/延迟、KV cache、量化、剪枝、speculative sampling、continuous batching 和 PagedAttention。本笔记按这些主题建立可复习的系统框架。
 
+## 0. 配套材料与建议学习顺序
+
+1. 先读 KV Cache 公式与请求长度对显存的影响，再看[KV Cache 与 Paged Allocation 原创示意图](../diagrams/lecture_10_kv_cache_paging.svg)。
+2. 运行[KV cache 账本](../code/lecture_10/kv_cache_lab.py)，比较 logical payload、contiguous padding 与 paged block allocation。
+3. 执行[自动化测试](../tests/lecture_10/test_kv_cache_lab.py)，检查 K/V bytes/token、位宽比例、分页浪费与 budget 上界。
+4. 执行[交互式 Notebook](../notebooks/lecture_10/10_inference_kv_cache_lab.ipynb)，观察合成请求 trace、量化 payload 与 block size 的影响。
+5. 完成[本讲练习](../exercises/chapter_10.md)，并阅读[来源清单](../references/lecture_10_sources.md)和[实验记录](../experiments/lecture_10_inference_smoke.md)。
+
+**证据边界**：请求 trace 是 synthetic；本讲没有运行真实模型服务，不生成 TTFT/TBT、tokens/s 或 p95/p99 性能结论。
+
 ## 1. 为什么推理需要单独优化？
 
 训练通常是阶段性的大型工作；推理会在模型部署后被大量重复执行。一个模型即使训练得很快，若每个请求响应慢、每秒生成 token 少或显存容纳不了足够并发，也可能无法经济地服务用户。

@@ -13,7 +13,7 @@
 | 7 | 有 | 有，all-reduce / ring simulation / 加权梯度 | 有，11 项已通过 | 有，4 个 code cells 已执行 | 有，SVG 已 XML 校验、PNG 渲染并视觉审查 | 有，lecture_07_sources.md | 有，CPU simulation smoke test | 真实 torch.distributed 多进程、Gloo/NCCL 与网络性能待测 |
 | 8 | 有 | 有，ZeRO 状态账本 + CUDA checkpointing probe | 9/9 CPU 公式测试通过；1 项 CUDA 测试在作者 QA 环境 skip | 有，5/5 code cells 执行成功 | 有，原创图已 XML/PNG 渲染与视觉审查 | 有，lecture_08_sources.md | 有，含目标 CUDA 命令 | 用户目标环境可运行单卡 probe；多 GPU FSDP/NCCL 数值、峰值显存与通信性能仍待真实多进程环境验证 |
 | 9 | 有 | 有，power-law fit + compute-budget ledger | 10/10 CPU 测试通过 | 有，5/5 code cells 执行成功 | 有，原创幂律/Iso-FLOP 图已 XML/PNG 渲染与视觉审查 | 有，lecture_09_sources.md | 有，CLI 与 Notebook 实验记录 | synthetic 数据只验证拟合流程；真实论文数据拟合与外推验证仍待做 |
-| 10 | 有 | 待建设 | 待建设 | 待建设 | 待建设 | 讲义内有参考链接 | 待建设 | 需要 KV cache 计算器与请求 trace 实验 |
+| 10 | 有 | 有，KV cache bytes/token、trace summary 与 paged allocation 账本 | 10/10 CPU 测试通过 | 有，5/5 code cells 执行成功 | 有，原创 KV/paging 图已 XML/PNG 渲染与视觉审查 | 有，lecture_10_sources.md | 有，CLI/Notebook 实验记录 | 真实 vLLM serving 的 TTFT/TBT、吞吐、p95/p99 与质量测试仍待实测 |
 | 11 | 有 | 待建设 | 待建设 | 待建设 | 待建设 | 讲义内有参考链接 | 待建设 | 需要训练配方/宽度对照实验 |
 | 12 | 有 | 待建设 | 待建设 | 待建设 | 待建设 | 讲义内有参考链接 | 待建设 | 需要小 benchmark、置信区间与污染检查 demo |
 | 13 | 有 | 待建设 | 待建设 | 待建设 | 待建设 | 讲义内有参考链接 | 待建设 | 需要来源 metadata 与许可追踪样例 |

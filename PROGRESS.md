@@ -399,3 +399,20 @@
 - [x] Notebook 5/5 code cells 使用 nbclient 从头执行成功，无 cell error；synthetic observations、残差图和 N/D budget 图均成功生成。
 - [x] SVG XML 解析通过，CairoSVG 渲染为 1280×720 PNG，完成视觉审查。图中明确标记为概念示意，且标注 iso-FLOP 是约束而非最优点曲线。
 - [ ] 尚未用真实训练 loss 数据拟合 Kaplan/Chinchilla scaling law，也未验证多数量级外推；不能把 synthetic 指数作为论文结论。
+
+
+## Lecture 10 多材料建设与 QA（2026-10-29）
+
+### 新增材料
+- code/lecture_10/kv_cache_lab.py：KV bytes/token、logical payload、contiguous padding、paged block allocation、KV budget token capacity 与 request trace summary。
+- tests/lecture_10/test_kv_cache_lab.py：10 项 CPU 单元测试。
+- notebooks/lecture_10/10_inference_kv_cache_lab.ipynb：5 个 code cells，覆盖 KV 公式、内存分配浪费、4/8/16-bit payload、token capacity 与 block size 敏感性。
+- diagrams/lecture_10_kv_cache_paging.svg：原创 KV cache 与分页分配示意图。
+- references/lecture_10_sources.md、exercises/chapter_10.md、experiments/lecture_10_inference_smoke.md、code/lecture_10/README.md。
+
+### 实际验收结果
+- [x] 10/10 CPU 单元测试通过，覆盖 KV bytes/token、INT8/INT4 理论比例、contiguous/paged 分配、预算容量与 request trace 验证。
+- [x] CLI demo 成功：5 个合成请求、最终上下文长度 [2177, 4353, 8257, 1217, 6241]；BF16/FP16 payload 约 2.715 GiB，contiguous padded 约 5.040 GiB，block size=16 的 paged allocation 约 2.725 GiB。
+- [x] Notebook 5/5 code cells 经 nbclient 从头执行成功，无 cell error；位宽、budget 与 block-size 曲线均成功生成。
+- [x] SVG XML 解析通过，CairoSVG 渲染为 1280×760 PNG 并完成视觉审查；修订标签以明确顶部方块代表一个 16-token block。
+- [ ] 没有运行真实模型服务或 vLLM；没有测 TTFT/TBT、tokens/s、p95/p99、峰值 GPU 显存或生成质量。静态 KV 账本不等于 serving benchmark。

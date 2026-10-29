@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="760" viewBox="0 0 1280 760" role="img" aria-labelledby="title desc">
+  <title id="title">KV cache payload and paged allocation</title>
+  <desc id="desc">Original conceptual diagram. Left panel shows K and V cache tensors across layers and KV heads, with payload bytes per token equal to 2 times layers times KV heads times head dimension times bytes per element. Right panel compares logical tokens, contiguous padded allocation and per-sequence paged allocation. Example sequence lengths are 1, 17 and 33 tokens with block size 16: logical 51 token slots, contiguous padded 99, paged allocated 96. Not a vLLM implementation diagram.</desc>
+  <defs>
+    <style>
+      .panel{fill:#f8fafc;stroke:#cbd5e1;stroke-width:2}
+      .box{stroke:#334155;stroke-width:1.7;rx:12;ry:12}
+      .title{font-family:'Noto Sans CJK SC',sans-serif;font-size:25px;font-weight:bold;fill:#0f172a;text-anchor:middle}
+      .label{font-family:'Noto Sans CJK SC',sans-serif;font-size:18px;fill:#0f172a;text-anchor:middle}
+      .small{font-family:'Noto Sans CJK SC',sans-serif;font-size:14px;fill:#475569;text-anchor:middle}
+      .cell{stroke:#ffffff;stroke-width:1.2}
+    </style>
+  </defs>
+  <rect width="1280" height="760" fill="#ffffff"/>
+  <text x="320" y="44" class="title">KV Cache：payload 账本</text>
+  <text x="960" y="44" class="title">Contiguous Padding vs Paged Blocks</text>
+  <rect x="25" y="70" width="590" height="620" rx="18" class="panel"/>
+  <rect x="665" y="70" width="590" height="620" rx="18" class="panel"/>
+
+  <rect x="75" y="110" width="490" height="90" class="box" fill="#dbeafe"/>
+  <text x="320" y="143" class="label">每层存储 Key 与 Value</text>
+  <text x="320" y="171" class="small">K/V × layers × KV heads × head_dim × dtype bytes</text>
+  <path d="M320 200 V232" stroke="#334155" stroke-width="2"/>
+  <rect x="85" y="234" width="210" height="110" class="box" fill="#bbf7d0"/>
+  <text x="190" y="270" class="label">K Cache</text>
+  <text x="190" y="299" class="small">[layers, batch,</text>
+  <text x="190" y="320" class="small">KV heads, time, dim]</text>
+  <rect x="345" y="234" width="210" height="110" class="box" fill="#fef3c7"/>
+  <text x="450" y="270" class="label">V Cache</text>
+  <text x="450" y="299" class="small">[layers, batch,</text>
+  <text x="450" y="320" class="small">KV heads, time, dim]</text>
+  <rect x="75" y="380" width="490" height="105" class="box" fill="#ddd6fe"/>
+  <text x="320" y="416" class="label">Bytes / token = 2 × L × H_KV × d_head × b</text>
+  <text x="320" y="445" class="small">GQA/MQA 减少 H_KV；量化降低 b（不含 metadata）</text>
+  <rect x="75" y="515" width="490" height="115" class="box" fill="#fee2e2"/>
+  <text x="320" y="550" class="label">Payload ≠ 总显存</text>
+  <text x="320" y="579" class="small">权重、激活、scale、对齐、block table、</text>
+  <text x="320" y="602" class="small">workspace 与 allocator overhead 需另算</text>
+
+  <text x="730" y="118" class="small">示例序列长度：1、17、33；block size = 16</text>
+  <text x="720" y="162" class="label">Logical live tokens: 51</text>
+  <g>
+    <rect x="720" y="184" width="14" height="34" class="cell" fill="#60a5fa"/>
+    <rect x="738" y="184" width="14" height="34" class="cell" fill="#60a5fa"/>
+    <rect x="756" y="184" width="14" height="34" class="cell" fill="#60a5fa"/>
+    <rect x="774" y="184" width="14" height="34" class="cell" fill="#60a5fa"/>
+    <rect x="792" y="184" width="14" height="34" class="cell" fill="#60a5fa"/>
+    <rect x="810" y="184" width="14" height="34" class="cell" fill="#60a5fa"/>
+    <rect x="828" y="184" width="14" height="34" class="cell" fill="#60a5fa"/>
+    <rect x="846" y="184" width="14" height="34" class="cell" fill="#60a5fa"/>
+    <rect x="864" y="184" width="14" height="34" class="cell" fill="#60a5fa"/>
+    <rect x="882" y="184" width="14" height="34" class="cell" fill="#60a5fa"/>
+    <rect x="900" y="184" width="14" height="34" class="cell" fill="#60a5fa"/>
+    <rect x="918" y="184" width="14" height="34" class="cell" fill="#60a5fa"/>
+    <rect x="936" y="184" width="14" height="34" class="cell" fill="#60a5fa"/>
+    <rect x="954" y="184" width="14" height="34" class="cell" fill="#60a5fa"/>
+    <rect x="972" y="184" width="14" height="34" class="cell" fill="#60a5fa"/>
+    <rect x="990" y="184" width="14" height="34" class="cell" fill="#60a5fa"/>
+  </g>
+  <text x="1070" y="204" class="small">1 block = 16 slots</text>
+  <rect x="720" y="258" width="480" height="82" class="box" fill="#e2e8f0"/>
+  <text x="960" y="288" class="label">Contiguous padded: 3 × 33 = 99 slots</text>
+  <text x="960" y="315" class="small">每条序列按最长长度分配</text>
+  <rect x="720" y="366" width="480" height="112" class="box" fill="#bbf7d0"/>
+  <text x="960" y="397" class="label">Paged allocation: 16 + 32 + 48 = 96 slots</text>
+  <text x="960" y="425" class="small">每条序列独立向 block size 对齐</text>
+  <text x="960" y="451" class="small">内部碎片仍存在，但避免最长序列全 batch padding</text>
+  <rect x="720" y="508" width="480" height="105" class="box" fill="#fef3c7"/>
+  <text x="960" y="542" class="label">PagedAttention 不消除 KV 信息量</text>
+  <text x="960" y="571" class="small">示例只说明分配粒度，不描绘真实 block manager</text>
+  <text x="640" y="724" class="small">原创概念图；示例数字为确定性玩具例子，不是线上 trace 或 vLLM benchmark。</text>
+</svg>
