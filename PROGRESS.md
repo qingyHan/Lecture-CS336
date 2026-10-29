@@ -382,3 +382,20 @@
 - [x] SVG XML 解析通过、CairoSVG 渲染为 1440×900 PNG，完成视觉审查；ZeRO stage 状态范围与 FSDP lifecycle 的概念边界清楚。
 - [ ] 用户目标环境为 torch 2.14.1+cu130 / device cuda；单 GPU probe 待用户执行，但这不等于真实 FSDP 多 GPU 验收。
 - [ ] 多 GPU FSDP/NCCL 数值一致性、每 rank 峰值显存、通信时间与 scaling efficiency 仍需真实多进程环境实测。
+
+
+## Lecture 9 多材料建设与 QA（2026-10-29）
+
+### 新增材料
+- code/lecture_09/scaling_laws_lab.py：固定 loss floor 的 log-linear power-law fit、RMSE/R²/residual、可复现 synthetic data、C≈6ND 与 iso-FLOP budget tradeoff。
+- tests/lecture_09/test_scaling_laws_lab.py：10 项 CPU 单元测试。
+- notebooks/lecture_09/09_scaling_laws_lab.ipynb：5 个 code cells，覆盖拟合、log-log 图、残差诊断和固定预算 N/D 关系。
+- diagrams/lecture_09_power_law_isoflop.svg：原创幂律与 iso-FLOP 概念图。
+- references/lecture_09_sources.md、exercises/chapter_09.md、experiments/lecture_09_scaling_smoke.md、code/lecture_09/README.md。
+
+### 实际验收结果
+- [x] 10/10 CPU 单元测试通过，覆盖已知 floor 的精确拟合、synthetic 数据可复现、非法输入、FLOPs 公式和固定预算不变量。
+- [x] CLI demo 成功：synthetic exponent 0.220，拟合约 0.2205；RMSE 与 R² 正常输出。此结果只验证算法流程，不是论文数据复现。
+- [x] Notebook 5/5 code cells 使用 nbclient 从头执行成功，无 cell error；synthetic observations、残差图和 N/D budget 图均成功生成。
+- [x] SVG XML 解析通过，CairoSVG 渲染为 1280×720 PNG，完成视觉审查。图中明确标记为概念示意，且标注 iso-FLOP 是约束而非最优点曲线。
+- [ ] 尚未用真实训练 loss 数据拟合 Kaplan/Chinchilla scaling law，也未验证多数量级外推；不能把 synthetic 指数作为论文结论。

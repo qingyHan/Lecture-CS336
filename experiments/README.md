@@ -75,3 +75,5 @@
 - [Lecture 8 — ZeRO/FSDP memory accounting smoke test](lecture_08_sharding_smoke.md)：记录 9/9 CPU 公式测试、Notebook 执行、SVG 审查与待用户 CUDA / 多 GPU 验收的范围。
 
 - [Lecture 8 — ZeRO/FSDP memory accounting smoke test](lecture_08_sharding_smoke.md)：区分理想化状态账本、单卡 checkpointing probe 与真正多 GPU FSDP 验收。
+
+- [Lecture 9 — Scaling Laws fit smoke test](lecture_09_scaling_smoke.md)：记录 synthetic power-law 拟合、残差、iso-FLOP 账本、Notebook 执行与原创图审查；明确不是论文数据复现。

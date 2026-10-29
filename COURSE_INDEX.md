@@ -52,6 +52,7 @@
 - Lecture 6 教学实现：[kernel_lab.py](code/lecture_06/kernel_lab.py)；[CPU 与可选 GPU 测试](tests/lecture_06/test_kernel_lab.py)；[Notebook](notebooks/lecture_06/06_triton_kernel_lab.ipynb)；[Triton tiling 图](diagrams/lecture_06_triton_tiling.svg)；[来源清单](references/lecture_06_sources.md)；[实验记录](experiments/lecture_06_triton_smoke.md)。
 - Lecture 7 教学实现：[collectives_lab.py](code/lecture_07/collectives_lab.py)；[11 项测试](tests/lecture_07/test_collectives_lab.py)；[Notebook](notebooks/lecture_07/07_collectives_lab.ipynb)；[Ring all-reduce 图](diagrams/lecture_07_ring_all_reduce.svg)；[来源清单](references/lecture_07_sources.md)；[实验记录](experiments/lecture_07_collectives_smoke.md)。
 - Lecture 8 教学实现：[sharding_lab.py](code/lecture_08/sharding_lab.py)；[公式与 CUDA 测试](tests/lecture_08/test_sharding_lab.py)；[Notebook](notebooks/lecture_08/08_zero_fsdp_memory_lab.ipynb)；[ZeRO/FSDP 图](diagrams/lecture_08_zero_fsdp_memory.svg)；[来源清单](references/lecture_08_sources.md)；[实验记录](experiments/lecture_08_sharding_smoke.md)。
+- Lecture 9 教学实现：[scaling_laws_lab.py](code/lecture_09/scaling_laws_lab.py)；[10 项测试](tests/lecture_09/test_scaling_laws_lab.py)；[Notebook](notebooks/lecture_09/09_scaling_laws_lab.ipynb)；[幂律/Iso-FLOP 图](diagrams/lecture_09_power_law_isoflop.svg)；[来源清单](references/lecture_09_sources.md)；[实验记录](experiments/lecture_09_scaling_smoke.md)。
 - [Notebook 运行规范](notebooks/README.md)。
 - code/lecture_01/ 至 code/lecture_03/ 保存教学实现；tests/lecture_01/ 至 tests/lecture_03/ 保存正确性测试。
 - [实验记录规范](experiments/README.md)。

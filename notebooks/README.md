@@ -12,6 +12,7 @@
 | Lecture 6 | [06_triton_kernel_lab.ipynb](lecture_06/06_triton_kernel_lab.ipynb) | CPU reference、稳定 Softmax、融合流量账本、可选 Triton/GPU 正确性与 benchmark 分支 | Python、PyTorch、matplotlib；GPU 分支需要 Triton + CUDA |
 | Lecture 7 | [07_collectives_lab.ipynb](lecture_07/07_collectives_lab.ipynb) | all-reduce / ring CPU simulation、不等 batch 的加权梯度、通信量与 alpha-beta 模型 | Python、PyTorch、matplotlib |
 | Lecture 8 | [08_zero_fsdp_memory_lab.ipynb](lecture_08/08_zero_fsdp_memory_lab.ipynb) | ZeRO 状态账本、transient gather、activation-checkpointing tradeoff、可选 CUDA 单卡 probe | Python、PyTorch、matplotlib；CUDA probe 需要 CUDA |
+| Lecture 9 | [09_scaling_laws_lab.ipynb](lecture_09/09_scaling_laws_lab.ipynb) | 固定 floor 的 power-law fit、log-log 曲线、残差诊断、C≈6ND iso-FLOP 预算 | Python、PyTorch、matplotlib |
 
 ## 设备默认值
 
@@ -28,7 +29,7 @@ python -m pip install torch einops matplotlib
 jupyter lab
 ~~~
 
-打开对应 Notebook 后，建议使用 **Restart Kernel and Run All Cells**，确保 Cell 可以按顺序从头运行。第一讲只使用标准库；第二讲需要 PyTorch 和 einops；第三、四、五、七、八讲需要 PyTorch 和 matplotlib；第五讲还需要 NumPy；第六讲 GPU 分支需要 Triton + CUDA；第八讲 CUDA probe 需要 CUDA。
+打开对应 Notebook 后，建议使用 **Restart Kernel and Run All Cells**，确保 Cell 可以按顺序从头运行。第一讲只使用标准库；第二讲需要 PyTorch 和 einops；第三、四、五、七、八、九讲需要 PyTorch 和 matplotlib；第五讲还需要 NumPy；第六讲 GPU 分支需要 Triton + CUDA；第八讲 CUDA probe 需要 CUDA。
 
 ## .ipynb 与 .py 的职责
 

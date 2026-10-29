@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Scaling laws: power-law fitting and iso-FLOP constraint</title>
+  <desc id="desc">Original conceptual illustration, not empirical data. The left panel shows a decreasing excess-loss power law on log-log axes and a fitted curve. The right panel shows the inverse parameter/token tradeoff under a fixed approximate compute budget C approximately equals 6ND. The iso-FLOP curve is a constraint, not a compute-optimal allocation.</desc>
+  <defs>
+    <style>
+      .panel{fill:#f8fafc;stroke:#cbd5e1;stroke-width:2}
+      .title{font-family:'Noto Sans CJK SC',sans-serif;font-size:25px;font-weight:bold;fill:#0f172a;text-anchor:middle}
+      .label{font-family:'Noto Sans CJK SC',sans-serif;font-size:17px;fill:#0f172a;text-anchor:middle}
+      .small{font-family:'Noto Sans CJK SC',sans-serif;font-size:14px;fill:#475569;text-anchor:middle}
+      .axis{stroke:#334155;stroke-width:2;fill:none}
+      .grid{stroke:#cbd5e1;stroke-width:1;stroke-dasharray:4 5}
+      .curve{stroke:#2563eb;stroke-width:4;fill:none}
+      .point{fill:#f59e0b;stroke:#92400e;stroke-width:1.5}
+    </style>
+  </defs>
+  <rect width="1280" height="720" fill="#ffffff"/>
+  <text x="320" y="42" class="title">幂律拟合：固定 loss floor</text>
+  <text x="960" y="42" class="title">Iso-FLOP：固定计算约束</text>
+  <rect x="25" y="65" width="590" height="570" rx="18" class="panel"/>
+  <rect x="665" y="65" width="590" height="570" rx="18" class="panel"/>
+
+  <path d="M95 150 V525 H555" class="axis"/>
+  <path d="M95 220 H555 M95 300 H555 M95 380 H555 M95 460 H555" class="grid"/>
+  <path d="M190 150 V525 M285 150 V525 M380 150 V525 M475 150 V525" class="grid"/>
+  <text x="325" y="565" class="label">log(规模 x)</text>
+  <text x="52" y="340" class="label" transform="rotate(-90 52 340)">log(L - floor)</text>
+  <path d="M125 205 C205 260 280 320 355 375 S470 455 530 485" class="curve"/>
+  <circle cx="130" cy="210" r="6" class="point"/><circle cx="195" cy="258" r="6" class="point"/>
+  <circle cx="255" cy="303" r="6" class="point"/><circle cx="330" cy="357" r="6" class="point"/>
+  <circle cx="400" cy="410" r="6" class="point"/><circle cx="468" cy="450" r="6" class="point"/>
+  <circle cx="526" cy="489" r="6" class="point"/>
+  <line x1="175" y1="600" x2="220" y2="600" class="curve"/>
+  <text x="274" y="605" class="small">拟合幂律</text>
+  <circle cx="386" cy="600" r="6" class="point"/>
+  <text x="470" y="605" class="small">synthetic points</text>
+
+  <path d="M730 150 V525 H1190" class="axis"/>
+  <path d="M730 220 H1190 M730 300 H1190 M730 380 H1190 M730 460 H1190" class="grid"/>
+  <path d="M825 150 V525 M920 150 V525 M1015 150 V525 M1110 150 V525" class="grid"/>
+  <text x="960" y="565" class="label">参数量 N（log）</text>
+  <text x="690" y="340" class="label" transform="rotate(-90 690 340)">token 预算 D（log）</text>
+  <path d="M765 185 C830 250 895 305 970 360 S1090 440 1155 490" class="curve"/>
+  <circle cx="765" cy="185" r="6" class="point"/><circle cx="840" cy="255" r="6" class="point"/>
+  <circle cx="915" cy="315" r="6" class="point"/><circle cx="990" cy="375" r="6" class="point"/>
+  <circle cx="1065" cy="435" r="6" class="point"/><circle cx="1155" cy="490" r="6" class="point"/>
+  <rect x="760" y="585" width="400" height="32" rx="8" fill="#fef3c7" stroke="#d97706"/>
+  <text x="960" y="606" class="small">C ≈ 6ND：约束曲线，不是最优点曲线</text>
+  <text x="640" y="685" class="small">原创概念图；所有曲线和点均为示意，不是实测数据或论文拟合结果。</text>
+</svg>

@@ -4,6 +4,16 @@
 >
 > **官方材料**：[lecture_09.pdf](https://github.com/stanford-cs336/lectures/blob/main/lecture_09.pdf)。本讲围绕官方主题解释经验缩放规律、数据/模型/计算的联合权衡，以及 Kaplan 与 Chinchilla 结论的差异。具体指数和最优配比依赖实验范围与训练配方，不能当作自然常数。
 
+## 0. 配套材料与建议学习顺序
+
+1. 先读幂律、固定 loss floor 和计算预算的推导，再看[幂律与 Iso-FLOP 原创概念图](../diagrams/lecture_09_power_law_isoflop.svg)。
+2. 运行[拟合与计算账本代码](../code/lecture_09/scaling_laws_lab.py)，核对幂律指数、残差和 (C\approx6ND)。
+3. 执行[自动化测试](../tests/lecture_09/test_scaling_laws_lab.py)，检查拟合恢复、输入边界和固定预算约束。
+4. 执行[交互式 Notebook](../notebooks/lecture_09/09_scaling_laws_lab.ipynb)，查看 synthetic fit、log-log 曲线、残差与 N/D tradeoff。
+5. 完成[本讲练习](../exercises/chapter_09.md)，并阅读[来源清单](../references/lecture_09_sources.md)与[实验记录](../experiments/lecture_09_scaling_smoke.md)。
+
+**证据边界**：Notebook 的数据是 synthetic observations，不是 Kaplan/Chinchilla 的论文复现；Iso-FLOP 约束也不等于 compute-optimal 配置。
+
 ## 1. 为什么训练大模型前要研究缩放律？
 
 假设训练预算固定，最终模型训练失败或 loss 高于预期，可能浪费大量 GPU 时间。Scaling laws（缩放律）尝试利用较小、较便宜的实验，预测模型规模、训练 token 数或计算预算改变时，验证损失如何变化。它的价值不是替代实验，而是把昂贵决策变成有证据支持的外推。
