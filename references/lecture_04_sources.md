@@ -20,6 +20,7 @@
 - 优先直接链接官方 Lecture 4 PDF 与论文原文；引用论文特定图时，应记录论文、图号和页码并保留出处。
 - 本仓库 diagrams/lecture_04_gqa_moe.svg 是原创解释性示意图，不是官方课件或论文复制图。它只表达 GQA 的 Q/KV head 分组、MoE 的 token-choice top-k 路由和关键成本边界。
 - 自绘图审查：箭头必须对应数据流；维度必须与代码一致；GQA cache 的 head 维度是 n_kv_heads，attention score 的 head 维度仍是 n_query_heads；MoE 的 top-k 表示每个 token 的 expert assignments 数，而不是 unique token 数；不得暗示 Python toy implementation 具备生产性能。
+- 本图已通过 XML 解析与 PNG 渲染，并进行视觉审查。首轮发现字体 fallback 与 Unicode 下标在某些渲染器中显示为方框；已改用 Noto Sans CJK SC 和 ASCII 标签 E1/E2/E_n，复查截图后才验收。
 
 ## 本讲代码与实验材料
 

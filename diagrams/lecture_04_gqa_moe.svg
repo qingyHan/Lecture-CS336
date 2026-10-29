@@ -6,9 +6,9 @@
     <style>
       .panel{fill:#f8fafc;stroke:#cbd5e1;stroke-width:2}
       .box{stroke:#334155;stroke-width:1.8;rx:12;ry:12}
-      .title{font-family:Arial,'Noto Sans CJK SC',sans-serif;font-size:28px;font-weight:bold;fill:#0f172a;text-anchor:middle}
-      .label{font-family:Arial,'Noto Sans CJK SC',sans-serif;font-size:20px;fill:#0f172a;text-anchor:middle}
-      .small{font-family:Arial,'Noto Sans CJK SC',sans-serif;font-size:16px;fill:#334155;text-anchor:middle}
+      .title{font-family:'Noto Sans CJK SC',sans-serif;font-size:28px;font-weight:bold;fill:#0f172a;text-anchor:middle}
+      .label{font-family:'Noto Sans CJK SC',sans-serif;font-size:20px;fill:#0f172a;text-anchor:middle}
+      .small{font-family:'Noto Sans CJK SC',sans-serif;font-size:16px;fill:#334155;text-anchor:middle}
       .arrow{fill:none;stroke:#334155;stroke-width:2.4;marker-end:url(#arrow)}
     </style>
   </defs>
@@ -56,11 +56,11 @@
   <path d="M960 395 V420" class="arrow"/>
   <path d="M960 395 H1160 V420" class="arrow"/>
   <rect x="700" y="422" width="120" height="72" class="box" fill="#bbf7d0"/>
-  <text x="760" y="464" class="label">专家 E₁</text>
+  <text x="760" y="464" class="label">专家 E1</text>
   <rect x="900" y="422" width="120" height="72" class="box" fill="#bbf7d0"/>
-  <text x="960" y="464" class="label">专家 E₂</text>
+  <text x="960" y="464" class="label">专家 E2</text>
   <rect x="1100" y="422" width="120" height="72" class="box" fill="#e2e8f0"/>
-  <text x="1160" y="464" class="label">… Eₙ</text>
+  <text x="1160" y="464" class="label">… E_n</text>
   <path d="M760 494 V528 H960 V552" class="arrow"/>
   <path d="M960 494 V552" class="arrow"/>
   <path d="M1160 494 V528 H960" class="arrow"/>

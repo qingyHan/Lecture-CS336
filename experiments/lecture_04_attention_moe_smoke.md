@@ -7,10 +7,10 @@
 
 | 项目 | 结果 | 状态 |
 |---|---|---|
-| 单元测试 | 10 项覆盖 GQA 形状/mask/因果性、KV cache 公式、MoE top-k、专家负载、辅助损失梯度、router/expert 梯度与非法配置 | 待本次执行后填写 |
-| CLI demo | GQA 与 MoE 输出形状、专家 assignment counts、load-balance proxy | 待本次执行后填写 |
-| Notebook | schema 校验、所有 code cells 顺序执行 | 待本次执行后填写 |
-| SVG | XML 解析、PNG 渲染、人工视觉审查 | 待本次执行后填写 |
+| 单元测试 | 10 项覆盖 GQA 形状/mask/因果性、KV cache 公式、MoE top-k、专家负载、辅助损失梯度、router/expert 梯度与非法配置 | **10/10 通过** |
+| CLI demo | GQA 输出 (2,8,32)，weights (2,4,8,8)；MoE 输出 (2,8,32)，loads [7,7,8,10]，参数量 16,896，aux proxy 1.0192 | **通过** |
+| Notebook | 11 个 cell，其中 5 个 code cell；nbformat 校验通过，nbclient 5/5 顺序执行成功，无 cell error；提交版 outputs 为空 | **通过** |
+| SVG | XML 解析通过；CairoSVG PNG 渲染通过；人工视觉审查发现并修复字体 fallback 与下标 glyph 问题，复查通过 | **通过** |
 
 ## 证据边界
 

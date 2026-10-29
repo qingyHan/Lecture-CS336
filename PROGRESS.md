@@ -294,3 +294,14 @@
 ### QA 状态
 - 当前为材料已创建、验收进行中；测试和 Notebook 未确认执行前，不标记通过。
 - GPU 性能、fused GQA、容量受限 MoE 和跨设备 all-to-all 不在 CPU smoke test 的证明范围。
+
+
+### Lecture 4 验收结果（2026-10-29）
+
+- [x] 从 GitHub 重新获取代码和测试文件；本地 QA 副本的 Git blob SHA 分别与仓库的 code/test SHA 完全匹配，再运行测试。
+- [x] 10/10 CPU 单元测试通过，覆盖 GQA 输出形状、因果 mask、未来 token 不影响更早输出、KV cache 公式与比例、MoE top-k、assignment counts、辅助损失梯度、router/expert 梯度和非法参数。
+- [x] CLI demo 执行成功：GQA 输出 (2, 8, 32)，attention weights (2, 4, 8, 8)；MoE 输出 (2, 8, 32)，assignment counts 为 [7, 7, 8, 10]；MoE 参数量 16,896；load-balance proxy 1.0192。
+- [x] Notebook 的 5 个 code cells 使用 nbclient 顺序执行成功，无 cell error；提交版不预置输出。
+- [x] SVG XML 解析通过，使用 CairoSVG 渲染 PNG，并进行视觉检查。检查发现首版字体回退与 Unicode 下标兼容问题；已将字体族收敛到 Noto Sans CJK SC，并把 E₁/E₂/Eₙ 改为跨平台可读的 E1/E2/E_n，再次渲染检查通过。
+- [x] 图示语义复核：GQA 的 attention score 维度仍为 query-head 数，KV cache 按 KV-head 数缩放；MoE 图明确是 token-choice top-k assignments，且注明为原创示意图、非官方原图。
+- [ ] 无 CUDA：未测 GPU 延迟/吞吐/峰值显存，未验证优化 GQA kernel、capacity-limited MoE 或跨设备 all-to-all。
