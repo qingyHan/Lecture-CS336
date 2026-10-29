@@ -4,6 +4,16 @@
 >
 > **官方资料**：[lecture_06.py](https://github.com/stanford-cs336/lectures/blob/main/lecture_06.py)。官方可执行讲义包含 benchmark/profiling 与 Triton 的 GeLU、Softmax、row sum、matmul-ReLU 示例。本笔记以这些官方主题为依据，补充从算子语义到 GPU kernel 的推理过程。
 
+## 0. 配套材料与建议学习顺序
+
+1. 先阅读本讲的 benchmark/profiling、mask、reduction 和 tiling，再看[Triton tile 与 mask 原创示意图](../diagrams/lecture_06_triton_tiling.svg)。
+2. 运行[CPU reference 与可选 Triton kernels](../code/lecture_06/kernel_lab.py)，先核对数学语义。
+3. 执行[自动化测试](../tests/lecture_06/test_kernel_lab.py)。当前环境没有 Triton/CUDA，3 个 GPU 测试会跳过；这不等于 Triton kernel 已验证。
+4. 执行[交互式 Notebook](../notebooks/lecture_06/06_triton_kernel_lab.ipynb)，观察稳定 Softmax、融合的数据流账本，并在 CUDA + Triton 环境中运行可选分支。
+5. 完成本讲[练习](../exercises/chapter_06.md)，并阅读[来源清单](../references/lecture_06_sources.md)和[实验记录](../experiments/lecture_06_triton_smoke.md)。
+
+**重要限制**：当前只验证了 CPU reference 与 Notebook fallback。Triton JIT 编译、GPU 数值正确性、PTX 和性能尚未验证。
+
 ## 1. 为什么需要自己写 Kernel？
 
 PyTorch 提供了高级 tensor API，但一次高层操作不一定对应一次 GPU kernel。若代码连续执行若干 elementwise 操作，可能产生多个 kernel launch，并把中间 tensor 写回 HBM；对于小算子，launch 和内存流量可能比算术本身更昂贵。

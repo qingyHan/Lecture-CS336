@@ -29,7 +29,7 @@
 - notebooks/lecture_XX/：交互式学习实验。
 - code/lecture_XX/：可复用的教学实现。
 - tests/lecture_XX/：正确性测试。
-- 当前教学代码统一测试命令：`python -m unittest discover -s tests -p 'test_*.py' -v`。Lecture 1–2 的 13 项 CPU 单元测试此前通过，Lecture 3 新增 7 项并单独通过；Lecture 4 新增 10 项、Lecture 5 新增 9 项测试已分别通过；合并后的根目录测试仍需在完整仓库工作副本中重跑。新增测试子包后，仍需在完整仓库工作副本中重跑合并后的根目录测试。GPU 性能测试需在具备 CUDA 的环境单独运行。
+- 当前教学代码统一测试命令：`python -m unittest discover -s tests -p 'test_*.py' -v`。Lecture 1–2 的 13 项 CPU 单元测试此前通过，Lecture 3 新增 7 项并单独通过；Lecture 4 新增 10 项、Lecture 5 新增 9 项测试分别通过；Lecture 6 有 8 项 CPU/reference 测试通过、3 项 GPU 测试因环境缺失跳过。合并后的根目录测试仍需在完整仓库工作副本中重跑。新增测试子包后，仍需在完整仓库工作副本中重跑合并后的根目录测试。GPU 性能测试需在具备 CUDA 的环境单独运行。
 - exercises/：章节练习；参考答案采用可展开区域。
 - experiments/：实验设计与结果记录规范。
 - references/：官方来源、论文和版本信息。

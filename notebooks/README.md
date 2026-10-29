@@ -9,6 +9,7 @@
 | Lecture 3 | [03_transformer_architecture_lab.ipynb](lecture_03/03_transformer_architecture_lab.ipynb) | 张量形状、attention heatmap、causal mask、未来 token 泄漏测试、next-token loss、参数量对比、tiny overfit | Python、PyTorch、matplotlib |
 | Lecture 4 | [04_attention_moe_lab.ipynb](lecture_04/04_attention_moe_lab.ipynb) | GQA KV cache 账本、causal mask heatmap、Top-k MoE 路由、专家负载、辅助损失与梯度 | Python、PyTorch、matplotlib |
 | Lecture 5 | [05_accelerator_roofline_lab.ipynb](lecture_05/05_accelerator_roofline_lab.ipynb) | FLOPs/bytes 账本、合成 Roofline、matmul benchmark、数值误差 | Python、PyTorch、matplotlib、NumPy |
+| Lecture 6 | [06_triton_kernel_lab.ipynb](lecture_06/06_triton_kernel_lab.ipynb) | CPU reference、稳定 Softmax、融合流量账本、可选 Triton/GPU 正确性与 benchmark 分支 | Python、PyTorch、matplotlib；GPU 分支需要 Triton + CUDA |
 
 ## 设备默认值
 

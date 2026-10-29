@@ -323,3 +323,20 @@
 - [x] Notebook 5/5 code cells 经 nbclient 顺序执行成功，无 cell error；提交版 outputs 为空。
 - [x] SVG XML 解析通过，CairoSVG PNG 渲染通过，完成视觉审查。修正了“Grid 包含多个 CTA”的过强表述，改为“Grid 由 CTAs 组成”；补充箭头只表示相对层次/成本趋势而非严格访问路径的说明。
 - [ ] 无 CUDA，未测 Tensor Core 吞吐、HBM 带宽、显存峰值、GPU 延迟或 Nsight profiler 指标。合成 Roofline 曲线不得解释为任何真实 GPU 的规格。
+
+
+## Lecture 6 多材料建设与 QA（2026-10-29，GPU 部分待验证）
+
+### 新增材料
+- code/lecture_06/kernel_lab.py：CPU PyTorch reference、误差指标，以及可选 Triton GeLU、row-wise softmax、row sum、matmul+ReLU kernel。
+- tests/lecture_06/test_kernel_lab.py：11 项测试，其中 8 项通过，3 项要求 Triton + CUDA 的 GPU 测试在当前环境跳过。
+- notebooks/lecture_06/06_triton_kernel_lab.ipynb：5 个 code cells，包含参考语义、稳定 Softmax、融合流量账本与可选 GPU 分支。
+- diagrams/lecture_06_triton_tiling.svg：原创 elementwise mask 与 tiled matmul 示意图。
+- references/lecture_06_sources.md、exercises/chapter_06.md、experiments/lecture_06_triton_smoke.md、code/lecture_06/README.md。
+
+### 实际验收结果
+- [x] CPU/reference 测试：8 项通过；3 项 GPU kernel 测试因 Triton 未安装且 CUDA 不可用而 skip；测试总数 11。
+- [x] Notebook：5/5 code cells 经 nbclient 从头执行成功，无 cell error；GPU 分支明确打印 skip，不生成虚假性能结果。
+- [x] SVG XML 解析通过，CairoSVG PNG 渲染通过并进行视觉审查。图中 1D mask 示例 N=26、BLOCK=8，最后 tile 只有 2 个有效 lane、6 个 masked lanes；matmul 图已调整为 K-loop 内重复加载 A/B tiles、tl.dot 与 C tile 累加，再执行 ReLU/store，避免误画成先做一次 dot 再进入循环。
+- [x] GELU 的 tanh 近似使用基于 exp(-2|x|) 的稳定形式，避免直接 exp(2x) 在大正值时溢出。
+- [ ] 当前无 CUDA、未安装 Triton；自定义 kernels 的 JIT、数值结果、PTX 与 GPU 性能仍未验证。CPU reference 通过不代表 GPU kernel 正确。

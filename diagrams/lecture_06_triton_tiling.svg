@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="780" viewBox="0 0 1280 780" role="img" aria-labelledby="title desc">
+  <title id="title">Triton tiling: masked elementwise and tiled matrix multiplication</title>
+  <desc id="desc">Original conceptual diagram. Left panel shows a one-dimensional tensor of 26 elements partitioned into blocks of 8, with the final block masking invalid offsets. Right panel shows A and B tiles loaded for a K-loop, dot-product accumulation into an output tile, then ReLU and masked store. Exact hardware mapping depends on compiler and GPU.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#334155"/></marker>
+    <style>
+      .panel{fill:#f8fafc;stroke:#cbd5e1;stroke-width:2}
+      .box{stroke:#334155;stroke-width:1.8;rx:12;ry:12}
+      .title{font-family:'Noto Sans CJK SC',sans-serif;font-size:27px;font-weight:bold;fill:#0f172a;text-anchor:middle}
+      .label{font-family:'Noto Sans CJK SC',sans-serif;font-size:19px;fill:#0f172a;text-anchor:middle}
+      .small{font-family:'Noto Sans CJK SC',sans-serif;font-size:15px;fill:#334155;text-anchor:middle}
+      .arrow{fill:none;stroke:#334155;stroke-width:2.4;marker-end:url(#arrow)}
+      .cell{stroke:#ffffff;stroke-width:1.4}
+    </style>
+  </defs>
+  <rect width="1280" height="780" fill="#ffffff"/>
+  <text x="320" y="46" class="title">Elementwise kernel：program / tile / mask</text>
+  <text x="960" y="46" class="title">Tiled Matmul + ReLU</text>
+  <rect x="30" y="76" width="580" height="630" rx="18" class="panel"/>
+  <rect x="670" y="76" width="580" height="630" rx="18" class="panel"/>
+
+  <rect x="100" y="112" width="440" height="64" class="box" fill="#dbeafe"/>
+  <text x="320" y="139" class="label">输入向量 X，N = 26</text>
+  <text x="320" y="161" class="small">BLOCK = 8；每个 program 处理一个 tile</text>
+  <text x="320" y="216" class="small">offsets = pid × BLOCK + arange(BLOCK)</text>
+  <text x="320" y="244" class="small">mask = offsets &lt; N</text>
+
+  <text x="145" y="282" class="small">Program 0</text>
+  <text x="275" y="282" class="small">Program 1</text>
+  <text x="405" y="282" class="small">Program 2</text>
+  <text x="535" y="282" class="small">Program 3</text>
+  <g>
+    <rect x="84" y="296" width="14" height="42" class="cell" fill="#60a5fa"/><rect x="98" y="296" width="14" height="42" class="cell" fill="#60a5fa"/><rect x="112" y="296" width="14" height="42" class="cell" fill="#60a5fa"/><rect x="126" y="296" width="14" height="42" class="cell" fill="#60a5fa"/><rect x="140" y="296" width="14" height="42" class="cell" fill="#60a5fa"/><rect x="154" y="296" width="14" height="42" class="cell" fill="#60a5fa"/><rect x="168" y="296" width="14" height="42" class="cell" fill="#60a5fa"/><rect x="182" y="296" width="14" height="42" class="cell" fill="#60a5fa"/>
+    <rect x="214" y="296" width="14" height="42" class="cell" fill="#34d399"/><rect x="228" y="296" width="14" height="42" class="cell" fill="#34d399"/><rect x="242" y="296" width="14" height="42" class="cell" fill="#34d399"/><rect x="256" y="296" width="14" height="42" class="cell" fill="#34d399"/><rect x="270" y="296" width="14" height="42" class="cell" fill="#34d399"/><rect x="284" y="296" width="14" height="42" class="cell" fill="#34d399"/><rect x="298" y="296" width="14" height="42" class="cell" fill="#34d399"/><rect x="312" y="296" width="14" height="42" class="cell" fill="#34d399"/>
+    <rect x="344" y="296" width="14" height="42" class="cell" fill="#fbbf24"/><rect x="358" y="296" width="14" height="42" class="cell" fill="#fbbf24"/><rect x="372" y="296" width="14" height="42" class="cell" fill="#fbbf24"/><rect x="386" y="296" width="14" height="42" class="cell" fill="#fbbf24"/><rect x="400" y="296" width="14" height="42" class="cell" fill="#fbbf24"/><rect x="414" y="296" width="14" height="42" class="cell" fill="#fbbf24"/><rect x="428" y="296" width="14" height="42" class="cell" fill="#fbbf24"/><rect x="442" y="296" width="14" height="42" class="cell" fill="#fbbf24"/>
+    <rect x="474" y="296" width="14" height="42" class="cell" fill="#a78bfa"/><rect x="488" y="296" width="14" height="42" class="cell" fill="#a78bfa"/><rect x="502" y="296" width="14" height="42" class="cell" fill="#94a3b8"/><rect x="516" y="296" width="14" height="42" class="cell" fill="#94a3b8"/><rect x="530" y="296" width="14" height="42" class="cell" fill="#94a3b8"/><rect x="544" y="296" width="14" height="42" class="cell" fill="#94a3b8"/><rect x="558" y="296" width="14" height="42" class="cell" fill="#94a3b8"/><rect x="572" y="296" width="14" height="42" class="cell" fill="#94a3b8"/>
+  </g>
+  <text x="320" y="372" class="small">26 个有效元素；最后一个 tile 仅前 2 个有效</text>
+  <rect x="95" y="398" width="450" height="70" class="box" fill="#e0f2fe"/>
+  <text x="320" y="426" class="label">Masked load → elementwise compute</text>
+  <text x="320" y="451" class="small">无效 lane 使用安全的 other 值，避免越界读</text>
+  <path d="M320 468 V500" class="arrow"/>
+  <rect x="95" y="502" width="450" height="70" class="box" fill="#dcfce7"/>
+  <text x="320" y="530" class="label">Masked store</text>
+  <text x="320" y="555" class="small">仅写入 offsets &lt; N 的有效元素</text>
+  <text x="320" y="620" class="small">尾部 mask 是正确性条件，不只是性能提示</text>
+  <text x="320" y="650" class="small">示例：N=26、BLOCK=8；最后 6 个 lane 被屏蔽</text>
+
+  <rect x="715" y="112" width="220" height="76" class="box" fill="#dbeafe"/>
+  <text x="825" y="141" class="label">A tile [BM,BK]</text>
+  <text x="825" y="165" class="small">从 A[M,K] 加载</text>
+  <rect x="985" y="112" width="220" height="76" class="box" fill="#dbeafe"/>
+  <text x="1095" y="141" class="label">B tile [BK,BN]</text>
+  <text x="1095" y="165" class="small">从 B[K,N] 加载</text>
+  <path d="M825 188 V222 H920 V250" class="arrow"/>
+  <path d="M1095 188 V222 H1000 V250" class="arrow"/>
+  <rect x="790" y="252" width="340" height="125" class="box" fill="#fef3c7"/>
+  <text x="960" y="283" class="label">K-loop：遍历 K tiles</text>
+  <text x="960" y="313" class="small">每轮加载 A_tile / B_tile</text>
+  <text x="960" y="340" class="small">tl.dot → 累加 C_tile [BM,BN]</text>
+  <text x="960" y="363" class="small">tile shapes: [BM,BK] × [BK,BN]</text>
+  <path d="M960 377 V410" class="arrow"/>
+  <rect x="790" y="412" width="340" height="76" class="box" fill="#dcfce7"/>
+  <text x="960" y="442" class="label">ReLU + masked store</text>
+  <text x="960" y="466" class="small">只写入 C[M,N] 的有效 tile 区域</text>
+  <rect x="730" y="530" width="460" height="80" class="box" fill="#fee2e2"/>
+  <text x="960" y="558" class="small">Tile 形状控制数据复用，也影响寄存器/并行度</text>
+  <text x="960" y="584" class="small">实际硬件映射由 Triton 编译器和 GPU 决定</text>
+  <text x="640" y="746" class="small">原创教学示意图；非官方原图。箭头与 tile 用于解释计算组织，不保证特定硬件映射。</text>
+</svg>
