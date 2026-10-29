@@ -11,7 +11,7 @@
 | 5 | 有 | 有，资源核算 + matmul benchmark | 有，9 项已通过 | 有，5 个 code cells 已执行 | 有，SVG 已 XML 校验、PNG 渲染并视觉审查 | 有，lecture_05_sources.md | 有，CPU smoke test | GPU 型号实测、Nsight profiler 与设备特定 Roofline 待做 |
 | 6 | 有 | 有，CPU reference + 可选 Triton kernels | 作者 QA：8 项通过、3 项 GPU 测试因 CPU-only 环境 skip | 有，5 个 code cells 已执行 | 有，SVG 已 XML 校验、PNG 渲染并视觉审查 | 有，lecture_06_sources.md | 有，CPU smoke test 与 CUDA 验收命令 | 用户目标环境为 torch 2.14.1+cu130 / CUDA；Triton JIT/GPU correctness/benchmark 待用户实测 |
 | 7 | 有 | 有，all-reduce / ring simulation / 加权梯度 | 有，11 项已通过 | 有，4 个 code cells 已执行 | 有，SVG 已 XML 校验、PNG 渲染并视觉审查 | 有，lecture_07_sources.md | 有，CPU simulation smoke test | 真实 torch.distributed 多进程、Gloo/NCCL 与网络性能待测 |
-| 8 | 有 | 待建设 | 待建设 | 待建设 | 待建设 | 讲义内有参考链接 | 待建设 | 需要 shard 内存账本和 FSDP/GPU 验证 |
+| 8 | 有 | 有，ZeRO 状态账本 + CUDA checkpointing probe | 9 项 CPU 公式测试；1 项 CUDA 测试按环境 skip | 有，5 个 code cells | 有，原创 ZeRO/FSDP 生命周期图 | 有，lecture_08_sources.md | 有，含目标 CUDA 命令 | 多 GPU FSDP/NCCL 数值、峰值显存与通信性能仍待真实多进程环境验证 |
 | 9 | 有 | 待建设 | 待建设 | 待建设 | 待建设 | 讲义内有参考链接 | 待建设 | 需要可复现 scaling-law 数据拟合 Notebook |
 | 10 | 有 | 待建设 | 待建设 | 待建设 | 待建设 | 讲义内有参考链接 | 待建设 | 需要 KV cache 计算器与请求 trace 实验 |
 | 11 | 有 | 待建设 | 待建设 | 待建设 | 待建设 | 讲义内有参考链接 | 待建设 | 需要训练配方/宽度对照实验 |

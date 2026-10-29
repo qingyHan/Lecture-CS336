@@ -364,3 +364,18 @@
 - 用户已明确：CUDA 会在拉取仓库后由用户选择的环境提供，目标环境为 \`torch 2.14.1+cu130 | device cuda\`。
 - 因此，作者 QA 容器无 CUDA 只限制本轮作者实测，不构成项目环境假设；Lecture 6 README 与实验记录已增加预检、单元测试和 Notebook 执行命令。
 - 3 个 GPU 专项测试目前保持待目标环境实测状态。只有用户环境实际执行并通过后，才能更新为 GPU 验收通过。
+
+
+## Lecture 8 多材料建设（2026-10-29，待执行 QA）
+
+### 新增材料
+- code/lecture_08/sharding_lab.py：ZeRO-0/1/2/3 每 rank 状态账本、balanced shard sizes、transient parameter gather、activation-checkpointing tradeoff 与可选 CUDA 单卡训练 step probe。
+- tests/lecture_08/test_sharding_lab.py：9 项 CPU 公式/边界测试，以及 1 项需要 CUDA 的可选 probe 测试。
+- notebooks/lecture_08/08_zero_fsdp_memory_lab.ipynb：5 个 code cells，覆盖状态账本、内存可视化、峰值组成与可选 CUDA 测量。
+- diagrams/lecture_08_zero_fsdp_memory.svg：原创 ZeRO stage 对照与 FSDP 生命周期示意图。
+- references/lecture_08_sources.md、exercises/chapter_08.md、experiments/lecture_08_sharding_smoke.md、code/lecture_08/README.md。
+
+### 验收计划与证据边界
+- [ ] 本轮创建材料后先执行 CPU 公式测试、Notebook fallback 与 SVG XML/PNG/视觉检查，再据实更新结果。
+- [ ] 用户目标环境为 torch 2.14.1+cu130 / device cuda；单 GPU probe 可在该环境执行，但这不等于真实 FSDP 多 GPU 验收。
+- [ ] 多 GPU FSDP/NCCL 数值一致性、每 rank 峰值显存、通信时间与 scaling efficiency 仍需真实多进程环境实测。

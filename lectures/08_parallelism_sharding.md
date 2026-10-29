@@ -4,6 +4,16 @@
 >
 > **官方材料**：[lecture_08.pdf](https://github.com/stanford-cs336/lectures/blob/main/lecture_08.pdf)。本讲义围绕多 GPU 训练中的状态分片与并行策略组织，补充原理和成本模型；具体操作细节以官方 PDF、A2 handout 与 PyTorch 对应版本为准。
 
+## 0. 配套材料与建议学习顺序
+
+1. 先阅读本讲的 ZeRO-0/1/2/3 状态账本，再看[ZeRO 与 FSDP 生命周期原创示意图](../diagrams/lecture_08_zero_fsdp_memory.svg)。
+2. 运行[内存估算与 checkpointing probe](../code/lecture_08/sharding_lab.py)，先验证模型状态公式与分片边界。
+3. 执行[自动化测试](../tests/lecture_08/test_sharding_lab.py)，检查各 stage 的状态拆分、临时 gather 与峰值账本。
+4. 执行[交互式 Notebook](../notebooks/lecture_08/08_zero_fsdp_memory_lab.ipynb)，观察状态内存柱状图；CUDA 可用时还可测单 GPU activation checkpointing。
+5. 完成[本讲练习](../exercises/chapter_08.md)，并阅读[来源清单](../references/lecture_08_sources.md)和[实验记录](../experiments/lecture_08_sharding_smoke.md)。
+
+**证据边界**：内存账本是透明的理想化估算；单 GPU checkpointing probe 不等同于 FSDP/NCCL 多 GPU 验证。用户目标环境为 torch 2.14.1+cu130 / device cuda。
+
 ## 1. 从 DDP 的容量限制出发
 
 数据并行把模型复制到每张 GPU。假设参数量为 P，每个参数使用 b_w 字节权重、b_g 字节梯度，优化器状态每参数需要 b_o 字节，则每卡模型状态粗略占用

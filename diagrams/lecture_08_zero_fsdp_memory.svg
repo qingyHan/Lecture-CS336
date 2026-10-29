@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+  <title id="title">ZeRO stages and a conceptual FSDP full-shard lifecycle</title>
+  <desc id="desc">Original teaching diagram. Left panel compares whether parameters, gradients and optimizer states are replicated or sharded across data-parallel ranks for DDP/ZeRO stages 0 through 3. Right panel shows a conceptual FSDP full-shard lifecycle: persistent parameter shards, all-gather of the current wrapped unit, forward and backward compute, reduce-scatter of gradients, then local shard optimizer update. Exact hooks, prefetch and reshard timing depend on PyTorch version and configuration.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#334155"/></marker>
+    <style>
+      .panel{fill:#f8fafc;stroke:#cbd5e1;stroke-width:2}
+      .box{stroke:#334155;stroke-width:1.7;rx:12;ry:12}
+      .title{font-family:'Noto Sans CJK SC',sans-serif;font-size:26px;font-weight:bold;fill:#0f172a;text-anchor:middle}
+      .label{font-family:'Noto Sans CJK SC',sans-serif;font-size:19px;fill:#0f172a;text-anchor:middle}
+      .small{font-family:'Noto Sans CJK SC',sans-serif;font-size:15px;fill:#334155;text-anchor:middle}
+      .header{font-family:'Noto Sans CJK SC',sans-serif;font-size:17px;font-weight:bold;fill:#0f172a;text-anchor:middle}
+      .arrow{fill:none;stroke:#334155;stroke-width:2.3;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1440" height="900" fill="#ffffff"/>
+  <text x="350" y="44" class="title">ZeRO：每 rank 的常驻状态</text>
+  <text x="1080" y="44" class="title">FSDP FULL_SHARD：概念生命周期</text>
+  <rect x="28" y="72" width="650" height="750" rx="18" class="panel"/>
+  <rect x="710" y="72" width="702" height="750" rx="18" class="panel"/>
+
+  <text x="110" y="115" class="header">策略</text>
+  <text x="286" y="115" class="header">Parameters</text>
+  <text x="432" y="115" class="header">Gradients</text>
+  <text x="578" y="115" class="header">Optimizer states</text>
+
+  <rect x="50" y="135" width="600" height="125" class="box" fill="#e2e8f0"/>
+  <text x="110" y="176" class="label">DDP / ZeRO-0</text>
+  <text x="110" y="205" class="small">全部复制</text>
+  <rect x="220" y="153" width="132" height="86" class="box" fill="#fecaca"/>
+  <text x="286" y="190" class="label">Replicated</text><text x="286" y="216" class="small">P × b_w</text>
+  <rect x="366" y="153" width="132" height="86" class="box" fill="#fecaca"/>
+  <text x="432" y="190" class="label">Replicated</text><text x="432" y="216" class="small">P × b_g</text>
+  <rect x="512" y="153" width="126" height="86" class="box" fill="#fecaca"/>
+  <text x="575" y="190" class="label">Replicated</text><text x="575" y="216" class="small">P × b_o</text>
+
+  <rect x="50" y="274" width="600" height="125" class="box" fill="#e2e8f0"/>
+  <text x="110" y="315" class="label">ZeRO-1</text>
+  <text x="110" y="344" class="small">切 optimizer</text>
+  <rect x="220" y="292" width="132" height="86" class="box" fill="#fecaca"/>
+  <text x="286" y="329" class="label">Replicated</text><text x="286" y="355" class="small">P × b_w</text>
+  <rect x="366" y="292" width="132" height="86" class="box" fill="#fecaca"/>
+  <text x="432" y="329" class="label">Replicated</text><text x="432" y="355" class="small">P × b_g</text>
+  <rect x="512" y="292" width="126" height="86" class="box" fill="#bbf7d0"/>
+  <text x="575" y="329" class="label">Sharded</text><text x="575" y="355" class="small">≈ P/N × b_o</text>
+
+  <rect x="50" y="413" width="600" height="125" class="box" fill="#e2e8f0"/>
+  <text x="110" y="454" class="label">ZeRO-2</text>
+  <text x="110" y="483" class="small">切 grad + opt</text>
+  <rect x="220" y="431" width="132" height="86" class="box" fill="#fecaca"/>
+  <text x="286" y="468" class="label">Replicated</text><text x="286" y="494" class="small">P × b_w</text>
+  <rect x="366" y="431" width="132" height="86" class="box" fill="#bbf7d0"/>
+  <text x="432" y="468" class="label">Sharded</text><text x="432" y="494" class="small">≈ P/N × b_g</text>
+  <rect x="512" y="431" width="126" height="86" class="box" fill="#bbf7d0"/>
+  <text x="575" y="468" class="label">Sharded</text><text x="575" y="494" class="small">≈ P/N × b_o</text>
+
+  <rect x="50" y="552" width="600" height="125" class="box" fill="#e2e8f0"/>
+  <text x="110" y="593" class="label">ZeRO-3 / FSDP</text>
+  <text x="110" y="622" class="small">切全部状态</text>
+  <rect x="220" y="570" width="132" height="86" class="box" fill="#bbf7d0"/>
+  <text x="286" y="607" class="label">Sharded</text><text x="286" y="633" class="small">≈ P/N × b_w</text>
+  <rect x="366" y="570" width="132" height="86" class="box" fill="#bbf7d0"/>
+  <text x="432" y="607" class="label">Sharded</text><text x="432" y="633" class="small">≈ P/N × b_g</text>
+  <rect x="512" y="570" width="126" height="86" class="box" fill="#bbf7d0"/>
+  <text x="575" y="607" class="label">Sharded</text><text x="575" y="633" class="small">≈ P/N × b_o</text>
+  <rect x="70" y="704" width="560" height="80" class="box" fill="#fef3c7"/>
+  <text x="350" y="735" class="label">状态分片 ≠ 总峰值显存 / N</text>
+  <text x="350" y="762" class="small">激活、当前完整参数、通信 buffer 与碎片仍需另算</text>
+
+  <rect x="790" y="118" width="540" height="82" class="box" fill="#bbf7d0"/>
+  <text x="1060" y="150" class="label">Persistent parameter / gradient / optimizer shards</text>
+  <text x="1060" y="177" class="small">每个 rank 保留自己负责的状态分片</text>
+  <path d="M1060 200 V231" class="arrow"/>
+  <rect x="790" y="233" width="540" height="82" class="box" fill="#dbeafe"/>
+  <text x="1060" y="265" class="label">All-gather 当前 wrapped unit 的参数</text>
+  <text x="1060" y="292" class="small">临时构建计算所需的完整参数视图</text>
+  <path d="M1060 315 V346" class="arrow"/>
+  <rect x="790" y="348" width="540" height="82" class="box" fill="#fef3c7"/>
+  <text x="1060" y="380" class="label">Forward / Backward compute</text>
+  <text x="1060" y="407" class="small">激活与临时 buffer 仍会占用显存</text>
+  <path d="M1060 430 V461" class="arrow"/>
+  <rect x="790" y="463" width="540" height="82" class="box" fill="#ddd6fe"/>
+  <text x="1060" y="495" class="label">Reduce-scatter gradients</text>
+  <text x="1060" y="522" class="small">归约并分发梯度 shard</text>
+  <path d="M1060 545 V576" class="arrow"/>
+  <rect x="790" y="578" width="540" height="82" class="box" fill="#bbf7d0"/>
+  <text x="1060" y="610" class="label">Local optimizer update</text>
+  <text x="1060" y="637" class="small">更新本 rank 负责的参数与 optimizer state</text>
+  <rect x="770" y="692" width="580" height="96" class="box" fill="#fee2e2"/>
+  <text x="1060" y="724" class="label">生命周期是概念化简图</text>
+  <text x="1060" y="751" class="small">reshard / prefetch / mixed precision 依 PyTorch 版本、</text>
+  <text x="1060" y="773" class="small">wrap policy 与配置变化，不是所有实现的固定时序</text>
+  <text x="720" y="860" class="small">原创教学示意图；非官方 FSDP 内部结构图。P=参数量，N=world size，b_w/b_g/b_o=每参数字节数。</text>
+</svg>
