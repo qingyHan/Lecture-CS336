@@ -70,3 +70,5 @@
 - [Lecture 5 — Accelerator and Roofline smoke test](lecture_05_accelerator_smoke.md)：记录资源估算、CPU benchmark、Notebook 执行与 SVG 视觉审查结果，明确 GPU 证据缺口。
 
 - [Lecture 6 — Triton kernel smoke test](lecture_06_triton_smoke.md)：记录 CPU reference 测试、GPU 测试跳过原因、Notebook fallback 和图示审查结果。
+
+- [Lecture 7 — Collectives CPU simulation smoke test](lecture_07_collectives_smoke.md)：记录 ring 语义、梯度加权、通信量估算、Notebook 执行与 SVG 审查结果，明确真实分布式验证缺口。

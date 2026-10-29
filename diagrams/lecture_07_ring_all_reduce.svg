@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="760" viewBox="0 0 1280 760" role="img" aria-labelledby="title desc">
+  <title id="title">Ring all-reduce: reduce-scatter followed by all-gather</title>
+  <desc id="desc">Original conceptual diagram with four ranks arranged in a ring. The first panel shows reduce-scatter: each step sends one chunk to the next rank and accumulates the received partial chunk. The second panel shows all-gather: ranks circulate already reduced chunks so each rank ends with the complete reduced tensor. Actual collective implementations may choose other algorithms.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#334155"/></marker>
+    <style>
+      .panel{fill:#f8fafc;stroke:#cbd5e1;stroke-width:2}
+      .box{stroke:#334155;stroke-width:1.8;rx:12;ry:12}
+      .title{font-family:'Noto Sans CJK SC',sans-serif;font-size:27px;font-weight:bold;fill:#0f172a;text-anchor:middle}
+      .label{font-family:'Noto Sans CJK SC',sans-serif;font-size:20px;fill:#0f172a;text-anchor:middle}
+      .small{font-family:'Noto Sans CJK SC',sans-serif;font-size:16px;fill:#334155;text-anchor:middle}
+      .arrow{fill:none;stroke:#334155;stroke-width:2.4;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1280" height="760" fill="#ffffff"/>
+  <text x="320" y="46" class="title">阶段 1：Reduce-scatter</text>
+  <text x="960" y="46" class="title">阶段 2：All-gather</text>
+  <rect x="30" y="76" width="580" height="600" rx="18" class="panel"/>
+  <rect x="670" y="76" width="580" height="600" rx="18" class="panel"/>
+
+  <text x="320" y="112" class="small">每轮发送一个 chunk；收到后与 partial sum 相加</text>
+  <path d="M165 227 H215" class="arrow"/>
+  <path d="M295 227 H345" class="arrow"/>
+  <path d="M425 227 H475" class="arrow"/>
+  <path d="M520 198 V168 H130 V190" class="arrow"/>
+  <text x="320" y="146" class="small">ring wrap-around</text>
+  <rect x="95" y="198" width="70" height="58" class="box" fill="#dbeafe"/><text x="130" y="234" class="label">P0</text>
+  <rect x="225" y="198" width="70" height="58" class="box" fill="#dbeafe"/><text x="260" y="234" class="label">P1</text>
+  <rect x="355" y="198" width="70" height="58" class="box" fill="#dbeafe"/><text x="390" y="234" class="label">P2</text>
+  <rect x="485" y="198" width="70" height="58" class="box" fill="#dbeafe"/><text x="520" y="234" class="label">P3</text>
+  <rect x="80" y="300" width="460" height="82" class="box" fill="#e0f2fe"/>
+  <text x="310" y="331" class="label">P-1 轮 reduce-scatter</text>
+  <text x="310" y="358" class="small">每个 rank 最终拥有一个完整归约 chunk</text>
+  <path d="M310 382 V414" class="arrow"/>
+  <rect x="80" y="416" width="460" height="80" class="box" fill="#dcfce7"/>
+  <text x="310" y="446" class="label">每 rank 持有完整 tensor 的 1 / P 分片</text>
+  <text x="310" y="472" class="small">其它 chunk 仍在 ring 中传递/归约</text>
+  <text x="310" y="548" class="small">发送量模型：每 rank 约 (P-1)/P × tensor_bytes</text>
+  <text x="310" y="580" class="small">前提：每个 rank 的输入 tensor 大小相同</text>
+
+  <text x="960" y="112" class="small">每轮转发已归约 chunk；接收时不再做求和</text>
+  <path d="M805 227 H855" class="arrow"/>
+  <path d="M935 227 H985" class="arrow"/>
+  <path d="M1065 227 H1115" class="arrow"/>
+  <path d="M1160 198 V168 H770 V190" class="arrow"/>
+  <text x="960" y="146" class="small">ring wrap-around</text>
+  <rect x="735" y="198" width="70" height="58" class="box" fill="#dcfce7"/><text x="770" y="234" class="label">P0</text>
+  <rect x="865" y="198" width="70" height="58" class="box" fill="#dcfce7"/><text x="900" y="234" class="label">P1</text>
+  <rect x="995" y="198" width="70" height="58" class="box" fill="#dcfce7"/><text x="1030" y="234" class="label">P2</text>
+  <rect x="1125" y="198" width="70" height="58" class="box" fill="#dcfce7"/><text x="1160" y="234" class="label">P3</text>
+  <rect x="710" y="300" width="460" height="82" class="box" fill="#dcfce7"/>
+  <text x="940" y="331" class="label">P-1 轮 all-gather</text>
+  <text x="940" y="358" class="small">传播已经归约的 chunks，不再累加</text>
+  <path d="M940 382 V414" class="arrow"/>
+  <rect x="710" y="416" width="460" height="80" class="box" fill="#dbeafe"/>
+  <text x="940" y="446" class="label">每个 rank 最终持有完整 reduced tensor</text>
+  <text x="940" y="472" class="small">两个阶段合起来构成 ring all-reduce</text>
+  <text x="940" y="548" class="small">发送量模型：每 rank 约 (P-1)/P × tensor_bytes</text>
+  <text x="940" y="580" class="small">实际库也可能选 tree 或其它拓扑感知算法</text>
+
+  <text x="640" y="724" class="small">原创概念示意图；非官方原图。Ring 是一种分析/实现模型，不代表所有 collective 都采用 ring。</text>
+</svg>

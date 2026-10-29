@@ -340,3 +340,21 @@
 - [x] SVG XML 解析通过，CairoSVG PNG 渲染通过并进行视觉审查。图中 1D mask 示例 N=26、BLOCK=8，最后 tile 只有 2 个有效 lane、6 个 masked lanes；matmul 图已调整为 K-loop 内重复加载 A/B tiles、tl.dot 与 C tile 累加，再执行 ReLU/store，避免误画成先做一次 dot 再进入循环。
 - [x] GELU 的 tanh 近似使用基于 exp(-2|x|) 的稳定形式，避免直接 exp(2x) 在大正值时溢出。
 - [ ] 当前无 CUDA、未安装 Triton；自定义 kernels 的 JIT、数值结果、PTX 与 GPU 性能仍未验证。CPU reference 通过不代表 GPU kernel 正确。
+
+
+## Lecture 7 多材料建设与 QA（2026-10-29）
+
+### 新增材料
+- code/lecture_07/collectives_lab.py：all-reduce sum/mean、ring reduce-scatter + all-gather CPU simulation、weighted mean gradient、ring 通信量和 alpha-beta 时间模型。
+- tests/lecture_07/test_collectives_lab.py：11 项单元测试。
+- notebooks/lecture_07/07_collectives_lab.ipynb：4 个 code cells，覆盖 ring 数值一致性、不等 local batch 的梯度加权和通信量可视化。
+- diagrams/lecture_07_ring_all_reduce.svg：原创 ring all-reduce 两阶段图。
+- references/lecture_07_sources.md、exercises/chapter_07.md、experiments/lecture_07_collectives_smoke.md、code/lecture_07/README.md。
+
+### 实际验收结果
+- [x] 11/11 CPU 单元测试通过，覆盖 all-reduce sum/mean、ring P=1..4、chunking 限制、加权梯度、per-rank/total bytes 与 alpha-beta 模型。
+- [x] CLI demo 正确：4-rank sum 输出 [1111, 2222, 3333, 4444]，所有模拟 rank 的结果一致。
+- [x] 1 MiB tensor、P=4 时，ring 估算每 rank 发送 1.50 MiB；alpha=5 us、带宽=20 GB/s 的合成模型给出约 108.64 us。两者是公式结果，不是实测网络数据。
+- [x] Notebook 4/4 code cells 经 nbclient 顺序执行成功，无 cell error；提交版 outputs 为空。
+- [x] SVG XML 解析、CairoSVG 渲染和视觉审查通过。修正了“每 rank 持有 1/P 个 chunk”的不严谨措辞，明确为“持有完整 tensor 的 1/P 分片”。
+- [ ] 未运行 torch.distributed 多进程、Gloo/NCCL、跨节点网络或真实 collective benchmark。CPU simulation 通过不证明实际分布式通信正确或更快。

@@ -10,6 +10,7 @@
 | Lecture 4 | [04_attention_moe_lab.ipynb](lecture_04/04_attention_moe_lab.ipynb) | GQA KV cache 账本、causal mask heatmap、Top-k MoE 路由、专家负载、辅助损失与梯度 | Python、PyTorch、matplotlib |
 | Lecture 5 | [05_accelerator_roofline_lab.ipynb](lecture_05/05_accelerator_roofline_lab.ipynb) | FLOPs/bytes 账本、合成 Roofline、matmul benchmark、数值误差 | Python、PyTorch、matplotlib、NumPy |
 | Lecture 6 | [06_triton_kernel_lab.ipynb](lecture_06/06_triton_kernel_lab.ipynb) | CPU reference、稳定 Softmax、融合流量账本、可选 Triton/GPU 正确性与 benchmark 分支 | Python、PyTorch、matplotlib；GPU 分支需要 Triton + CUDA |
+| Lecture 7 | [07_collectives_lab.ipynb](lecture_07/07_collectives_lab.ipynb) | all-reduce / ring CPU simulation、不等 batch 的加权梯度、通信量与 alpha-beta 模型 | Python、PyTorch、matplotlib |
 
 ## 设备默认值
 

@@ -4,6 +4,16 @@
 >
 > **官方资料**：[lecture_07.py](https://github.com/stanford-cs336/lectures/blob/main/lecture_07.py)。官方讲义从 collective operations 进入 data/tensor/pipeline parallelism，并使用 PyTorch distributed 展示基础实现。下文是原创中文解释。
 
+## 0. 配套材料与建议学习顺序
+
+1. 先阅读 collective 的语义与 DDP 梯度缩放，再查看[Ring all-reduce 两阶段示意图](../diagrams/lecture_07_ring_all_reduce.svg)。
+2. 运行[CPU collective 模拟器](../code/lecture_07/collectives_lab.py)，比较 reference all-reduce 与 ring reduce-scatter + all-gather。
+3. 执行[11 项自动化测试](../tests/lecture_07/test_collectives_lab.py)，重点检查 ring 结果、通信量公式和 unequal local batch 的梯度权重。
+4. 运行[交互式 Notebook](../notebooks/lecture_07/07_collectives_lab.ipynb)，观察加权梯度和 alpha-beta 通信量估算。
+5. 完成本讲[练习](../exercises/chapter_07.md)，并阅读[来源清单](../references/lecture_07_sources.md)和[实验记录](../experiments/lecture_07_collectives_smoke.md)。
+
+**实现边界**：当前是单进程 CPU 模拟，不创建真实 process group、不发送网络消息，也不代表 NCCL/Gloo 的实际算法或性能。
+
 ## 1. 为什么需要多 GPU？
 
 单 GPU 的显存可能放不下参数、梯度、优化器状态、激活和 batch；即使放得下，也可能无法在合理时间内完成训练。增加 GPU 能提高总计算能力和总内存容量，但引入通信、同步、调度和负载不均。
